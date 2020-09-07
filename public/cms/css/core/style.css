@@ -1,0 +1,223 @@
+/*================================================================================
+	Item Name: Modern Admin - Clean Bootstrap 4 Dashboard HTML Template
+	Version: 1.0
+	Author: PIXINVENT
+	Author URL: http://www.themeforest.net/user/pixinvent
+================================================================================
+
+NOTE:
+------
+PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
+WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+#width_custom.modal-dialog {
+	max-width: 65rem;
+}
+
+#width_custom.modal-dialog .close {
+	color: #fff;
+}
+
+#width_custom .card {
+	box-shadow: none;
+}
+
+#width_custom form .form-actions {
+	border-top: 0;
+	margin-top: 0;
+}
+
+#width_custom .modal-header,
+#yes-no .modal-header {
+	background: #2C303B;
+}
+
+{
+	background: #2C303B;
+}
+
+#width_custom .modal-header h4,
+#yes-no .modal-header h4 {
+	color: #fff;
+}
+
+.card#no_sh {
+	box-shadow: none;
+}
+
+#bottom_m {
+	margin-bottom: 1rem;
+}
+
+.table-responsive #DataTables_Table_0 {
+	width: 100%!important;
+}
+
+.sp_top {
+	margin-top: 1rem;
+}
+
+.sp_top label {
+	margin-left: 0;
+}
+
+#custom_label label {
+	color: #2B335E;
+	font-weight: 600;
+}
+
+#custom_label input[type="text"] {
+	padding-left: 0;
+}
+
+#space_custom .fonticon-wrap i {
+	margin-top: 1.2rem;
+	font-size: 1.7rem;
+	color: #2B335E;
+	transition: .5s ease-in-out;
+	-moz-transition: .5s ease-in-out;
+	-webkit-transition: .5s ease-in-out;
+}
+
+#space_custom .fonticon-wrap i:hover {
+	color: #ccc;
+}
+
+.left-right-spacer {
+	margin: 10px -15px
+}
+
+#custom_font_style h4 {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+#custom_font_style i {
+	font-size: 1.7rem;
+	color: #2B335E;
+	cursor: pointer;
+}
+
+#custom_font_style span {
+	color: #2B335E;
+	font-size: 0.95rem;
+	font-weight: 600;
+	margin: 0 0.5rem;
+	top: -2px;
+	position: relative;
+	font-family: 'Open Sans', sans-serif;
+}
+
+#yes-no .form-actions {
+	margin-top: 0;
+}
+
+#yes-no h5 {
+	margin-bottom: 1rem;
+}
+
+#yes-no.modal-dialog .close {
+	color: #fff;
+}
+
+.border-bottom {
+	border-bottom: 1px solid #cdcdcd;
+	padding-bottom: 0.75rem;
+	margin-top: 0.55rem;
+}
+
+#no-border {
+	border-top: 0;
+}
+
+#custom_css_pro {}
+
+.sap_t label {
+	margin-top: 1rem;
+	margin-left: 0;
+}
+
+#rg input[type="range"] {
+	position: relative;
+	top: 26px;
+}
+
+#custom_ico i {
+	font-size: 1.5rem;
+}
+
+#custom_width table {
+	width: 100%!important;
+}
+
+#cus_qu .breadcrumbs-right .breadcrumb {
+	padding-top: 0;
+	background: none;
+}
+
+@media(max-width:576px) {
+	#custom_font_style .card-header {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	#no-border.card-footer {
+		padding: 0;
+	}
+	#no_sh button {
+		margin-bottom: 0.75rem;
+	}
+}
+
+@media(max-width:767px) {
+	#cus_qu .breadcrumbs-right .breadcrumb {
+		float: left;
+	}
+	#cus_qu .breadcrumb-wrapper.col-12 {
+		padding: 0;
+	}
+	#t_left {
+		text-align: left !important;
+	}
+	.sp_b {
+		margin-bottom: 1rem;
+	}
+}
+
+@media(min-width:767px) {
+	#custom_css_pro figure.effect-romeo p {
+		top: 50%;
+	}
+}
+
+@media(min-width:768px) {
+	#custom_css_pro figure {
+		min-width: 100%;
+	}
+	#custom_css_pro figure.effect-romeo p {
+		top: 50%;
+	}
+}
+
+@media(min-width:991px) {
+	#custom_css_pro figure {
+		min-width: 100%;
+	}
+	#custom_css_pro figure.effect-romeo p {
+		top: 40%;
+	}
+}
+
+@media(max-width:1024px) {
+	.breadcrumb {
+		font-size: 0.90rem;
+	}
+	.breadcrumbs-right .breadcrumb {
+		padding-top: 0;
+	}
+}
+
+@media(min-width:1200px) {
+	#custom_css_pro figure.effect-romeo p {
+		top: 50%;
+	}
+}

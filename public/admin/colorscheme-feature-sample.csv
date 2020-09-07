@@ -1,0 +1,3 @@
+Sno.,title,price,"(upgrade=1,base=0)","if upgraded(concrete=1,window=2,wall=3)(base=0)",material,manufacturer,name,ID
+1,Fibre siding,5000,1,3,Siding,GAD,Mission yellow,N/A
+2,wall,4000,0,0,wall,GAF,Mission yellow,N/A

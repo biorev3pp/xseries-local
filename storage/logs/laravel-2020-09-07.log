@@ -1,0 +1,4 @@
+[2020-09-07 07:48:51] local.ERROR: Cannot declare class App\Imports\HomeColorSchemesImport, because the name is already in use {"userId":1,"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot declare class App\\Imports\\HomeColorSchemesImport, because the name is already in use at C:\\xampp\\htdocs\\X-Series\\enterprise\\app\\Imports\\HomeTypeColorSchemesImport.php:12)
+[stacktrace]
+#0 {main}
+"} 

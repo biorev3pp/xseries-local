@@ -1,0 +1,29 @@
+.feature-img{
+    position: absolute;
+    z-index: 111;
+    left: 0;
+    top: 0;
+  }
+  .contact-detail {
+  margin: 10px 0 0 1px !important;
+  padding: 0;
+}
+.social-icons {
+  float: right;
+  margin: 12px 16px 0px 0;
+  padding: 0;
+  text-align: center;
+  font-size: 13px;
+  color: #999999;
+}
+.social-icons .social-icon-boxs 
+{
+  width: 50px;
+  height: 36px;
+  background-color: #7cc035;
+  margin: 0 0 3px 0;
+  padding-top: 12px;
+  text-align: center;
+}
+.top-header{margin-left:0;}
+.logo{padding:1px;}

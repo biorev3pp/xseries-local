@@ -1,0 +1,243 @@
+.mob-right .float-sm-right.text-sm-right,
+.mob-right .float-sm-right.text-sm-right {
+	float: right;
+}
+
+.main-menu.menu-light .navigation>li ul li>a i {
+	margin-right: 5px;
+}
+
+#dataTable i {
+	margin: 0 0.3rem;
+}
+#piechart {
+	position: relative;
+	height: auto;
+	justify-content: center;
+	display: flex;
+}
+.dark-color {
+	background: #333;
+	border-radius: 0;
+}
+
+.dark-color h5 {
+	color: #fff;
+}
+
+#pie-chart {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.pie-title {
+	font-weight: 600;
+}
+
+#breadcrumb ul li {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+
+#breadcrumb ul {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+	position: relative;
+	top: 12px;
+}
+
+#breadcrumb ul li a {
+	font-size: 13px;
+	color: #6B6F82;
+	display: inline-block;transition:.5s ease-in-out;
+	-moz-transition:.5s ease-in-out;
+	-webkit-transition:.5s ease-in-out;
+	-ms-transition:.5s ease-in-out;
+}
+#breadcrumb ul li a:hover{color:#1E9FF2;}
+#breadcrumb ul li {
+	display: inline-block;
+	margin: 0;
+	padding: 0;
+	vertical-align: top;
+}
+
+#breadcrumb ul li i {
+	position: relative;
+	top: 2px;
+	margin: 0 0.3rem;
+}
+
+.right {
+	float: right;
+	position: relative;
+	top: -15px;
+}
+
+select {
+	border: 1px solid #BABFC7;
+	border-radius: .25rem;
+	width: 100%;
+	color: #4E5154;
+	padding: 0.75rem 1rem;
+	font-size: 1rem;
+	line-height: 1.25;
+	font-weight: 400;
+	height: calc(1.25em + 1.5rem + 2px);
+}
+
+select option:first-child {
+	color: rgba(78, 81, 84, 0.5);
+}
+
+#manageuser .modal-footer,
+#managedelete .modal-footer {
+	border-top: 0;
+}
+
+#manageuser .modal-footer button,
+#managedelete .modal-footer button {
+	padding: .8rem 1rem;
+	font-size: 1rem;
+	font-weight: 500;
+}
+
+#manageuser .modal-footer button:hover,
+#managedelete .modal-footer button:hover {
+	color: #fff;
+}
+
+#custom_table td a:hover {
+	color: #1E9FF2;
+	transition: .5s ease-in-out;
+}
+
+#custom_table td input[type="checkbox"] {
+	margin-right: 5px;
+}
+
+h3.permission {
+	font-size: 19px;
+	font-weight: 600;
+	margin-bottom: 2rem;
+	margin-top: 1rem;
+}
+#not_show #dataTable_length , #not_show #dataTable_filter , #not_show #dataTable_info , #not_show #dataTable_paginate{
+	display:none;
+}
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;z-index:9999;
+}
+
+.sidenav a {
+  padding: 0;
+  text-decoration: none;
+  display: block;margin:1rem 0;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+	position: absolute;
+	top: 15px;
+	right: 25px;
+	font-size: 1.5rem;
+	margin-left: 0;
+	padding: 0;margin-top:0;margin-right:0;
+}
+#main_slid {
+  transition: margin-right .5s;
+ right:0;top:0; position:absolute;
+}
+input#file {
+	padding-left:0;
+}
+.custom_logo {
+	margin-top:1rem;margin-bottom:1.5rem;display:flex;justify-content:center; margin-left:auto;margin-right:auto;
+}
+.t_spa{margin-top:1.6rem;}
+#top_padding{position:relative;top:30rem;}
+#top_padding h2{margin:1rem 0; font-size:18px; font-weight:600; color:#333;}
+#top_padding h3{margin:1rem 0; font-size:14px; }
+#top_padding h3 i{margin-right:10px;}
+#top_padding button{margin-right:.5rem;margin-top:.2rem;}
+#top_padding img{cursor:pointer;}
+#top_padding img:hover {
+	opacity: 0.5;
+	transition: .5s ease-in-out;
+}
+#no_margin .form-group {
+	margin-bottom:0;
+}
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+@media(max-width:767px) {
+.productbutton {
+	top:5px!important;
+}
+}
+@media(max-width:1024px) {
+	.table td:last-child {
+		padding-left: 0.5rem;
+		padding-right: 0.5rem;
+	}
+}
+
+@media(max-width:767px) {
+	#dataTable_length,
+	#dataTable_filter {
+		text-align: left;
+	}
+	#dataTable_wrapper .col-md-6 {
+		padding-left: 0;
+	}
+	ul.pagination {
+		justify-content: flex-start !important;
+		margin: 1rem 0 !important;
+	}
+	#dataTable_info {
+		text-align: left;
+	}
+	div.table-responsive>div.dataTables_wrapper>div.row>div[class^="col-"]:last-child {
+		padding-left: 0;
+	}
+	.t_spa {margin-top:0;}
+	#top_padding button{margin-right:.2rem;}
+}
+
+
+
+@media (orientation:portrait)and (max-width:400px) {
+	.right {
+		top: 0;
+		float: left;
+		margin-top: 2rem;
+	}
+}
+
+@media (orientation:portrait) and (max-width:420px) {
+	.right {
+		right: -10px;
+	}
+}

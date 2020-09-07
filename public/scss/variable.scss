@@ -1,0 +1,349 @@
+
+
+$lightBlue:#1E9FF2;
+$font-family: 'Nutino', sans-serif;
+$whiteColor:#fff;
+$profileDropiconsColor:#646464;
+$profilehoverColor:#DF3131;
+$leftmenuiconcolor:#6B6F82;
+$fontsize:1.5rem;
+$leftmenuiconsize:0.8rem;
+$height:70px;
+$headergrbg:#2C303B;
+$redcolor:#eb0000;
+$orange:#FFA734;
+$lgrey:#78909C;
+$blue:#1E9FF2;
+$divide:#ccc;
+$width:100%;
+$leftmenucolor1:#ffffff;
+$leftmenucolor2:#2C303B;
+$leftmenucolor3:#FF4961;
+$leftmenucolor4:#666EE8;
+$transition:.5s ease-in-out;
+
+
+
+body{
+
+    font-family: $font-family;
+}
+
+.greYbg {
+
+    background:$headergrbg;
+}
+.red{
+
+    color:$redcolor;
+    font-size:14px;
+}
+
+.orange{
+
+    color:$orange;
+    font-size:14px;
+}
+
+.lgrey{
+
+    color:$lgrey;
+    font-size:14px;
+}
+
+.blue{
+
+    color:$blue;
+    font-size:14px;
+}
+
+@mixin buttonBorder {
+                    border:1px solid #1E9FF2;
+                        padding:0.9rem;
+                            background:transparent;
+                cursor:pointer;
+            transition:.5s ease-in-out;
+        transform:translate(0,0);
+
+
+&:hover {
+background:#1E9FF2;
+color:#fff;
+transform:translate(0px,-5px);
+box-shadow:0px 10px 20px rgba(0,0,0,0.2);
+
+}
+
+}
+
+.similar-prop {
+    color: #fff;
+    width:auto;
+    border-radius: 5px;
+    height:auto;
+    
+    text-align: center;
+    font-size: 3rem;
+    padding: 3rem;
+
+}
+ .uxplatuser {
+          background: #f00022;
+          @extend .similar-prop;
+        
+    
+
+}
+
+
+.xplat {
+
+    @extend .uxplatuser;
+}
+
+
+
+.xplathome {
+    background: #FFA734;
+    @extend .similar-prop;
+
+
+}
+
+.xplathomee {
+
+    @extend .xplathome
+}
+
+
+.xflor {
+    background:#78909C;
+    @extend .similar-prop;
+  
+
+
+}
+
+.xfloor {
+
+    @extend .xflor
+}
+
+
+.xdesign {
+    background: #1E9FF2;
+    @extend .similar-prop;
+
+
+}
+
+.xDesign {
+
+    @extend .xdesign
+}
+
+
+.outerborder {
+
+
+    @include buttonBorder;
+
+   }
+
+.color{
+
+    color:$lightBlue;
+}
+
+.mob-right 
+        {
+             fieldset
+         {
+                 display:inline-block;
+    }
+
+}
+
+.logo
+{
+    max-width:250px;
+}
+
+.outerborder i {    
+        margin-right:.5rem;
+}
+
+.white {
+
+    color:$whiteColor;
+}
+
+
+a.dropdown-item   {
+    transition:.5s ease-in-out;
+     font-size:13px;color:$profileDropiconsColor;
+    
+&:hover{
+	
+    color:$profilehoverColor;
+    padding-left:30px !important;
+
+    
+}
+}
+
+.icontextcolori {
+
+    color:$leftmenuiconcolor;
+}
+.font-size {
+    font-size:$fontsize;
+}
+
+.fonticonsize{
+    font-size:$leftmenuiconsize
+}
+
+a {
+    color : #606060;
+    text-decoration : none;
+    background-color : transparent;
+    transition:$transition;
+  
+  &:hover {
+    color :#1E9FF2;
+    text-decoration : none;
+  }
+}
+.height{
+
+    height:$height;
+}
+.seperator{
+    border-top:1px solid $divide;
+}
+
+#exampleModal {
+
+img {
+
+    max-width:100%;
+    width:100%;
+    min-height:100%;
+    height:auto;
+    margin:1rem 0;
+    transition:.5s ease-in-out;
+
+
+&:hover {
+
+    transform: translate(-2%,-2%);
+opacity: 0.3;
+}
+}
+}
+
+.width {
+
+    width:$width;
+}
+
+.form-group.width  input[type="text"] {
+margin-top:1rem;
+margin-bottom:1rem;
+
+
+}
+
+@mixin centerDIV {
+
+    display:-webkit-flex;
+    display:-ms-flex;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    margin-left:auto;
+    margin-right:auto;
+   
+    
+
+     button {
+        margin: 0 0.3rem;
+    }
+
+}
+
+
+.alignCenter {
+
+
+    @include centerDIV;
+}
+
+.xseries-btn {
+	background: #708792;
+	position: relative;
+	top:0px;
+	color: #fff;
+	font-size: 13px;
+	padding: 0.7rem;
+    right: -15px;
+    transition:$transition;
+    float:right;
+    margin-bottom:1.5rem;
+    cursor:pointer;
+    
+    &:hover {
+
+        color:#fff;
+        background:#1E9FF2;
+    }
+}
+
+
+.productbutton {
+
+    @extend .xseries-btn;
+}
+
+
+
+@mixin pro-title {
+	font-size: 14px;
+	font-weight: 600;
+	color: #4b4b4b;
+	display: block;
+	margin: 0;
+}
+
+.product_T {
+@include pro-title;
+
+}
+
+.fontsize{
+    color: #4b4b4b; 
+    font-size:18px;
+    font-weight:700;
+    margin:1rem 0;
+
+    span {
+        display: block;
+        font-size: 13px;
+        font-weight: normal;
+        margin-top: 1rem;
+        font-weight:600;
+         }
+
+}
+
+.title_x{
+
+    font-size:1rem; 
+    color:#b2b2b2;
+    font-weight:600;
+    text-transform:uppercase;
+}
+.no_bor {
+    border:0;
+}

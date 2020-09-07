@@ -1,0 +1,124 @@
+.nav-tabs .nav-link.active 
+{
+    color: #fff;
+    border-bottom: 0;
+    background-color: #f56954;
+    border-color: transparent transparent #ec8300;
+    border-radius: 0;
+}
+.tab-content>.active 
+{
+    display: block;
+}
+.btn-orange 
+{
+    background: #f56954;
+    padding: 0.65rem 1.2rem;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-block;
+    color: #fff !important;
+    text-decoration: none;
+    float: left;
+    position: relative;
+    border: 0;
+    transition: background .5s ease-in-out;
+}
+input[type="file"] 
+{
+    display: block !important;
+}
+.forms1
+{
+    font-size: 14px;
+    color: #4a4a4a;
+    margin-bottom: 1rem;
+    border-left: 0;
+    border-radius: 0;
+    border-right: 0;
+    border-bottom: solid 1px #d4d4d4;
+    border-top: 0;
+}
+button.btn-orange.t_b_s.d_gr 
+{
+    height: 41px;
+}
+.red 
+{
+    color: #ff0000 !important;
+}
+/*.card
+{
+    border: 0px !important;
+}*/
+.mang_cate img
+{
+    height: 150px !important;
+}
+.bottom_sp img 
+{
+    width: 96% !important;
+    margin-left: 16px;
+    height: 480px;
+}
+.main-section-content .settings-section 
+{
+    min-height: 100vh !important;
+}
+#custom_tables td
+{
+    text-align: inherit !important; 
+}
+a.a1
+{
+    text-decoration: none;
+    margin: 0 0.2rem;
+    font-size: 13px;
+    color: #373737;
+    font-weight: 600;
+    cursor: pointer;
+}
+.d_gr 
+{
+    background: #313131;
+}
+.b_dr {
+    background: #002a64;
+}
+.col-12
+{
+    margin-left: -15px;
+    margin-top: -1px;
+}
+.theme_set
+{
+    width: 101.9%;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+}
+.theme_set label 
+{
+    font-size: 14px;
+    font-weight: 700;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #575757;
+}
+.green
+{
+    color: #00b300!important;
+}
+.modal-header 
+{
+    background: #e5e5e6;
+}
+.modal-header h5 
+{
+    color: #3e3e3e;
+    font-size: 18px;
+    font-weight: 600;
+}

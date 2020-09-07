@@ -1,0 +1,116 @@
+.circle-div .estimate{position:relative;top:25%;font-size:28px;font-weight:700;color:#297FD5}
+.circle-div .circle text{position:relative;top:35px;text-anchor:middle;font-size:13px;font-weight:700;white-space:nowrap}
+.mgc-form-field .mgc-form-label,.mgc-form-field label{display:block;padding-bottom:3px}
+.mgc-form-field .mgc-form-field_checkbox label,.mgc-form-group li>label{padding-bottom:0}
+.mgc-form-field .mgc-form-label label{display:inline-block;padding:0;margin-right:6px}
+.mgc-input-overlay_left,.mgc-input-overlay_right{position:relative}
+.mgc-input-overlay_left .mgc-input-overlay-text_left,.mgc-input-overlay_left .mgc-input-overlay-text_right,.mgc-input-overlay_right .mgc-input-overlay-text_left,.mgc-input-overlay_right .mgc-input-overlay-text_right{position:absolute;top:4px;color:#A7A6AB;speak:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.mgc-input-overlay_left input{padding-left:22px;height:35px;border-radius:0}
+.mgc-input-overlay_right input{padding-right:50px;height:35px;border-radius:0}
+.mgc-input-overlay_left select{padding-left:22px;height:30px}
+.mgc-input-overlay_right select{padding-right:22px;height:30px}
+.mgc-form-field_error select{background-position:right -68px}
+.downPayment, .propertyTaxAmount {width: calc(100% - 60px);display: inline-block;}
+.mgc-input-overlay_left .mgc-input-overlay-text_left,.mgc-input-overlay_right .mgc-input-overlay-text_left{left:9px}
+.mgc-input-overlay_left .mgc-input-overlay-text_right,.mgc-input-overlay_right .mgc-input-overlay-text_right{right:9px}
+.mortgage-calculator{margin:0;padding:0}
+.mortgage-calculator .modal-dialog{max-width:660px;display:flex}
+.mortgage-calculator .modal-dialog-centered{min-height:calc(100% - (2rem * 2));align-items:center}
+.mortgage-calculator .modal-content{border-radius:0;border:none}
+.mortgage-calculator .modal-header{background-color:#2a2c30;margin:0;padding:15px;border-radius:0;border:none}
+.mortgage-calculator .modal-title{margin:0;font-size:18px;color:#fff;font-weight:400;line-height:18px}
+.mobile-information .modal-header{background-color:#2a2c30;margin:0;padding:0;border-radius:0;border:none}
+.mortgage-calculator .mortgage-calculator-form-box{margin:0;padding:0 !important;}
+.mortgage-calculator .mortgage-calculator-form-box .form-group{margin-bottom:10px;position:relative}
+.mortgage-calculator .mortgage-calculator-form-box .form-group select{border-radius:0;padding:2px;height:35px}
+.mortgage-calculator .mortgage-calculator-right-box hr{margin:16px 0;border-color:#cacaca;}
+.mortgage-calculator .mortgage-calculator-right-box .mortgage-contain .price-text{margin:8px 0;padding:0;font-size:24px;color:#323232;font-weight:500;text-align:right}
+.mortgage-calculator .mortgage-calculator-form-box .form-group label{display:inline-block;margin-bottom:3px;width:100%;font-size:15px; color:#111; font-weight:400;}
+.mortgage-calculator .mortgage-calculator-right-box .mortgage-contain .base-price2{margin:0;padding:0;font-size:13px;color:#707070;font-weight:400;line-height:22px;width:100%;text-transform:capitalize}
+.mortgage-calculator .mortgage-calculator-right-box .mortgage-contain .base-price {margin: 0;padding: 0;font-size: 16px;color: #707070;font-weight: 400;line-height: 28px;width: 80%;text-transform: capitalize;}
+.mortgage-calculator .mortgage-calculator-right-box .mortgage-contain .base-price2 b{display:block;background:#888;color:#fff;font-weight:600;font-size:13px;padding:0 5px;margin-top:5px}
+.mortgage-calculator .mortgage-calculator-right-box .mortgage-contain .base-price span{margin:0 15px 0 0;padding:0;font-size:17px;color:#333;font-weight:400;text-align:right;position:absolute;right:15px}
+.mortgage-calculator-mobile .mortgage-calculator-right-box .mortgage-contain .space{margin:0;display:inline-block}
+.login-section{margin:0;padding:0}
+.login-section .modal-dialog-centered{display:flex;align-items:center;min-height:calc(100% - (2rem * 2))}
+.login-section .modal-dialog{max-width:563px}
+.login-section .modal-content{width:563px;border-radius:0;border:none}
+.login-section .social-btn{    margin-right: 0;
+    margin-bottom: 26px;
+    padding: 0;
+    width: 251px;
+    float: unset;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 10px auto;
+}.login-section .social-btn .facebook{color:#fff;background-color:#3b5998;border-color:transparent;padding:0;border:0;border-radius:0}
+.login-section .social-btn .google{color:#fff;background-color:#d05840;border-color:transparent;padding:0;border:0;border-radius:0}
+.login-section .social-btn-margin-none{margin-left:0;float:right}
+.login-section button.close{text-align:right;margin-right:-20px;margin-top:-20px;cursor:pointer;outline:none}
+.login-section .tab-box .input-group-addon{padding:15px 0 15px 15px;margin:0;background-color:#fff;border-radius:0}
+.login-section .tab-box .form-control{border-radius:0;border-left:0;font-size:15px;color:#666}
+.login-section .tab-box .login-button{height:40px;border-radius:2px;background-color:#9fcc3a;font-size:18px;line-height:18px;color:#fff;text-align:center;font-weight:700;text-transform:uppercase;border:none;cursor:pointer}
+.footer{width:calc(100% - 280px);margin:0 0 0 280px;padding:0;border-top:none !important; background:#fff;position:fixed;bottom:38px; height:55px; box-shadow: 0 0 12px rgba(0, 0, 0, 0.2); z-index: 999;}
+.login-section .modal-content .modal-body{padding:0;margin:0;overflow-y:auto;max-height:calc(100vh - 100px)}
+
+@media (max-width: 991px) {
+.footer{
+    width: 100%;
+    margin:0;
+    transition: 0.3s ease all;
+}
+.footer .close-arrow{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: -19.3px;
+    width: 24px;
+    text-align: center;
+    border: 1px solid #cacaca;
+    border-bottom: none;
+    background: #fff;
+    height: 20px;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.footer .close-arrow span{
+    transition: 0.3s ease transform;
+}
+.close-footer{
+    height: 0px;
+    bottom: 33px;
+}
+.footer-btns{
+    visibility: visible;
+    transition: 0.3s ease visibility;
+}
+.hide-footer-btns{
+    visibility: hidden;
+}
+}
+
+@media (max-width: 767px) {
+.login-section .modal-content .close{text-align:right;margin-right:-11px;margin-top:-16px;cursor:pointer;outline:none}
+.login-section .modal-content .close img{width:24px}
+.circle{height:65px;width:100%;text-align:center;border-radius:0;border:#0079e1 solid 8px;margin:22px auto 0;padding:10px}
+.lot-details-section .close{text-align:right;margin-right:-21px;margin-top:-34px;cursor:pointer;outline:none;text-align:right;margin-right:-24px;margin-top:-35px;cursor:pointer;outline:none}
+.circle-div .circle text{position:relative;top:4px;text-anchor:middle;font-size:15px;font-weight:700;white-space:nowrap;float:left}
+.circle-div .estimate{position:relative;top:-16%;font-size:25px;font-weight:700;color:#297FD5;margin:0;margin-top:0;text-align:right}
+.mortgage-calculator button.close{text-align:right;margin-right:-21px;margin-top:-34px;cursor:pointer;outline:none}
+}
+@media (max-width: 575px) {
+.mobile-information .mobile-info-box .avery-leftbox .avery-contain-text h2{margin:0;padding:0;font-size:15px;color:#333;font-weight:700}
+.mobile-information .modal-header{margin:0;padding:0}
+.mortgage-calculator .modal-dialog{width:90%;margin:30px auto}
+/* .login-section .social-btn{margin-right:0;margin-bottom:26px;padding:0;width:100%;float:left} */
+.mobile-information .mobile-info-box .avery-leftbox .avery-contain .icon-box p{font-size:10px}
+}
+
+._xvm ._5h0d ._5h0q ._5h0o { margin: 0 12px 0 4px; max-width: 176px;}
+._5h0d ._5h0o { font-size: 14px!important; margin-right: 12px;}

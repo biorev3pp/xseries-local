@@ -16,6 +16,7 @@ class ManageImport implements WithMultipleSheets
             'Elevation Types'               => new HomeTypesImport(),
             'Elevation Color Schemes'       => new HomeColorSchemesImport(),
             'Elevation Type Color Schemes'  => new HomeTypeColorSchemesImport(),
+            'Color Scheme Features'         => new HomeFeaturesImport(),
         ];
     }
 }

@@ -199,6 +199,10 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::post('/delete/manager/community','Admin\AccountsController@deleteManagerCommunities')->name('delete_manager_coms');
     Route::post('/connect/admin/manager/','Admin\AccountsController@connectManagerToAdmin')->name('connect_manager');
     Route::post('/delete/admin/manager','Admin\AccountsController@deleteAdminManagers')->name('delete_admin_managers'); 
+    // Bulk Upload 
+    Route::get('/uploads','Admin\BulkUploadController@index')->name('uploads'); 
+    Route::post('/uploads/images','Admin\BulkUploadController@uploadBulkImage')->name('bulk-image-upload');
+    Route::get('/uploads/unmapped','Admin\BulkUploadController@returnUnmappedView')->name('unmapped');
 });
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::post('/home/colorschemes', 'XhomeController@GetColorSchemes'); // for ajax call on home page to show color schemes

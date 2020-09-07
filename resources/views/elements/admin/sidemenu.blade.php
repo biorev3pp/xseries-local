@@ -39,7 +39,9 @@
             <li class="nav-item {{ ($menu == 'dashboard')?'active':'' }}">
                 <a href="{{ route('dashboard') }}" class="waves-effect waves-dark"><i class="material-icons">settings_input_svideo</i><span class="menu-title" data-i18n="">Dashboard</span></a>
             </li>
-
+            <li class="nav-item {{ ($menu == 'uploads')?'active':'' }}">
+                <a href="{{ route('uploads') }}" class="waves-effect waves-dark"><i class="material-icons">backup</i><span class="menu-title" data-i18n="">Uploads</span></a>
+            </li>
             <li class="nav-item {{ ($menu == 'communities')?'active':'' }}">
                 <a href="{{ route('communities') }}" class="waves-effect waves-dark"><i class="material-icons">call_merge</i><span class="menu-title" data-i18n="">Communities</span></a>
             </li>

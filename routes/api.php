@@ -105,3 +105,15 @@ Route::post('/get-distance', 'API\HomeController@getDistance');
 
 // Mega Import
 Route::apiresource('/mega-import', 'API\ImportController');
+
+// Bulk upload APIs
+Route::post('/get-all', 'Admin\BulkUploadController@getImagesForSelectedType');
+Route::post('/uploads/delete','Admin\BulkUploadController@deleteImage');
+Route::post('/get/unmapped/images','Admin\BulkUploadController@unmappedImages');
+Route::post('/clean/dir','Admin\BulkUploadController@cleanDir');
+Route::get('/community','Admin\BulkUploadController@getAllCommunities');
+Route::get('/community/home/{id}','Admin\BulkUploadController@getAllHomesForCommunity');
+Route::get('/community/home/floor/{id}','Admin\BulkUploadController@getAllHomesFloor');
+Route::get('/community/home/data/{id}','Admin\BulkUploadController@getAllHomeRelatedData');
+Route::get('/community/home/type/colorscheme/{id}','Admin\BulkUploadController@getAllHomeTypesColorSchemeForHomeType');
+Route::post('/community/images/','Admin\BulkUploadController@imagesExistInDatabaseForSelectedType');

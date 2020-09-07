@@ -31,23 +31,20 @@ class HomeTypesImport implements ToCollection, WithHeadingRow
             $home_type_slug = str_replace(' ', '-', strtolower($row['elevation_type_title']));
             if(Homes::where('slug', $home_type_slug)->count() == 0)
             {   
-                if($home_slug == $home->slug)
-                {
-                    Homes::create([
-                        'title'         => $row['elevation_type_title'],
-                        'slug'          => $home_type_slug,
-                        'parent_id'     => $home->id,
-                        'price'         => $row['price'],
-                        'area'          => $row['area'],
-                        'bedroom'       => $row['bedroom'],
-                        'bathroom'      => $row['bathroom'],
-                        'garage'        => $row['garage'],
-                        'floor'         => $row['floor'],
-                        'specifications'=> $row['specifications'],
-                        'img'           => $row['elevation_type_image'],
-                        'gallery'       => $row['elevation_type_gallery']
-                    ]);
-                }
+                Homes::create([
+                    'title'         => $row['elevation_type_title'],
+                    'slug'          => $home_type_slug,
+                    'parent_id'     => $home->id,
+                    'price'         => $row['price'],
+                    'area'          => $row['area'],
+                    'bedroom'       => $row['bedroom'],
+                    'bathroom'      => $row['bathroom'],
+                    'garage'        => $row['garage'],
+                    'floor'         => $row['floor'],
+                    'specifications'=> $row['specifications'],
+                    'img'           => $row['elevation_type_image'],
+                    'gallery'       => $row['elevation_type_gallery']
+                ]);
             }
         }
     }

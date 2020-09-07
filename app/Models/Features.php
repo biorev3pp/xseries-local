@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Features extends Model
 {
     protected $table = 'features';
+    protected $guarded = [];
 
     public function floor(){
         return $this->belongsTo('App\Models\Floor', 'floor_id','id');

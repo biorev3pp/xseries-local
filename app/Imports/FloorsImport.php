@@ -24,15 +24,12 @@ class FloorsImport implements ToCollection, WithHeadingRow
             $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
             if(Floor::where('title', 'like', $row['floor_title'])->where('home_id', $home->id)->count() == 0)
             {
-                if($home_slug == $home->slug)
-                {  
                     Floor::create([
                         'title'     => $row['floor_title'],
                         'home_id'   => $home->id,
                         'image'     => $row['floor_image'],
                         'status_id' => 1
                     ]);
-                }
             }
         }
     }

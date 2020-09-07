@@ -27,31 +27,28 @@ class HomeColorSchemesImport implements ToCollection, WithHeadingRow
             $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
             if(ColorSchemes::where('title', 'like', $row['color_scheme_title'])->where('home_id', $home->id)->count() == 0)
             {
-                if($home_slug == $home->slug)
-                {  
-                    $color_scheme = ColorSchemes::create([
-                        'title'     => $row['color_scheme_title'],
-                        'home_id'   => $home->id,
-                        'img'       => $row['color_scheme_image'],
-                        'base_img'  => $row['color_scheme_image'],
-                        'price'     => $row['color_scheme_price'],
-                        'status_id' => 1,
-                        'priority'  => 1
-                    ]);
+                $color_scheme = ColorSchemes::create([
+                    'title'     => $row['color_scheme_title'],
+                    'home_id'   => $home->id,
+                    'img'       => $row['color_scheme_image'],
+                    'base_img'  => $row['color_scheme_image'],
+                    'price'     => $row['color_scheme_price'],
+                    'status_id' => 1,
+                    'priority'  => 1
+                ]);
 
-                    //ColorSchemeUpgrade default entry to manage upgrade images
-                    $data = [
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 1, 'side' => 1],
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 1, 'side' => 0],
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 0, 'side' => 1],
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 1, 'side' => 1],
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 0, 'side' => 0],
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 1, 'side' => 0],
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 0, 'side' => 1],
-                        ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 0, 'side' => 0],
-                    ];
-                    ColorSchemeUpgrade::insert($data);
-                }
+                //ColorSchemeUpgrade default entry to manage upgrade images
+                $data = [
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 1, 'side' => 1],
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 1, 'side' => 0],
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 0, 'side' => 1],
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 1, 'side' => 1],
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 1, 'window' => 0, 'side' => 0],
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 1, 'side' => 0],
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 0, 'side' => 1],
+                    ['color_scheme_id' => $color_scheme->id, 'concrete' => 0, 'window' => 0, 'side' => 0],
+                ];
+                ColorSchemeUpgrade::insert($data);
             }
         }
     }

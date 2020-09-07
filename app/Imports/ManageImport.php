@@ -13,6 +13,7 @@ class ManageImport implements WithMultipleSheets
             'Communities'                   => new CommunitiesImport(),
             'Elevations'                    => new HomesImport(),
             'Floors'                        => new FloorsImport(),
+            'Floor Features'                => new FloorFeaturesImport(),
             'Elevation Types'               => new HomeTypesImport(),
             'Elevation Color Schemes'       => new HomeColorSchemesImport(),
             'Elevation Type Color Schemes'  => new HomeTypeColorSchemesImport(),

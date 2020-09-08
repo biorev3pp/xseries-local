@@ -281,6 +281,13 @@
     })
     }
   }
+  $('#color-scheme-filter').on('click',function(){
+    $('#floor-filter option[value=""]').prop('selected',true);
+  })
+  $('#floor-filter').on('click',function(){
+    $('#color-scheme-filter option[value=""]').prop('selected',true);
+  })
+  
   //first arg api, id, elementsIds, type
   function loadDropDownOptions(){
 
@@ -291,20 +298,20 @@
         type:'GET',
         url:arguments[0],
         success: function(res){
-            var display = `<option val=''>No Options Selected</option>`;
+            var display = `<option value=''>No Options Selected</option>`;
             if(elementId =='elevation-type-filter'){
               $.each(res.home_type,function(key,val){
                 display+=`<option value="${val.id}">${val.title}</option>`;
               });
               $('#'+elementId).html(display);
 
-              display = `<option val=''>No Options Selected</option>`;
+              display = `<option value=''>No Options Selected</option>`;
               $.each(res.color_scheme,function(key,val){
                 display+=`<option value="${val.id}">${val.title}</option>`;
               });
               $('#color-scheme-filter').html(display); 
 
-              display = `<option val=''>No Options Selected</option>`;
+              display = `<option value=''>No Options Selected</option>`;
               $.each(res.floor,function(key,val){
                 display+=`<option value="${val.id}">${val.title}</option>`;
               });

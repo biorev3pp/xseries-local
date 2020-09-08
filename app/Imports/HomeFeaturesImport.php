@@ -18,14 +18,9 @@ class HomeFeaturesImport implements ToCollection, WithHeadingRow
             '*.elevation_or_elevation_type_title'           => 'required',
             '*.color_scheme_title'                          => 'required',
             '*.feature_title'                               => 'required',
-            '*.feature_price'                               => 'required|numeric|min:0',
+            '*.feature_price'                               => 'nullable|numeric|min:0',
             '*.upgrade1_base0'                              => 'required|numeric|between:0,1',
             '*.upgraded_typeconcrete1_window2_wall3_base0'  => 'required|numeric|between:0,3',
-            '*.material'                                    => 'required',
-            '*.manufacturer'                                => 'required',
-            '*.name'                                        => 'required',
-            '*.manufacturer_id'                             => 'required',
-            '*.feature_image'                               => 'required',
         ])->validate();
         foreach ($rows as $row) 
         {
@@ -36,7 +31,7 @@ class HomeFeaturesImport implements ToCollection, WithHeadingRow
                 HomeFeatures::create([
                     'color_scheme_id'   => $color_scheme->id,
                     'title'             => $row['feature_title'],
-                    'price'             => $row['feature_price'],
+                    'price'             => ($row['feature_price'])?$row['feature_price']:0,
                     'img'               => $row['feature_image'],
                     'priority'          => 1,
                     'stared'            => $row['upgrade1_base0'],
@@ -45,7 +40,6 @@ class HomeFeaturesImport implements ToCollection, WithHeadingRow
                     'manufacturer'      => $row['manufacturer'],
                     'name'              => $row['name'],
                     'm_id'              => $row['manufacturer_id'],
-                    'status_id'         => 1,
                 ]);
             }
         }

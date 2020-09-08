@@ -17,8 +17,7 @@ class HomeColorSchemesImport implements ToCollection, WithHeadingRow
         Validator::make($rows->toArray(), [
             '*.elevation_title'     => 'required',
             '*.color_scheme_title'  => 'required',
-            '*.color_scheme_price'  => 'required|numeric|min:0',
-            '*.color_scheme_image'  => 'required',
+            '*.color_scheme_price'  => 'nullable|numeric|min:0',
         ])->validate();
 
         foreach ($rows as $row) 
@@ -32,8 +31,7 @@ class HomeColorSchemesImport implements ToCollection, WithHeadingRow
                     'home_id'   => $home->id,
                     'img'       => $row['color_scheme_image'],
                     'base_img'  => $row['color_scheme_image'],
-                    'price'     => $row['color_scheme_price'],
-                    'status_id' => 1,
+                    'price'     => ($row['color_scheme_price'])?$row['color_scheme_price']:0,
                     'priority'  => 1
                 ]);
 

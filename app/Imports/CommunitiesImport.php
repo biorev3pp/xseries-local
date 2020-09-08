@@ -22,15 +22,9 @@ class CommunitiesImport implements ToCollection, WithHeadingRow
             '*.contact_email'       => 'required|email|max:180',
             '*.contact_number'      => 'required|digits:10',
             '*.location'            => 'required',
-            '*.description'         => 'required',
             '*.state_id'            => 'required|numeric',
             '*.city_id'             => 'required|numeric',  
             '*.zipcode'             => 'required|numeric|digits_between:5,6',
-            '*.logo'                => 'required',
-            '*.banner'              => 'required',
-            '*.map_marker'          => 'required',
-            '*.latitude'            => 'required|numeric',
-            '*.longitude'           => 'required|numeric',   
         ])->validate();
 
         foreach ($rows as $row) 

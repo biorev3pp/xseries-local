@@ -203,6 +203,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::get('/uploads','Admin\BulkUploadController@index')->name('uploads'); 
     Route::post('/uploads/images','Admin\BulkUploadController@uploadBulkImage')->name('bulk-image-upload');
     Route::get('/uploads/unmapped','Admin\BulkUploadController@returnUnmappedView')->name('unmapped');
+    Route::get('/bulk-uploads/data','Admin\BulkUploadController@returnBulkDataView')->name('bulk-data');
 });
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::post('/home/colorschemes', 'XhomeController@GetColorSchemes'); // for ajax call on home page to show color schemes

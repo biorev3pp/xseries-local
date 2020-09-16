@@ -48,6 +48,7 @@
         <div class="row grid-hover p-1">
         </div> 
     </div>
+</div>
 <!-- Delete modal -->
 <div class="modal fade bd-example-modal-xl_1" id="image-delete" tabindex="-1" role="dialog" aria-labelledby="add_design_groupLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog modal-lg modal-dialog-centered" role="document">

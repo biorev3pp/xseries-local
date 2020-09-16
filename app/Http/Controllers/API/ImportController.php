@@ -28,7 +28,9 @@ class ImportController extends Controller
     public function store(Request $request)
     {   if($request->excelFile)
         {
-            Excel::import(new ManageImport, $request->excelFile);
+            // Excel::import(new ManageImport, $request->excelFile);
+            $array = (new ManageImport)->toArray($request->excelFile);
+            dd($array);
             return "Import Successful";
         }
     }

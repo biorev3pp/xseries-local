@@ -838,7 +838,6 @@ var InforObj = [];
 var gmarkers = [];
 var markers = [];
 var nmarker = [];
-//var locations=[{lat:48.0259021,lng:-114.0710105}, {lat:32.8950174,lng:-96.9399379}, {lat:32.897033,lng:-96.940108}, {lat:32.898965,lng:-96.940413}];
 var locations=new Array();
 var titles=new Array();
 var icons=new Array();

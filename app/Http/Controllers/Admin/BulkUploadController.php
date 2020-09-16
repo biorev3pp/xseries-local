@@ -32,6 +32,11 @@ class BulkUploadController extends Controller
         # code...
         return view ('admin.unmapped')->with($this->data);
     }
+    public function returnBulkDataView()
+    {
+        # code...
+        return view ('admin.bulk-data')->with($this->data);
+    }
     public function getAllCommunities()
     {
         # code...

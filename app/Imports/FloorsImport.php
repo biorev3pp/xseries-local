@@ -12,24 +12,24 @@ class FloorsImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {
-        Validator::make($rows->toArray(), [
-            '*.floor_title'     => 'required',
-            '*.elevation_title' => 'required',
-        ])->validate();
+        // Validator::make($rows->toArray(), [
+        //     '*.floor_title'     => 'required',
+        //     '*.elevation_title' => 'required',
+        // ])->validate();
 
-        foreach ($rows as $row) 
-        {  
-            $home_slug  = str_replace(' ', '-', strtolower($row['elevation_title']));
-            $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
-            if(Floor::where('title', 'like', $row['floor_title'])->where('home_id', $home->id)->count() == 0)
-            {
-                Floor::create([
-                    'title'     => $row['floor_title'],
-                    'home_id'   => $home->id,
-                    'image'     => $row['floor_image'],
-                    'status_id' => 1
-                ]);
-            }
-        }
+        // foreach ($rows as $row) 
+        // {  
+        //     $home_slug  = str_replace(' ', '-', strtolower($row['elevation_title']));
+        //     $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
+        //     if(Floor::where('title', 'like', $row['floor_title'])->where('home_id', $home->id)->count() == 0)
+        //     {
+        //         Floor::create([
+        //             'title'     => $row['floor_title'],
+        //             'home_id'   => $home->id,
+        //             'image'     => $row['floor_image'],
+        //             'status_id' => 1
+        //         ]);
+        //     }
+        // }
     }
 }

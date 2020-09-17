@@ -1,4 +1,8 @@
 @extends('layouts.admin') @section('content')
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 <style>
 
 #ss_step_div{
@@ -444,7 +448,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<h6>Have existing records in your own file? Import your own excel file. If not you can download sample file.</h6>
 					</div>
 					<div class="row pl-1 pr-1 justify-content-between align-items-center choose-file-wrap">
-						<div class="file-upload pr-md-1 pr-0 mb-md-0 mb-1">
+						<div class="file-upload pr-md-1 pr-0">
 							<div class="file-select">
 								<div class="file-select-button" id="fileName">Choose Excel File</div>
 								<div class="file-select-name" id="noFile">No file chosen...</div>
@@ -486,7 +490,6 @@ tr.bg-sdanger input[type="checkbox"] {
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
 						<div class="d-flex justify-content-end align-items-center px-1">
-							<label class="mb-0 text-dark">Import Options:</label>
 							<select class="form-control" id="importOptions">
 								<option>Create</option>
 								<option>Update</option>
@@ -497,101 +500,28 @@ tr.bg-sdanger input[type="checkbox"] {
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper">
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Name</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Contact Person</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Contact Email</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Contact Number</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Location</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Description</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">State Id</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">City Id</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Zipcode</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Logo</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Banner</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Map Marker</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Latitude</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Longitude</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Gallery</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
+							<div class="mapping-fields-wrapper" id="community-tab">
+								
 							</div>
 						</div>
-						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">...</div>
-						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">...</div>
+						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+									<h6 class="mb-0 w-100">Column To Import</h6>
+									<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="mapping-fields-wrapper" id="elevation-tab">
+									
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+										<h6 class="mb-0 w-100">Column To Import</h6>
+										<h6 class="mb-0 w-100">Map Into Field</h6>
+								</div>
+								<div class="mapping-fields-wrapper" id="elevation-type-tab">
+										
+								</div>
+						</div>
 						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">...</div>
 						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">...</div>
 						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...</div>
@@ -775,9 +705,22 @@ const changeStep = (buttonClicked) => {
                     contentType : false,
                     processData : false,
                     success     : function(response){
-						toastr.success(response);
-						$("#bulkUploadModal").modal('hide');
-						$(".error-messages").html('');
+						let entityInFile = Object.keys(response.headings);
+						$.each(entityInFile,(key,val)=>{})
+						let communityOptions = `<option>No Option Selected</option>`;
+						$.each(response.communities,(key,val)=>{
+							communityOptions+=`<option>${val}</option>`;
+						});
+						let communityData = ``;
+						$.each(response.headings.Communities[0],(key,val)=>{
+							communityData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">${val}</label>
+									<select class="form-control">
+									${communityOptions}
+									</select>
+								</div>`;
+						});	
+						$('#community-tab').html(communityData)	
 						return false;
                     },
                     error       : function(error){
@@ -793,7 +736,8 @@ const changeStep = (buttonClicked) => {
             }
             else{
                 toastr.error("Please choose an excel file.");
-            }
+			}
+			return false;
         }
         else{
 			toastr.error("Please choose an excel file.");

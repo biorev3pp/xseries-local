@@ -60,8 +60,7 @@ class ImportController extends Controller
             {
                 $data['color_scheme_features'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Feature Title','Price','Upgrade Or Base','Upgraded Type','Material','Manufacturer','Name','Manufacturer ID','Feature Image',];
             }
-            dd($data);
-            return "Import Successful";
+            return $data;
         }
     }
     /**

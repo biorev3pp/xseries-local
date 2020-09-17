@@ -1,8 +1,4 @@
 @extends('layouts.admin') @section('content')
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 <style>
 
 #ss_step_div{
@@ -490,6 +486,7 @@ tr.bg-sdanger input[type="checkbox"] {
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
 						<div class="d-flex justify-content-end align-items-center px-1">
+							<label class="m-0 text-dark">Import Options:</label>
 							<select class="form-control" id="importOptions">
 								<option>Create</option>
 								<option>Update</option>

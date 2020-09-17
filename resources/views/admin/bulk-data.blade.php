@@ -33,10 +33,6 @@
 					<h6 class="my-2">OR</h6>
                     <button class="btn btn-info btn-sm ftbtn" type="button"> Import From Google </button>
 					<h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto;">View Recent Reports</h6>
-                    <div id="start_sync" class="d-none">
-						<p>Please wait.. We are importing the data.</p>
-						<p class="syncloader"><img src="{{ asset('images/spinner.gif') }}"></p>
-					</div>
 				</div>
 				<div id="drm_step_div" class="table-responsive containers">
 					<h3 class="text-center mb-1">Data Mapping</h3>
@@ -75,95 +71,97 @@
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Name</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Contact Person</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Contact Email</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Contact Number</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Location</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Description</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">State Id</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">City Id</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Zipcode</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Logo</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Banner</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Map Marker</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Latitude</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Longitude</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
-							</div>
-							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-								<label class="w-100 m-0 text-dark">Gallery</label>
-								<select class="form-control">
-									<option>No Option Selected</option>
-								</select>
+							<div class="mapping-fields-wrapper">
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Name</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Contact Person</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Contact Email</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Contact Number</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Location</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Description</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">State Id</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">City Id</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Zipcode</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Logo</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Banner</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Map Marker</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Latitude</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Longitude</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Gallery</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">...</div>
@@ -393,7 +391,7 @@ a.add_button.active {
 
 .fix-sync {
 	height: calc(100vh - 260px);
-	overflow: auto;
+	overflow: hidden;
 	background: #fff;
 	border: 1px solid #e4e4e4;
 	border-radius: 7px;
@@ -642,8 +640,13 @@ tr.bg-sdanger input[type="checkbox"] {
 .footer-buttons{
     position: absolute;
     text-align: center;
-    right: 30px;
+    right: 15px;
     bottom: 15px;
+}
+
+.mapping-fields-wrapper{
+	height: calc(100vh - 520px);
+	overflow: auto;
 }
 
 #backButton{

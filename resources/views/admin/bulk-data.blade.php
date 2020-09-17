@@ -1,5 +1,5 @@
 @extends('layouts.admin') @section('content')
-<div class="container-fluid">
+<div class="container-fluid page-wrapper">
 	<div class="justify-content-between mb-1">
 		<h1 class="a_dash">Bulk Data Upload</h1> 
 	</div>
@@ -13,7 +13,7 @@
 		</div>
 		<div class="fix-sync">
 			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers">
+				<div id="ss_step_div" class="text-center containers d-none">
 					<h3 class="text-center">Import Files</h3>
 					<div class="pt-0 pb-2">
 						<h6>Have existing records in your own file? Import your own excel file. If not you can download sample file.</h6>
@@ -38,8 +38,141 @@
 						<p class="syncloader"><img src="{{ asset('images/spinner.gif') }}"></p>
 					</div>
 				</div>
-				<div id="drm_step_div" class="table-responsive containers">
-					<h3 class="text-center">Data Mapping</h3>
+				<div id="drm_step_div" class="table-responsive containers d-block">
+					<h3 class="text-center mb-1">Data Mapping</h3>
+					<ul class="nav nav-pills mb-1 justify-content-center" id="pills-tab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communities</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-elevation-types-tab" data-toggle="pill" href="#pills-elevation-types" role="tab" aria-controls="pills-elevation-types" aria-selected="false">Elevation Types</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-color-schemes-tab" data-toggle="pill" href="#pills-color-schemes" role="tab" aria-controls="pills-color-schemes" aria-selected="false">Color Schemes</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-color-scheme-features-tab" data-toggle="pill" href="#pills-color-scheme-features" role="tab" aria-controls="pills-color-scheme-features" aria-selected="false">Color Scheme Features</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features</a>
+						</li>
+					</ul>
+					<div class="tab-content pb-2" id="pills-tabContent">
+						<div class="d-flex justify-content-end align-items-center px-1 mt-1 mb-1">
+							<select class="form-control" id="importOptions">
+								<option>Create</option>
+								<option>Update</option>
+							</select>
+						</div>
+						<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Name</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Contact Person</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Contact Email</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Contact Number</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Location</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Description</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">State Id</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">City Id</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Zipcode</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Logo</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Banner</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Map Marker</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Latitude</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Longitude</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+							<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								<label class="w-100 m-0 text-dark">Gallery</label>
+								<select class="form-control">
+									<option>No Option Selected</option>
+								</select>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">...</div>
+						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">...</div>
+						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">...</div>
+						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">...</div>
+						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...</div>
+						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">...</div>
+					</div>
 				</div>
 				<div id="sr_step_div" class="containers">
 					<h3 class="text-center">Sync Report</h3>
@@ -65,10 +198,10 @@
 					<div class="text-center"> <a href="/admin/dashboard" class="btn btn-dark btn-md"> Close</a> </div>
 				</div>
 			</div>
-            <div class="footer-buttons">
-                <button class="btn btn-secondary btn-sm ftbtn" id="backButton" type="button" onclick="changeStep(false)"> Back </button>
-                <button class="btn btn-info btn-sm ftbtn" type="button" onclick="changeStep(true)"> Next </button>
-            </div>
+		</div>
+		<div class="footer-buttons">
+			<button class="btn btn-secondary btn-sm ftbtn" id="backButton" type="button" onclick="changeStep(false)"> Back </button>
+			<button class="btn btn-info btn-sm ftbtn" type="button" onclick="changeStep(true)"> Next </button>
 		</div>
 	</div>
 </div>
@@ -144,6 +277,10 @@
 
 .containers{
 	display:none;
+}
+
+#syncresponse{
+	position:relative;
 }
 
 th .form-control-checkbox,
@@ -260,7 +397,6 @@ a.add_button.active {
 	background: #fff;
 	border: 1px solid #e4e4e4;
 	border-radius: 7px;
-    position: relative;
 }
 
 .fix-sync h3 {
@@ -491,15 +627,32 @@ tr.bg-sdanger input[type="checkbox"] {
     height: fit-content;
 }
 
+.nav-pills .nav-item{
+	margin: 0 3px 3px 0;
+}
+
+.nav-pills .nav-link{
+	background-color: rgba(0, 0, 0, 0.12);
+}
+
+#pills-communities div.row div h6{
+	padding-bottom: .5rem;
+}
+
 .footer-buttons{
     position: absolute;
     text-align: center;
-    right: 15px;
+    right: 30px;
     bottom: 15px;
 }
 
 #backButton{
 	display: none;
+}
+
+#importOptions{
+	max-width: 300px;
+	width: 100%;
 }
 
 @media(max-width:768px){

@@ -1,7 +1,7 @@
 @extends('layouts.admin') @section('content')
 <div class="container-fluid page-wrapper">
-	<div class="justify-content-between mb-1">
-		<h1 class="a_dash">Bulk Data Upload</h1> 
+	<div class="justify-content-between mb-0">
+		<h1 class="a_dash m-0">Bulk Data Upload</h1> 
 	</div>
 	<div id="syncresponse">
 		<div class="sync-process text-center mb-1">
@@ -36,7 +36,7 @@
 				</div>
 				<div id="drm_step_div" class="table-responsive containers">
 					<h3 class="text-center mb-1">Data Mapping</h3>
-					<ul class="nav nav-pills mb-1 justify-content-center" id="pills-tab" role="tablist">
+					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communities</a>
 						</li>
@@ -59,8 +59,8 @@
 							<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features</a>
 						</li>
 					</ul>
-					<div class="tab-content pb-2" id="pills-tabContent">
-						<div class="d-flex justify-content-end align-items-center px-1 mt-1 mb-1">
+					<div class="tab-content" id="pills-tabContent">
+						<div class="d-flex justify-content-end align-items-center px-1">
 							<select class="form-control" id="importOptions">
 								<option>Create</option>
 								<option>Update</option>
@@ -390,7 +390,7 @@ a.add_button.active {
 }
 
 .fix-sync {
-	height: calc(100vh - 260px);
+	height: calc(100vh - 240px);
 	overflow: hidden;
 	background: #fff;
 	border: 1px solid #e4e4e4;
@@ -645,7 +645,7 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .mapping-fields-wrapper{
-	height: calc(100vh - 520px);
+	height: calc(100vh - 480px);
 	overflow: auto;
 }
 
@@ -727,7 +727,7 @@ const changeStep = (buttonClicked) => {
         $(".error-messages").html('');
     })
 	//Bulk Upload 
-	function dataToShowInMapSection(){
+	dataToShowInMapSection = () => {
         var formData = new FormData();
         formData.append('excelFile', file);
         if(file != null){
@@ -742,18 +742,19 @@ const changeStep = (buttonClicked) => {
                     contentType : false,
                     processData : false,
                     success     : function(response){
-                    toastr.success(response);
-                    $("#bulkUploadModal").modal('hide');
-                    $(".error-messages").html('');
+						toastr.success(response);
+						$("#bulkUploadModal").modal('hide');
+						$(".error-messages").html('');
+						return false;
                     },
                     error       : function(error){
-                    console.log(error);
-                    toastr.error(error.responseJSON.message);
-                    var errorMessages = '';
-                    $.each(error.responseJSON.errors, function(){
-                        errorMessages += `<small class="danger">${this}</small><br>`
-                    });
-                    $(".error-messages").html(errorMessages);
+						console.log(error);
+						toastr.error(error.responseJSON.message);
+						var errorMessages = '';
+						$.each(error.responseJSON.errors, function(){
+							errorMessages += `<small class="danger">${this}</small><br>`
+						});
+						$(".error-messages").html(errorMessages);
                     } 
                 });
             }

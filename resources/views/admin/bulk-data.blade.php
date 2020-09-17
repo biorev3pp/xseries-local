@@ -500,64 +500,49 @@ tr.bg-sdanger input[type="checkbox"] {
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="community-tab">
-								
-							</div>
+							<div class="mapping-fields-wrapper" id="community-tab"></div>
 						</div>
 						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
-									<h6 class="mb-0 w-100">Column To Import</h6>
-									<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="elevation-tab">
-									
-							</div>
+							<div class="mapping-fields-wrapper" id="elevation-tab"></div>
 						</div>
 						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
-										<h6 class="mb-0 w-100">Column To Import</h6>
-										<h6 class="mb-0 w-100">Map Into Field</h6>
-								</div>
-								<div class="mapping-fields-wrapper" id="elevation-type-tab">
-										
-								</div>
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="mapping-fields-wrapper" id="elevation-type-tab"></div>
 						</div>
 						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
-									<h6 class="mb-0 w-100">Column To Import</h6>
-									<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="color-scheme-tab">
-									
-							</div>
+							<div class="mapping-fields-wrapper" id="color-scheme-tab"></div>
 						</div>
 						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
-									<h6 class="mb-0 w-100">Column To Import</h6>
-									<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="color-scheme-features-tab">
-									
-							</div>
+							<div class="mapping-fields-wrapper" id="color-scheme-features-tab"></div>
 						</div>
 						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
-									<h6 class="mb-0 w-100">Column To Import</h6>
-									<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="floor-tab">
-									
-							</div>
+							<div class="mapping-fields-wrapper" id="floor-tab"></div>
 						</div>
 						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
-									<h6 class="mb-0 w-100">Column To Import</h6>
-									<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="floor-tab">
-									
-							</div>
-						</div>
+							<div class="mapping-fields-wrapper" id="floor-tab"></div>
 						</div>
 					</div>
 				</div>
@@ -589,70 +574,6 @@ tr.bg-sdanger input[type="checkbox"] {
 		<div class="footer-buttons">
 			<button class="btn btn-secondary btn-sm ftbtn" id="backButton" type="button" onclick="changeStep(false)"> Back </button>
 			<button class="btn btn-info btn-sm ftbtn" type="button" onclick="changeStep(true)"> Next </button>
-		</div>
-	</div>
-</div>
-<div class="modal fade show" id="sdsModal" tabindex="-1" role="dialog" aria-modal="true">
-	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5>Information</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i class="fa fa-times"></i>  </span> </button>
-			</div>
-			<div class="modal-body">
-				<div class="">
-					<h6 class="delete_heading">What can you do by this button ?</h6>
-					<div class="clearfix"></div>
-					<div class="mb-3">
-						<ul>
-							<li>You can change Lot status to sold and connect the respective elevation and elevation type.</li>
-							<li>You can change Lot status to available and connect multiple elevations.</li>
-							<li>After syncing, you will see all the changes below.</li>
-						</ul>
-					</div>
-					<h6 class="delete_heading">What can't you do by this button?</h6>
-					<div class="clearfix"></div>
-					<div class="mb-3">
-						<ul>
-							<li>You can not update elevation or anything without changing Lot Status.</li>
-							<li>You can change Lot status to any available status but elevations will update only with lot status - Sold, Available.</li>
-							<li>After syncing, you will see all the changes below.</li>
-						</ul>
-					</div>
-					<h6 class="delete_heading text-danger"> Points to remember</h6>
-					<div class="clearfix"></div>
-					<div class="text-danger">
-						<ul>
-							<li>When you making any change in lot status, It is mandatory to change STATUS CODE.</li>
-							<li>If Lot status is sold, then there must be only 1 elevation ID, 1 elevation name and elevation type.</li>
-							<li>For elevation update, Elevation ID must be updated with elevation name.</li>
-							<li>You can download Elevation master sheet any time from the report section above.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade show" id="sasModal" tabindex="-1" role="dialog" aria-modal="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5>Information</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i class="fa fa-times"></i>  </span> </button>
-			</div>
-			<div class="modal-body">
-				<div class="">
-					<h6 class="delete_heading">What can you do by this button ?</h6>
-					<div class="clearfix"></div>
-					<div>
-						<ul>
-							<li>This button will sync all data with CRM.</li>
-							<li>This feature has been disabled at the moment.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>

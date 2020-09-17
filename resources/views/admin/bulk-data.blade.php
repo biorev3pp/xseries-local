@@ -689,6 +689,9 @@ const changeStep = (buttonClicked) => {
 			$('#backButton').fadeOut();
 			break;
 		case 2: 
+			let shouldGo = dataToShowInMapSection();
+			if(shouldGo)
+			return;
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
 			$(".containers").hide();
@@ -699,7 +702,6 @@ const changeStep = (buttonClicked) => {
 			break;
 	}
 }
-$(document).ready(function(){
     var file = null;
     var filename;
     $('#excelFile').on('change', function () {
@@ -724,9 +726,8 @@ $(document).ready(function(){
         file = null;
         $(".error-messages").html('');
     })
-         
-    //Bulk Upload 
-    $("#bulkUpload").click(function(){
+	//Bulk Upload 
+	function dataToShowInMapSection(){
         var formData = new FormData();
         formData.append('excelFile', file);
         if(file != null){
@@ -761,9 +762,9 @@ $(document).ready(function(){
             }
         }
         else{
-            toastr.error("Please choose an excel file.");
+			toastr.error("Please choose an excel file.");
+			return true;
         }
-    });
-});
+	}
 </script>
 @endpush

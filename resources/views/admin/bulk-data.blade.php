@@ -516,21 +516,18 @@ const changeStep = (buttonClicked) => {
 	if(buttonClicked == true)
 	{
 		if(step < 4)
-		{
 			step++;
-		}
 	}
 	else
 	{
 		if(step > 0)
-		{
 			step--;
-		}
 	}
-	switch(step){
+	switch(step)
+	{
 		case 1:
 			$('#ss_step').addClass('active').removeClass('incomplete');
-			$('#drm_step').addClass('complete').removeClass('active');
+			$('#drm_step').addClass('incomplete').removeClass('active');
 			$(".containers").fadeOut(function(){
 				$('#ss_step_div').fadeIn();
 			});

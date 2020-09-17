@@ -689,9 +689,12 @@ const changeStep = (buttonClicked) => {
 			$('#backButton').fadeOut();
 			break;
 		case 2: 
-			let shouldGo = dataToShowInMapSection();
-			if(shouldGo)
-			return;
+			let validationFailed = dataToShowInMapSection();
+			if(validationFailed)
+			{
+				step = 1;
+				return;
+			}
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
 			$(".containers").hide();

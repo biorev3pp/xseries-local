@@ -522,10 +522,43 @@ tr.bg-sdanger input[type="checkbox"] {
 										
 								</div>
 						</div>
-						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">...</div>
-						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">...</div>
-						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...</div>
-						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">...</div>
+						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+									<h6 class="mb-0 w-100">Column To Import</h6>
+									<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="mapping-fields-wrapper" id="color-scheme-tab">
+									
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+									<h6 class="mb-0 w-100">Column To Import</h6>
+									<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="mapping-fields-wrapper" id="color-scheme-features-tab">
+									
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+									<h6 class="mb-0 w-100">Column To Import</h6>
+									<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="mapping-fields-wrapper" id="floor-tab">
+									
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+									<h6 class="mb-0 w-100">Column To Import</h6>
+									<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="mapping-fields-wrapper" id="floor-tab">
+									
+							</div>
+						</div>
+						</div>
 					</div>
 				</div>
 				<div id="sr_step_div" class="containers">

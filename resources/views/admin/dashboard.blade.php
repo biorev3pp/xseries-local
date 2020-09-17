@@ -264,6 +264,73 @@
             $('#users_status').html(options);
             $('#edit_user').modal('show');  
          });
+<<<<<<< Updated upstream
+=======
+         var file = null;
+         var filename;
+         $('#excelFile').on('change', function () {
+            $(".error-messages").html('');
+            file = this.files[0];
+            filename = $("#excelFile").val();
+            if (/^\s*$/.test(filename)) {
+               $(".file-upload").removeClass('active');
+               $("#noFile").text("No file chosen..."); 
+            }
+            else {
+               $(".file-upload").addClass('active');
+               $("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+            }
+         });
+
+         // Modal Event
+         $('#bulkUploadModal').on('hidden.bs.modal', function (e) {
+            $("#excelFile").val('');
+            $(".file-upload").removeClass('active');
+            $("#noFile").text("No file chosen..."); 
+            file = null;
+            $(".error-messages").html('');
+         })
+         
+         //Bulk Upload 
+         $("#bulkUpload").click(function(){
+            var formData = new FormData();
+            formData.append('excelFile', file);
+            if(file != null){
+               var fileExtension = filename.split('.').pop();
+               if(fileExtension == 'xlsx'){
+                  $.ajax({
+                     type        : "post",
+                     url         : "/api/map/sheet/columns",
+                     headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                     data        : formData,
+                     cache       : false,
+                     contentType : false,
+                     processData : false,
+                     success     : function(response){
+                        toastr.success(response);
+                        $("#bulkUploadModal").modal('hide');
+                        $(".error-messages").html('');
+                     },
+                     error       : function(error){
+                        console.log(error);
+                        toastr.error(error.responseJSON.message);
+                        var errorMessages = '';
+                        $.each(error.responseJSON.errors, function(){
+                           errorMessages += `<small class="danger">${this}</small><br>`
+                        });
+                        $(".error-messages").html(errorMessages);
+                     } 
+                  });
+               }
+               else{
+                  toastr.error("Please choose an excel file.");
+               }
+            }
+            else{
+               toastr.error("Please choose an excel file.");
+            }
+         });
+>>>>>>> Stashed changes
       });
    </script>
 @endpush

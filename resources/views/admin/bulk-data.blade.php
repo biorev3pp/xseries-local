@@ -733,7 +733,7 @@ $(document).ready(function(){
             if(fileExtension == 'xlsx'){
                 $.ajax({
                     type        : "post",
-                    url         : "/api/mega-import",
+                    url         : "/api/map/sheet/columns",
                     headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     data        : formData,
                     cache       : false,

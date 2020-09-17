@@ -105,6 +105,7 @@ Route::post('/get-distance', 'API\HomeController@getDistance');
 
 // Mega Import
 Route::apiresource('/mega-import', 'API\ImportController');
+Route::post('/map/sheet/columns','API\ImportController@getColumnsToMap');
 
 // Bulk upload APIs
 Route::post('/get-all', 'Admin\BulkUploadController@getImagesForSelectedType');

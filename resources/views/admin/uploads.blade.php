@@ -1,14 +1,9 @@
 @extends('layouts.admin')
 @section('content')
-<link rel="stylesheet" href="{{asset('Xseries-new-ui/dropzone/dropzone.css')}}">
-<link rel="stylesheet" href="{{asset('Xseries-new-ui/dropzone/basic.css')}}">
+
 <link rel="stylesheet" href="{{asset('cms/css/gallery.css')}}">
 <style>
-.dropzone {
-  border: 2px dashed #666;
-  border-radius: 5px;
-  background: white;
-}
+
 .buttons-wrap{
   justify-content: space-evenly;
 }
@@ -51,7 +46,6 @@
   cursor:pointer;
 }
 </style>
-<script src="{{asset('Xseries-new-ui/dropzone/dropzone.js')}}"></script>
 <div class="container-fluid page-wrapper">
   <div class="row mb-2 justify-content-between pl-1 pr-1 align-items-center">
     <div><h1 class="a_dash p-0 m-0">Bulk Uploads</h1></div>

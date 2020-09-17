@@ -37,6 +37,11 @@ class BulkUploadController extends Controller
         # code...
         return view ('admin.bulk-data')->with($this->data);
     }
+   public function returnBulkMediaView()
+   {
+       # code...
+       return view('admin.bulk-media')->with($this->data);
+   }
     public function getAllCommunities()
     {
         # code...

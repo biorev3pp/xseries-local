@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CommunitiesImport implements ToCollection, WithHeadingRow
 {
+
     public function collection(Collection $rows)
     {
         // Validator::make($rows->toArray(), [

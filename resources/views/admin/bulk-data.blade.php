@@ -1,272 +1,4 @@
 @extends('layouts.admin') @section('content')
-<div class="container-fluid page-wrapper">
-	<div class="justify-content-between mb-0">
-		<h1 class="a_dash m-0">Bulk Data Upload</h1> 
-	</div>
-	<div id="syncresponse">
-		<div class="sync-process text-center mb-1">
-			<ul class="text-center">
-				<li> <a class="active text-center" id="ss_step">1</a> </li>
-				<li> <a class="incomplete text-center" id="drm_step">2</a> </li>
-				<li> <a class="incomplete text-center" id="sr_step">3</a> </li>
-			</ul>
-		</div>
-		<div class="fix-sync">
-			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers">
-					<h3 class="text-center">Import Files</h3>
-					<div class="pt-0 pb-2">
-						<h6>Have existing records in your own file? Import your own excel file. If not you can download sample file.</h6>
-					</div>
-					<div class="row pl-1 pr-1 justify-content-between align-items-center choose-file-wrap">
-						<div class="file-upload pr-md-1 pr-0">
-							<div class="file-select">
-								<div class="file-select-button" id="fileName">Choose Excel File</div>
-								<div class="file-select-name" id="noFile">No file chosen...</div>
-								<input type="file" name="excel_file" id="excelFile"> 
-                            </div>
-						</div> 
-                        <a href="{{ url('/admin/bulk-upload-sample.xlsx') }}">
-                            <button class="btn btn-secondary btn-sm ftbtn" type="button"> Sample File </button>
-                        </a>
-                    </div>
-					<h6 class="my-2">OR</h6>
-                    <button class="btn btn-info btn-sm ftbtn" type="button"> Import From Google </button>
-					<h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto;">View Recent Reports</h6>
-				</div>
-				<div id="drm_step_div" class="table-responsive containers">
-					<h3 class="text-center mb-1">Data Mapping</h3>
-					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
-						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communities</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-elevation-types-tab" data-toggle="pill" href="#pills-elevation-types" role="tab" aria-controls="pills-elevation-types" aria-selected="false">Elevation Types</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-color-schemes-tab" data-toggle="pill" href="#pills-color-schemes" role="tab" aria-controls="pills-color-schemes" aria-selected="false">Color Schemes</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-color-scheme-features-tab" data-toggle="pill" href="#pills-color-scheme-features" role="tab" aria-controls="pills-color-scheme-features" aria-selected="false">Color Scheme Features</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features</a>
-						</li>
-					</ul>
-					<div class="tab-content" id="pills-tabContent">
-						<div class="d-flex justify-content-end align-items-center px-1">
-							<select class="form-control" id="importOptions">
-								<option>Create</option>
-								<option>Update</option>
-							</select>
-						</div>
-						<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
-								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
-							</div>
-							<div class="mapping-fields-wrapper">
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Name</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Contact Person</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Contact Email</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Contact Number</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Location</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Description</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">State Id</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">City Id</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Zipcode</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Logo</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Banner</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Map Marker</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Latitude</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Longitude</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">Gallery</label>
-									<select class="form-control">
-										<option>No Option Selected</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">...</div>
-						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">...</div>
-						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">...</div>
-						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">...</div>
-						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...</div>
-						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">...</div>
-					</div>
-				</div>
-				<div id="sr_step_div" class="containers">
-					<h3 class="text-center">Sync Report</h3>
-					<div class="scrollable-table">
-						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>All data has been updated successfully.</span>
-							<ul class="same-btns">
-								<li> <a href="#">Sync Data Again </a> </li>
-								<li> <a href="#">View Report </a> </li>
-							</ul>
-							<ul class="sys-btns">
-								<li> <a href="#">Manage Communities </a> </li>
-								<li> <a href="#">Manage Elevations </a> </li>
-								<li> <a href="#">Manage Floors </a> </li>
-							</ul>
-						</div>
-						<div class="sr-synop">
-							<h6>Activity Log </h6>
-							<p> <span class="border-bottom"> <b class="badge badge-success">5</b> Lots has been updated successfully.  </span> </p>
-							<p> <span class="border-bottom"> <b class="badge badge-danger">3</b> conflicts has been skipped.  </span> </p>
-							<p> <span class="border-bottom"> <b class="badge badge-info">100%</b> Sync Process Completed. </span> </p>
-						</div>
-					</div>
-					<div class="text-center"> <a href="/admin/dashboard" class="btn btn-dark btn-md"> Close</a> </div>
-				</div>
-			</div>
-		</div>
-		<div class="footer-buttons">
-			<button class="btn btn-secondary btn-sm ftbtn" id="backButton" type="button" onclick="changeStep(false)"> Back </button>
-			<button class="btn btn-info btn-sm ftbtn" type="button" onclick="changeStep(true)"> Next </button>
-		</div>
-	</div>
-</div>
-<div class="modal fade show" id="sdsModal" tabindex="-1" role="dialog" aria-modal="true">
-	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5>Information</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i class="fa fa-times"></i>  </span> </button>
-			</div>
-			<div class="modal-body">
-				<div class="">
-					<h6 class="delete_heading">What can you do by this button ?</h6>
-					<div class="clearfix"></div>
-					<div class="mb-3">
-						<ul>
-							<li>You can change Lot status to sold and connect the respective elevation and elevation type.</li>
-							<li>You can change Lot status to available and connect multiple elevations.</li>
-							<li>After syncing, you will see all the changes below.</li>
-						</ul>
-					</div>
-					<h6 class="delete_heading">What can't you do by this button?</h6>
-					<div class="clearfix"></div>
-					<div class="mb-3">
-						<ul>
-							<li>You can not update elevation or anything without changing Lot Status.</li>
-							<li>You can change Lot status to any available status but elevations will update only with lot status - Sold, Available.</li>
-							<li>After syncing, you will see all the changes below.</li>
-						</ul>
-					</div>
-					<h6 class="delete_heading text-danger"> Points to remember</h6>
-					<div class="clearfix"></div>
-					<div class="text-danger">
-						<ul>
-							<li>When you making any change in lot status, It is mandatory to change STATUS CODE.</li>
-							<li>If Lot status is sold, then there must be only 1 elevation ID, 1 elevation name and elevation type.</li>
-							<li>For elevation update, Elevation ID must be updated with elevation name.</li>
-							<li>You can download Elevation master sheet any time from the report section above.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade show" id="sasModal" tabindex="-1" role="dialog" aria-modal="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5>Information</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i class="fa fa-times"></i>  </span> </button>
-			</div>
-			<div class="modal-body">
-				<div class="">
-					<h6 class="delete_heading">What can you do by this button ?</h6>
-					<div class="clearfix"></div>
-					<div>
-						<ul>
-							<li>This button will sync all data with CRM.</li>
-							<li>This feature has been disabled at the moment.</li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
 <style>
 
 #ss_step_div{
@@ -620,9 +352,22 @@ tr.bg-sdanger input[type="checkbox"] {
     display: inline-block;
     padding: 0 10px;
 }
-.btn-orange{
-    padding: .5rem 1.2rem;
-    height: fit-content;
+
+.btn-info:focus{
+	background-color: #f56954!important;
+}
+
+.btn-info{
+	background-color: #f56954!important;
+	transition: 0.3s ease all;
+}
+
+.btn-info:hover, #backButton:hover{
+	background-color: #003a8b!important;
+}
+
+.nav-pills .nav-item .nav-link.active{
+	background: #f56954;
 }
 
 .nav-pills .nav-item{
@@ -630,6 +375,7 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .nav-pills .nav-link{
+	font-weight:600;
 	background-color: rgba(0, 0, 0, 0.12);
 }
 
@@ -651,11 +397,26 @@ tr.bg-sdanger input[type="checkbox"] {
 
 #backButton{
 	display: none;
+	background-color: #313131!important;
+	transition: 0.3s ease background-color;
 }
 
 #importOptions{
 	max-width: 300px;
 	width: 100%;
+}
+@media(max-width:1200px){
+	.fix-sync{
+		overflow: auto;
+	}
+	.mapping-fields-wrapper{
+		height: auto;
+		overflow: hidden;
+		padding-bottom: 30px;
+	}
+	.footer-buttons{
+		right: 30px;
+	}
 }
 
 @media(max-width:768px){
@@ -663,6 +424,275 @@ tr.bg-sdanger input[type="checkbox"] {
     .choose-file-wrap{max-width: 100%;}
 }
 </style>
+<div class="container-fluid page-wrapper">
+	<div class="justify-content-between mb-0">
+		<h1 class="a_dash m-0">Bulk Data Upload</h1> 
+	</div>
+	<div id="syncresponse">
+		<div class="sync-process text-center mb-1">
+			<ul class="text-center">
+				<li> <a class="active text-center" id="ss_step">1</a> </li>
+				<li> <a class="incomplete text-center" id="drm_step">2</a> </li>
+				<li> <a class="incomplete text-center" id="sr_step">3</a> </li>
+			</ul>
+		</div>
+		<div class="fix-sync">
+			<div class="sync-container">
+				<div id="ss_step_div" class="text-center containers">
+					<h3 class="text-center">Import Files</h3>
+					<div class="pt-0 pb-2">
+						<h6>Have existing records in your own file? Import your own excel file. If not you can download sample file.</h6>
+					</div>
+					<div class="row pl-1 pr-1 justify-content-between align-items-center choose-file-wrap">
+						<div class="file-upload pr-md-1 pr-0 mb-md-0 mb-1">
+							<div class="file-select">
+								<div class="file-select-button" id="fileName">Choose Excel File</div>
+								<div class="file-select-name" id="noFile">No file chosen...</div>
+								<input type="file" name="excel_file" id="excelFile"> 
+                            </div>
+						</div> 
+                        <a href="{{ url('/admin/bulk-upload-sample.xlsx') }}">
+                            <button class="btn btn-secondary btn-sm ftbtn" type="button"> Sample File </button>
+                        </a>
+                    </div>
+					<h6 class="my-2">OR</h6>
+                    <button class="btn btn-info btn-sm ftbtn" type="button"> Import From Google </button>
+					<h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto;">View Recent Reports</h6>
+				</div>
+				<div id="drm_step_div" class="table-responsive containers">
+					<h3 class="text-center mb-1">Data Mapping</h3>
+					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
+						<li class="nav-item" role="presentation">
+							<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communities</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-elevation-types-tab" data-toggle="pill" href="#pills-elevation-types" role="tab" aria-controls="pills-elevation-types" aria-selected="false">Elevation Types</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-color-schemes-tab" data-toggle="pill" href="#pills-color-schemes" role="tab" aria-controls="pills-color-schemes" aria-selected="false">Color Schemes</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-color-scheme-features-tab" data-toggle="pill" href="#pills-color-scheme-features" role="tab" aria-controls="pills-color-scheme-features" aria-selected="false">Color Scheme Features</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors</a>
+						</li>
+						<li class="nav-item" role="presentation">
+							<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features</a>
+						</li>
+					</ul>
+					<div class="tab-content" id="pills-tabContent">
+						<div class="d-flex justify-content-end align-items-center px-1">
+							<label class="mb-0 text-dark">Import Options:</label>
+							<select class="form-control" id="importOptions">
+								<option>Create</option>
+								<option>Update</option>
+							</select>
+						</div>
+						<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+								<h6 class="mb-0 w-100">Column To Import</h6>
+								<h6 class="mb-0 w-100">Map Into Field</h6>
+							</div>
+							<div class="mapping-fields-wrapper">
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Name</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Contact Person</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Contact Email</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Contact Number</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Location</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Description</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">State Id</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">City Id</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Zipcode</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Logo</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Banner</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Map Marker</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Latitude</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Longitude</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+								<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									<label class="w-100 m-0 text-dark">Gallery</label>
+									<select class="form-control">
+										<option>No Option Selected</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">...</div>
+						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">...</div>
+						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">...</div>
+						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">...</div>
+						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...</div>
+						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">...</div>
+					</div>
+				</div>
+				<div id="sr_step_div" class="containers">
+					<h3 class="text-center">Sync Report</h3>
+					<div class="scrollable-table">
+						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>All data has been updated successfully.</span>
+							<ul class="same-btns">
+								<li> <a href="#">Sync Data Again </a> </li>
+								<li> <a href="#">View Report </a> </li>
+							</ul>
+							<ul class="sys-btns">
+								<li> <a href="#">Manage Communities </a> </li>
+								<li> <a href="#">Manage Elevations </a> </li>
+								<li> <a href="#">Manage Floors </a> </li>
+							</ul>
+						</div>
+						<div class="sr-synop">
+							<h6>Activity Log </h6>
+							<p> <span class="border-bottom"> <b class="badge badge-success">5</b> Lots has been updated successfully.  </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-danger">3</b> conflicts has been skipped.  </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-info">100%</b> Sync Process Completed. </span> </p>
+						</div>
+					</div>
+					<div class="text-center"> <a href="/admin/dashboard" class="btn btn-dark btn-md"> Close</a> </div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-buttons">
+			<button class="btn btn-secondary btn-sm ftbtn" id="backButton" type="button" onclick="changeStep(false)"> Back </button>
+			<button class="btn btn-info btn-sm ftbtn" type="button" onclick="changeStep(true)"> Next </button>
+		</div>
+	</div>
+</div>
+<div class="modal fade show" id="sdsModal" tabindex="-1" role="dialog" aria-modal="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>Information</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i class="fa fa-times"></i>  </span> </button>
+			</div>
+			<div class="modal-body">
+				<div class="">
+					<h6 class="delete_heading">What can you do by this button ?</h6>
+					<div class="clearfix"></div>
+					<div class="mb-3">
+						<ul>
+							<li>You can change Lot status to sold and connect the respective elevation and elevation type.</li>
+							<li>You can change Lot status to available and connect multiple elevations.</li>
+							<li>After syncing, you will see all the changes below.</li>
+						</ul>
+					</div>
+					<h6 class="delete_heading">What can't you do by this button?</h6>
+					<div class="clearfix"></div>
+					<div class="mb-3">
+						<ul>
+							<li>You can not update elevation or anything without changing Lot Status.</li>
+							<li>You can change Lot status to any available status but elevations will update only with lot status - Sold, Available.</li>
+							<li>After syncing, you will see all the changes below.</li>
+						</ul>
+					</div>
+					<h6 class="delete_heading text-danger"> Points to remember</h6>
+					<div class="clearfix"></div>
+					<div class="text-danger">
+						<ul>
+							<li>When you making any change in lot status, It is mandatory to change STATUS CODE.</li>
+							<li>If Lot status is sold, then there must be only 1 elevation ID, 1 elevation name and elevation type.</li>
+							<li>For elevation update, Elevation ID must be updated with elevation name.</li>
+							<li>You can download Elevation master sheet any time from the report section above.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade show" id="sasModal" tabindex="-1" role="dialog" aria-modal="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5>Information</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true"><i class="fa fa-times"></i>  </span> </button>
+			</div>
+			<div class="modal-body">
+				<div class="">
+					<h6 class="delete_heading">What can you do by this button ?</h6>
+					<div class="clearfix"></div>
+					<div>
+						<ul>
+							<li>This button will sync all data with CRM.</li>
+							<li>This feature has been disabled at the moment.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 @endsection
 @push('scripts')
 <script>

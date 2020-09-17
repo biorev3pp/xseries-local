@@ -13,7 +13,7 @@
 		</div>
 		<div class="fix-sync">
 			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers d-none">
+				<div id="ss_step_div" class="text-center containers">
 					<h3 class="text-center">Import Files</h3>
 					<div class="pt-0 pb-2">
 						<h6>Have existing records in your own file? Import your own excel file. If not you can download sample file.</h6>
@@ -38,7 +38,7 @@
 						<p class="syncloader"><img src="{{ asset('images/spinner.gif') }}"></p>
 					</div>
 				</div>
-				<div id="drm_step_div" class="table-responsive containers d-block">
+				<div id="drm_step_div" class="table-responsive containers">
 					<h3 class="text-center mb-1">Data Mapping</h3>
 					<ul class="nav nav-pills mb-1 justify-content-center" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
@@ -681,17 +681,15 @@ const changeStep = (buttonClicked) => {
 		case 1:
 			$('#ss_step').addClass('active').removeClass('incomplete');
 			$('#drm_step').addClass('incomplete').removeClass('active');
-			$(".containers").fadeOut(function(){
-				$('#ss_step_div').fadeIn();
-			});
+			$(".containers").hide();
+			$('#ss_step_div').fadeIn();
 			$('#backButton').fadeOut();
 			break;
 		case 2: 
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
-			$(".containers").fadeOut(function(){
-				$('#drm_step_div').fadeIn();
-			});
+			$(".containers").hide();
+			$('#drm_step_div').fadeIn();
 			$('#backButton').fadeIn();
 			break;
 		case 3: 

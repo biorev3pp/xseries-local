@@ -858,6 +858,7 @@ const changeStep = (buttonClicked) => {
             }
             else{
                 toastr.error("Please choose an excel file.");
+				return true;
 			}
 			return false;
         }

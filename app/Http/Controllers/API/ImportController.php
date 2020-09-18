@@ -70,7 +70,7 @@ class ImportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {   dd (json_decode($request->mapped));
         if($request->excelFile)
         {
             // Excel::import(new ManageImport, $request->excelFile);

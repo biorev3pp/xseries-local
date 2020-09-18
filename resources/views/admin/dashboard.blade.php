@@ -264,8 +264,6 @@
             $('#users_status').html(options);
             $('#edit_user').modal('show');  
          });
-<<<<<<< Updated upstream
-=======
          var file = null;
          var filename;
          $('#excelFile').on('change', function () {
@@ -330,7 +328,6 @@
                toastr.error("Please choose an excel file.");
             }
          });
->>>>>>> Stashed changes
       });
    </script>
 @endpush

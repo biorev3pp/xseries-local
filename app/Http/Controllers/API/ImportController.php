@@ -70,7 +70,8 @@ class ImportController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   if($request->excelFile)
+    {   
+        if($request->excelFile)
         {
             // Excel::import(new ManageImport, $request->excelFile);
             $array = (new ManageImport)->toArray($request->excelFile);

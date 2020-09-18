@@ -866,8 +866,8 @@ const changeStep = (buttonClicked) => {
 			return true;
         }
 	}
-	let mappedArray = []; 
-	let [community, elevation,elevation_type,color_scheme,color_scheme_feature,floor,floor_feature] = [[],[],[],[],[],[],[]];
+	let mappedArray = {}; 
+	let [community, elevation,elevation_type,color_scheme,color_scheme_feature,floor,floor_feature] = [{},{},{},{},{},{},{}];
 	function userMappedData(type,index,label)
 	{
 		switch(type){
@@ -914,19 +914,14 @@ const changeStep = (buttonClicked) => {
 	{
 		if(!jQuery.isEmptyObject(mappedArray))
 		{
-			console.log(mappedArray);
-			var formData = new FormData();
-        	formData.append('mappedArray', mappedArray);
-			let importAs = $('#importOptions').val();
-			formData.append('importOption',importAs);
+			mappedArray['import_as'] = $('#importOptions').val();
+			let dat = JSON.stringify(mappedArray);
 			$.ajax({
 				type 		:'post',
 				url  		: '/api/mega-import',
 				headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-				data        : formData,
-				cache       : false,
-                contentType : false,
-                processData : false,
+				data        : {'mapped':dat},
+				dataType	:'application/json',
 				success		: function(response){
 					return true;
 				},

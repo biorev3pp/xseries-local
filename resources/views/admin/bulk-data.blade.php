@@ -743,7 +743,7 @@ const changeStep = (buttonClicked) => {
 							$.each(response.headings['Elevation Types'][0],(key,val)=>{
 								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 										<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
-										<select class="form-control" id="elevation_dropdown_${key}" onchange="userMappedData('elevation_type',${key},'${val}')">
+										<select class="form-control" id="elevation_type_dropdown_${key}" onchange="userMappedData('elevation_type',${key},'${val}')">
 										${elevationOptions}
 										</select>
 									</div>`;

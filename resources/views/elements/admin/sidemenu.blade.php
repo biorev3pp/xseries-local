@@ -67,8 +67,16 @@
                 <a href="{{ route('accounts') }}" class="waves-effect waves-dark"><i class="material-icons">account_box</i><span class="menu-title" data-i18n="">Accounts</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item {{ ($menu == 'settings')?'active':'' }}">
-                <a href="{{ route('settings') }}" class="waves-effect waves-dark"><i class="material-icons">settings</i><span class="menu-title" data-i18n="">Settings</span></a>
+            <li class="nav-item has-sub">
+                <a href="#" class="waves-effect waves-dark"><i class="material-icons">settings</i><span class="menu-title" data-i18n="">Settings</span></a>
+                <ul class="menu-content" style="">
+                    <li class="is-shown"><a class="menu-item" href="dashboard-ecommerce.html"><i></i><span data-i18n="eCommerce">eCommerce</span></a>
+                    </li>
+                    <li class="is-shown"><a class="menu-item" href="dashboard-crypto.html"><i></i><span data-i18n="Crypto">Crypto</span></a>
+                    </li>
+                    <li class="active is-shown"><a class="menu-item" href="dashboard-sales.html"><i></i><span data-i18n="Sales">Sales</span></a>
+                    </li>
+                </ul>
             </li>
             <li class="nav-item">
                 <a href="#" class="waves-effect waves-dark" onclick="logout()"><i class="material-icons">logout</i><span class="menu-title" data-i18n="">Logout</span></a>

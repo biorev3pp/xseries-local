@@ -150,7 +150,7 @@ a.add_button.active {
 }
 
 .sr-ans {
-	margin: 30px
+	margin: 20px 30px 30px;
 }
 
 .sr-ans i {
@@ -170,7 +170,8 @@ a.add_button.active {
 }
 
 .sr-ans ul.same-btns {
-	list-style: none
+	list-style: none;
+	margin-bottom: .5rem;
 }
 
 .sr-ans ul.same-btns li {
@@ -208,7 +209,7 @@ a.add_button.active {
 }
 
 .sr-synop {
-	padding: 20px;
+	padding: 0 20px 20px;
 	text-align: center
 }
 
@@ -544,27 +545,28 @@ tr.bg-sdanger input[type="checkbox"] {
 					</div>
 				</div>
 				<div id="sr_step_div" class="containers">
-					<h3 class="text-center">Sync Report</h3>
-					<div class="scrollable-table">
-						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>All data has been updated successfully.</span>
+					<h3 class="text-center">Report</h3>
+					<div>
+						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>All data has been imported successfully.</span>
 							<ul class="same-btns">
-								<li> <a href="#">Sync Data Again </a> </li>
+								<li> <a href="{{route('bulk-data')}}">Import More Data </a> </li>
 								<li> <a href="#">View Report </a> </li>
+								<li> <a href="{{route('uploads')}}">Upload Images </a> </li>
 							</ul>
 							<ul class="sys-btns">
-								<li> <a href="#">Manage Communities </a> </li>
-								<li> <a href="#">Manage Elevations </a> </li>
-								<li> <a href="#">Manage Floors </a> </li>
+								<li> <a href="{{route('communities')}}">Manage Communities </a> </li>
+								<li> <a href="{{route('homes')}}">Manage Elevations </a> </li>
+								<li> <a href="{{route('new_floors')}}">Manage Floors </a> </li>
 							</ul>
 						</div>
 						<div class="sr-synop">
 							<h6>Activity Log </h6>
-							<p> <span class="border-bottom"> <b class="badge badge-success">5</b> Lots has been updated successfully.  </span> </p>
-							<p> <span class="border-bottom"> <b class="badge badge-danger">3</b> conflicts has been skipped.  </span> </p>
-							<p> <span class="border-bottom"> <b class="badge badge-info">100%</b> Sync Process Completed. </span> </p>
+							
+							<p> <span class="border-bottom"> <b class="badge badge-success">15</b> New entries has been imported successfully.  </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-danger">3</b> Entries failed to import. </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-info">83%</b> Import Process Completed. </span> </p>
 						</div>
 					</div>
-					<div class="text-center"> <a href="/admin/dashboard" class="btn btn-dark btn-md"> Close</a> </div>
 				</div>
 			</div>
 		</div>
@@ -609,10 +611,15 @@ const changeStep = (buttonClicked) => {
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
 			$(".containers").hide();
-			$('#drm_step_div').fadeIn();
 			$('#backButton').fadeIn();
+			$('#drm_step_div').fadeIn();
 			break;
 		case 3: 
+			$('#drm_step').addClass('complete').removeClass('active');
+			$('#sr_step').addClass('active').removeClass('incomplete');
+			$('.footer-buttons').hide();
+			$(".containers").hide();
+			$('#sr_step_div').fadeIn();
 			break;
 	}
 }

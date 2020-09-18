@@ -167,6 +167,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::get('settings', 'Admin\SettingsController@index')->name('settings');
     Route::post('settings/save', 'Admin\SettingsController@update');
     Route::post('settings/{id}', 'Admin\SettingsController@updateAdmins');
+    Route::get('settings/import-history', 'Admin\SettingsController@importHistory')->name('import-history');
 
     // ADMIN ESTIMATE
     Route::get('/estimates', 'Admin\DashboardController@estimates')->name('estimates');
@@ -205,6 +206,7 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::post('/uploads/images','Admin\BulkUploadController@uploadBulkImage')->name('bulk-image-upload');
     Route::get('/uploads/unmapped','Admin\BulkUploadController@returnUnmappedView')->name('unmapped');
     Route::get('/bulk-uploads/data','Admin\BulkUploadController@returnBulkDataView')->name('bulk-data');
+    
 });
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     Route::post('/home/colorschemes', 'XhomeController@GetColorSchemes'); // for ajax call on home page to show color schemes
@@ -215,7 +217,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::post('/home/pricesession', 'XhomeController@priceSession');
     Route::post('/home/finish', 'XhomeController@Finish');
     Route::get('/user_logout', 'XhomeController@userLogout')->name('user_logout');
-    //Route::get('/user_logout', 'Auth\LoginController@logout')->name('user_logout');
 
     Route::post('/get-feature-data', 'XfloorController@getFeatureData');
     Route::post('/get-floor-data', 'XfloorController@getFloorData');
@@ -243,8 +244,6 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::get('/user-pdf-estimates/{id}','Admin\ExportController@EstimatesSingleUserPdfReport')->name('user-pdf-estimates');
     Route::get('/user/profile', 'DashboardController@index')->name('user_dashboard');
     /*    User Dashboard  End */
-
-    
 
     Route::apiResource('cities', 'API\CitiesController');
     Route::apiResource('communities', 'API\CommunitiesController');

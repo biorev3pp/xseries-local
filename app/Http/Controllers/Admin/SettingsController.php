@@ -70,4 +70,8 @@ class SettingsController extends Controller
         # code...
         return  Settings::all();
     }
+
+    public function importHistory(){
+        return view('admin.settings.import_history')->with($this->data);
+    }
 }

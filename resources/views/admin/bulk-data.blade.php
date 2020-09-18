@@ -708,7 +708,7 @@ const changeStep = (buttonClicked) => {
 						}
 						else
 						{
-							$('#community-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+							$('#community-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Commmunities.</div>`)
 						}
 						//Elevation tab data formation
 						if(response.headings.hasOwnProperty('Elevations'))
@@ -730,7 +730,7 @@ const changeStep = (buttonClicked) => {
 						}	
 						else
 						{
-							$('#elevation-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+							$('#elevation-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Elevations.</div>`)
 						}
 						//Elevation type data adding here
 						if(response.headings.hasOwnProperty('Elevation Types'))
@@ -752,7 +752,7 @@ const changeStep = (buttonClicked) => {
 						}
 						else
 						{
-							$('#elevation-type-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+							$('#elevation-type-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Elevation Types.</div>`)
 						}
 						//Color Scheme data here
 						if(response.headings.hasOwnProperty('Color Schemes'))
@@ -775,7 +775,7 @@ const changeStep = (buttonClicked) => {
 
 						else
 						{
-							$('#color-scheme-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+							$('#color-scheme-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Color Schemes.</div>`)
 						}
 						if(response.headings.hasOwnProperty('Color Scheme Features'))
 						{
@@ -796,7 +796,7 @@ const changeStep = (buttonClicked) => {
 						}
 						else
 						{
-							$('#color-scheme-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+							$('#color-scheme-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Color Scheme Features.</div>`)
 						}
 						if(response.headings.hasOwnProperty('Floors'))
 						{
@@ -817,7 +817,7 @@ const changeStep = (buttonClicked) => {
 						}
 						else
 						{
-							$('#floor-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+							$('#floor-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Floors.</div>`)
 						}
 						if(response.headings.hasOwnProperty('Floor Features'))
 						{
@@ -838,7 +838,7 @@ const changeStep = (buttonClicked) => {
 						}
 						else
 						{
-							$('#floor-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+							$('#floor-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Floor Features.</div>`)
 						}
 						return false;
                    	 },
@@ -873,37 +873,82 @@ const changeStep = (buttonClicked) => {
 	{
 		switch(type){
 			case 'community':
-				community[label] = $('#community_dropdown_'+index).val();
+				if($('#community_dropdown_'+index).val()=='')
+				{
+					delete community[label];
+				}
+				else
+				{
+					community[label] = $('#community_dropdown_'+index).val();
+				}
 				mappedArray['community'] = community;
 			break;
 
 			case 'elevation':
-				elevation[label] = $('#elevation_dropdown_'+index).val();
+				if($('#elevation_dropdown_'+index).val()=='')
+				{
+					delete elevation[label];
+				}
+				else
+				{
+					elevation[label] = $('#elevation_dropdown_'+index).val();
+				}
 				mappedArray['elevation'] = elevation;
 			break;
 
 			case 'elevation_type':
-				elevation_type[label] = $('#elevation_type_dropdown_'+index).val();
+				if($('#elevation_dropdown_'+index).val()=='')
+				{
+					delete elevation_type[label];
+				}
+				else
+				{
+					elevation_type[label] = $('#elevation_type_dropdown_'+index).val();
+				}
 				mappedArray['elevation_type'] = elevation_type;
 			break;
 
 			case 'color_scheme':
-				color_scheme[label] = $('#color_scheme_dropdown_'+index).val();
+				if($('#color_scheme_dropdown_'+index).val()=='')
+				{
+					delete color_scheme[label];
+				}
+				else
+				{
+					color_scheme[label] = $('#color_scheme_dropdown_'+index).val();
+				}
 				mappedArray['color_scheme'] = color_scheme;
 			break;
 
 			case 'color_scheme_feature':
-				color_scheme_feature[label] = $('#color_scheme_feature_dropdown_'+index).val();
+				if($('#color_scheme_feature_dropdown_'+index).val()=='')
+				{
+					delete color_scheme_feature[label];
+				}
+				else
+				{
+					color_scheme_feature[label] = $('#color_scheme_feature_dropdown_'+index).val();
+				}
 				mappedArray['color_scheme_feature'] = color_scheme_feature;
 			break;
 
 			case 'floor':
-				floor[label] = $('#floor_dropdown_'+index).val();
+				if($('#floor_dropdown_'+index).val()=='')
+				{
+					delete floor[label];
+				}
+				else
+				{
+					floor[label] = $('#floor_dropdown_'+index).val();
+				}
 				mappedArray['floor'] = floor;
 			break;
 
 			case 'floor_feature':
-				floor_feature[label] = $('#floor_feature_dropdown_'+index).val();
+				if($('#floor_feature_dropdown_'+index).val()=='')
+				{
+					floor_feature[label] = $('#floor_feature_dropdown_'+index).val();
+				}
 				mappedArray['floor_feature'] = floor_feature;
 			break;
 
@@ -913,6 +958,7 @@ const changeStep = (buttonClicked) => {
 	}
 	function uploadData()
 	{
+		console.log(mappedArray);
 		if(!jQuery.isEmptyObject(mappedArray))
 		{
 			mappedArray['import_as'] = $('#importOptions').val();
@@ -924,6 +970,7 @@ const changeStep = (buttonClicked) => {
 				data        : {'mapped':dat},
 				dataType	:'application/json',
 				success		: function(response){
+					console.log(response)
 					return true;
 				},
 				error		: function(error){

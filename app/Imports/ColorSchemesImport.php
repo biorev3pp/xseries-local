@@ -10,7 +10,7 @@ use Maatwebsite\Excel\Concerns\ToCollection;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Facades\Validator;
 
-class HomeColorSchemesImport implements ToCollection, WithHeadingRow
+class ColorSchemesImport implements ToCollection, WithHeadingRow
 {
     public function collection(Collection $rows)
     {

@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Validator;
 
 class CommunitiesImport implements ToCollection, WithHeadingRow
 {
+    public $mapChoice;
+    public function __construct($mapChoice)
+    {
+        # code...
+        $this->mapChoice = $mapChoice;
+        dd($this->mapChoice);
+    }
 
     public function collection(Collection $rows)
     {

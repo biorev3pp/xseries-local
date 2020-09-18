@@ -498,49 +498,63 @@ tr.bg-sdanger input[type="checkbox"] {
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="community-tab"></div>
+							<div class="mapping-fields-wrapper" id="community-tab">
+								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="elevation-tab"></div>
+							<div class="mapping-fields-wrapper" id="elevation-tab">
+								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="elevation-type-tab"></div>
+							<div class="mapping-fields-wrapper" id="elevation-type-tab">
+								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="color-scheme-tab"></div>
+							<div class="mapping-fields-wrapper" id="color-scheme-tab">
+								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="color-scheme-features-tab"></div>
+							<div class="mapping-fields-wrapper" id="color-scheme-features-tab">
+								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="floor-tab"></div>
+							<div class="mapping-fields-wrapper" id="floor-tab">
+								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="floor-features-tab"></div>
+							<div class="mapping-fields-wrapper" id="floor-features-tab">
+								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -662,6 +676,9 @@ const changeStep = (buttonClicked) => {
                     cache       : false,
                     contentType : false,
                     processData : false,
+					beforeSend  : function(){
+						$('.syncloader').fadeIn();
+					},
                     success     : function(response)
 					{
 						// let entityInFile = Object.keys(response.headings);
@@ -828,7 +845,10 @@ const changeStep = (buttonClicked) => {
 							errorMessages += `<small class="danger">${this}</small><br>`
 						});
 						$(".error-messages").html(errorMessages);
-                    } 
+                    },
+					complete	: function(){
+						$('.syncloader').hide();
+					} 
                 });
             }
             else{

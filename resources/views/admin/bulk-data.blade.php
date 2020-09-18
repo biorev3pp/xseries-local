@@ -489,8 +489,8 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="d-flex justify-content-end align-items-center px-1">
 							<label class="m-0 text-dark">Import Options:</label>
 							<select class="form-control" id="importOptions">
-								<option>Create</option>
-								<option>Update</option>
+								<option value='create'>Create</option>
+								<option calue='update'>Update</option>
 							</select>
 						</div>
 						<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
@@ -629,6 +629,11 @@ const changeStep = (buttonClicked) => {
 			$('#drm_step_div').fadeIn();
 			break;
 		case 3: 
+			let finalStep = uploadData();
+			if(!finalStep){
+				step = 2;
+				return;
+			}
 			$('#drm_step').addClass('complete').removeClass('active');
 			$('#sr_step').addClass('active').removeClass('incomplete');
 			$('.footer-buttons').hide();
@@ -904,7 +909,29 @@ const changeStep = (buttonClicked) => {
 			default:
 			break;
 		}
-		console.log(mappedArray)
+	}
+	function uploadData()
+	{
+		if(!jQuery.isEmptyObject(mappedArray))
+		{
+			$.ajax({
+				type 		:'post',
+				url  		: "/api/mega-import",
+				headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+				data        : {'mappedArray':mappedArray,'importOption':$('#importOptions').val()},
+				success		: function(response){
+					return true;
+				},
+				error		: function(error){
+
+				},
+			})
+		}
+		else
+		{
+			toastr.error("Please select atleat one field to map.");
+			return false;
+		}
 	}
 </script>
 @endpush

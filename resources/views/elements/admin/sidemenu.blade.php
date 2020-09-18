@@ -67,14 +67,12 @@
                 <a href="{{ route('accounts') }}" class="waves-effect waves-dark"><i class="material-icons">account_box</i><span class="menu-title" data-i18n="">Accounts</span></a>
             </li>
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item has-sub">
+            <li class="nav-item has-sub {{ ($menu == 'settings')?'active':'' }}">
                 <a href="#" class="waves-effect waves-dark"><i class="material-icons">settings</i><span class="menu-title" data-i18n="">Settings</span></a>
                 <ul class="menu-content" style="">
-                    <li class="is-shown"><a class="menu-item" href="dashboard-ecommerce.html"><i></i><span data-i18n="eCommerce">eCommerce</span></a>
+                    <li class="is-shown"><a class="waves-effect waves-dark" href="{{ route('settings') }}"><i></i><span data-i18n="eCommerce">Settings</span></a>
                     </li>
-                    <li class="is-shown"><a class="menu-item" href="dashboard-crypto.html"><i></i><span data-i18n="Crypto">Crypto</span></a>
-                    </li>
-                    <li class="active is-shown"><a class="menu-item" href="dashboard-sales.html"><i></i><span data-i18n="Sales">Sales</span></a>
+                    <li class="is-shown"><a class="waves-effect waves-dark" href="{{ route('import-history') }}"><i></i><span data-i18n="Crypto">View Reports</span></a>
                     </li>
                 </ul>
             </li>

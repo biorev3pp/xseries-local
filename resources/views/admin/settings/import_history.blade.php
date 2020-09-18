@@ -9,10 +9,10 @@
             <tbody>
                <tr>
                     <td width="50px"> 1. </td>
-                    <td width="300px"> bulk-upload-sample.xlsx </td>
+                    <td width="250px"> bulk-upload-sample.xlsx </td>
                     <td width="240px"> Uploaded By - Admin </td>
                     <td width="130px"> Finished On <span class="subbottom"> Sep 18, 2020 </span> </td>
-                    <td> 
+                    <td class="progress-row"> 
                         <span class="progresss-span-bg"> 
                             <span class="progresss-span" style="width:83%"> 83% complete </span>
                                 <a href="javascript:;" class="float-right progresss-side-span"> 3 of 18 failed </a>
@@ -37,5 +37,6 @@
     .progresss-span{background: #28a745; display: block; height: 26px; color: #fff; border-radius: 4px; line-height: 26px; padding: 0 10px;}
     .progresss-side-span{position: absolute; right: 14px; top: 0; font-weight: 500; color: #fff;}
     .progresss-side-span:hover{color:#000}
+    .progress-row{ min-width: 250px;}
 </style>
 @endsection

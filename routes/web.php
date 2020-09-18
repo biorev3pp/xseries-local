@@ -202,10 +202,10 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::post('/delete/admin/manager','Admin\AccountsController@deleteAdminManagers')->name('delete_admin_managers'); 
     // Bulk Upload 
     Route::get('/uploads','Admin\BulkUploadController@index')->name('uploads'); 
-    Route::get('/uploads/media','Admin\BulkUploadController@returnBulkMediaView');
+    Route::get('/uploads/media','Admin\BulkUploadController@returnBulkMediaView')->name('bulk-media');
     Route::post('/uploads/images','Admin\BulkUploadController@uploadBulkImage')->name('bulk-image-upload');
     Route::get('/uploads/unmapped','Admin\BulkUploadController@returnUnmappedView')->name('unmapped');
-    Route::get('/bulk-uploads/data','Admin\BulkUploadController@returnBulkDataView')->name('bulk-data');
+    Route::get('/uploads/data','Admin\BulkUploadController@returnBulkDataView')->name('bulk-data');
     
 });
     Route::get('/logout', 'Auth\LoginController@logout')->name('logout');

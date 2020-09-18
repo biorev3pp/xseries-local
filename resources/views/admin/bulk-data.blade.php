@@ -426,8 +426,11 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 </style>
 <div class="container-fluid page-wrapper">
-	<div class="justify-content-between mb-0">
+	<div class="row justify-content-between pl-1 pr-1 align-items-center">
 		<h1 class="a_dash m-0">Bulk Data Upload</h1> 
+		<div class="btn-group">
+			<a style="position:relative;" href="{{route('uploads')}}" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Back</a>
+		</div>
 	</div>
 	<div id="syncresponse">
 		<div class="sync-process text-center mb-1">
@@ -458,7 +461,7 @@ tr.bg-sdanger input[type="checkbox"] {
                     </div>
 					<h6 class="my-2">OR</h6>
                     <button class="btn btn-info btn-sm ftbtn" type="button"> Import From Google </button>
-					<h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto;">View Recent Reports</h6>
+					<a href="{{route('import-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto;">View Recent Reports</h6></a>
 				</div>
 				<div id="drm_step_div" class="table-responsive containers">
 					<h3 class="text-center mb-1">Data Mapping</h3>
@@ -564,7 +567,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>All data has been imported successfully.</span>
 							<ul class="same-btns">
 								<li> <a href="{{route('bulk-data')}}">Import More Data </a> </li>
-								<li> <a href="#">View Report </a> </li>
+								<li> <a href="{{route('import-history')}}">View Report </a> </li>
 								<li> <a href="{{route('uploads')}}">Upload Images </a> </li>
 							</ul>
 							<ul class="sys-btns">

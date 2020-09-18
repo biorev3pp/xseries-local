@@ -3,6 +3,9 @@
 <div class="container-fluid page-wrapper">
     <div class="row mb-2 justify-content-between ml-0 mr-0 align-items-center">
         <h1 class="a_dash p-0 m-0">{{$page_title}} <small><span class="color-secondary">|</span> Import History</small></h1>
+        <div class="btn-group">
+			<a style="position:relative;" href="{{route('uploads')}}" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Go To Uploads</a>
+		</div>
     </div>
     <div class="table-responsive">
         <table class="table table-bordered imp-table">

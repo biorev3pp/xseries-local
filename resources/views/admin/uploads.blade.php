@@ -53,18 +53,7 @@
   <div class="d-flex px-2 pb-2 buttons-wrap align-items-center">
     <a href="{{route('bulk-data')}}"><button>Uplaod Data</button></a>
     <p class="m-0">OR</p>
-    <a href="{{route('bulk-data')}}"><button>Uplaod Media</button></a>
-      <!-- <form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
-          @csrf
-          <input type="hidden" name="type" id="type">
-          <div class="dz-default dz-message">
-              <h3 class="dropzone-custom-title">Drag and drop to upload media files!</h3>
-              <button class="dz-button" type="button">...or click to select files from your computer</button>
-          </div>
-      </form> -->
-      <!-- <div class="d-flex justify-content-end pt-1">
-          <button id="submit_image" style="font-weight:600;" type="button" class="add_button btn btn-dark btn-min-width waves-effect waves-light"><i style="top: 0;" class="fas fa-upload"></i> Upload</button>
-      </div> -->
+    <a href="{{route('bulk-media')}}"><button>Uplaod Media</button></a>
   </div>
   <div class="card d-inline-block w-100 mt-1" id="list">
     <div class="card-body">

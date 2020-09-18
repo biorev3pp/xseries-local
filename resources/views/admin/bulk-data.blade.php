@@ -540,7 +540,7 @@ tr.bg-sdanger input[type="checkbox"] {
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
-							<div class="mapping-fields-wrapper" id="floor-tab"></div>
+							<div class="mapping-fields-wrapper" id="floor-features-tab"></div>
 						</div>
 					</div>
 				</div>
@@ -662,25 +662,164 @@ const changeStep = (buttonClicked) => {
                     cache       : false,
                     contentType : false,
                     processData : false,
-                    success     : function(response){
-						let entityInFile = Object.keys(response.headings);
-						$.each(entityInFile,(key,val)=>{})
-						let communityOptions = `<option>No Option Selected</option>`;
-						$.each(response.communities,(key,val)=>{
-							communityOptions+=`<option>${val}</option>`;
-						});
-						let communityData = ``;
-						$.each(response.headings.Communities[0],(key,val)=>{
-							communityData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
-									<label class="w-100 m-0 text-dark">${val}</label>
-									<select class="form-control">
-									${communityOptions}
-									</select>
-								</div>`;
-						});	
-						$('#community-tab').html(communityData)	
+                    success     : function(response)
+					{
+						// let entityInFile = Object.keys(response.headings);
+						// $.each(entityInFile,(key,val)=>{})
+						//Community tab data formation
+						if(response.headings.hasOwnProperty('Communities'))
+						{
+							let communityOptions = `<option value=''>No Option Selected</option>`;
+							$.each(response.communities,(key,val)=>{
+								communityOptions+=`<option value='${key}'>${val}</option>`;
+							});
+							let communityData = ``;
+							$.each(response.headings.Communities[0],(key,val)=>{
+								communityData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+										<label class="w-100 m-0 text-dark">${val}</label>
+										<select class="form-control" id="community_dropdown_${key}" onchange="userMappedData('community',${key},'${val}')">
+										${communityOptions}
+										</select>
+									</div>`;
+							});	
+							$('#community-tab').html(communityData);
+						}
+						else
+						{
+							$('#community-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+						}
+						//Elevation tab data formation
+						if(response.headings.hasOwnProperty('Elevations'))
+						{
+							let elevationOptions = `<option value=''>No Option Selected</option>`;
+							$.each(response.elevations,(key,val)=>{
+								elevationOptions+=`<option value='${key}'>${val}</option>`;
+							});
+							var elevationData = ``;
+							$.each(response.headings.Elevations[0],(key,val)=>{
+								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+										<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
+										<select class="form-control" id="elevation_dropdown_${key}" onchange="userMappedData('elevation',${key},'${val}')">
+										${elevationOptions}
+										</select>
+									</div>`;
+							});
+							$('#elevation-tab').html(elevationData)	
+						}	
+						else
+						{
+							$('#elevation-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+						}
+						//Elevation type data adding here
+						if(response.headings.hasOwnProperty('Elevation Types'))
+						{
+							let elevationOptions = `<option value=''>No Option Selected</option>`;
+							$.each(response.elevation_types,(key,val)=>{
+								elevationOptions+=`<option value='${key}'>${val}</option>`;
+							});
+							var elevationData = ``;
+							$.each(response.headings['Elevation Types'][0],(key,val)=>{
+								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+										<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
+										<select class="form-control" id="elevation_dropdown_${key}" onchange="userMappedData('elevation_type',${key},'${val}')">
+										${elevationOptions}
+										</select>
+									</div>`;
+							});
+							$('#elevation-type-tab').html(elevationData)
+						}
+						else
+						{
+							$('#elevation-type-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+						}
+						//Color Scheme data here
+						if(response.headings.hasOwnProperty('Color Schemes'))
+						{
+							let colorOptions = `<option value=''>No Option Selected</option>`;
+							$.each(response.color_scheme,(key,val)=>{
+								colorOptions+=`<option value='${key}'>${val}</option>`;
+							});
+							let colorData = ``;
+							$.each(response.headings['Color Schemes'][0],(key,val)=>{
+								colorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+										<label class="w-100 m-0 text-dark" data-index='${key}'>${val}</label>
+										<select class="form-control" id="color_scheme_dropdown_${key}" onchange="userMappedData('color_scheme',${key},'${val}')">
+										${colorOptions}
+										</select>
+									</div>`;
+							});	
+							$('#color-scheme-tab').html(colorData);	
+						}
+
+						else
+						{
+							$('#color-scheme-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+						}
+						if(response.headings.hasOwnProperty('Color Scheme Features'))
+						{
+								let colorFeatureOptions = `<option value=''>No Option Selected</option>`;
+								$.each(response.color_scheme_features,(key,val)=>{
+									colorFeatureOptions+=`<option value='${key}'>${val}</option>`;
+								});
+								let colorFeatureData = ``;
+								$.each(response.headings['Color Scheme Features'][0],(key,val)=>{
+									colorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+											<label class="w-100 m-0 text-dark">${val}</label>
+											<select class="form-control" id="color_scheme_feature_dropdown_${key}" onchange="userMappedData('color_scheme_feature',${key},'${val}')">
+											${colorFeatureOptions}
+											</select>
+										</div>`;
+								});	
+								$('#color-scheme-features-tab').html(colorFeatureData)	
+						}
+						else
+						{
+							$('#color-scheme-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+						}
+						if(response.headings.hasOwnProperty('Floors'))
+						{
+								let floorOptions = `<option value=''>No Option Selected</option>`;
+								$.each(response.floor,(key,val)=>{
+									floorOptions+=`<option value='${key}'>${val}</option>`;
+								});
+								let floorData = ``;
+								$.each(response.headings['Floors'][0],(key,val)=>{
+									floorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+											<label class="w-100 m-0 text-dark">${val}</label>
+											<select class="form-control" id="floor_dropdown_${key}" onchange="userMappedData('floor',${key},'${val}')">
+											${floorOptions}
+											</select>
+										</div>`;
+								});	
+								$('#floor-tab').html(floorData)	
+						}
+						else
+						{
+							$('#floor-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+						}
+						if(response.headings.hasOwnProperty('Floor Features'))
+						{
+								let floorFeatureOptions = `<option value=''>No Option Selected</option>`;
+								$.each(response.floor_feature,(key,val)=>{
+									floorFeatureOptions+=`<option value='${key}'>${val}</option>`;
+								});
+								let floorFeatureData = ``;
+								$.each(response.headings['Floor Features'][0],(key,val)=>{
+									floorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+											<label class="w-100 m-0 text-dark">${val}</label>
+											<select class="form-control" id="floor_feature_dropdown_${key}" onchange="userMappedData('floor_feature',${key},'${val}')">
+											${floorFeatureOptions}
+											</select>
+										</div>`;
+								});	
+								$('#floor-features-tab').html(floorFeatureData)	
+						}
+						else
+						{
+							$('#floor-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet you have imported.</div>`)
+						}
 						return false;
-                    },
+                   	 },
                     error       : function(error){
 						console.log(error);
 						toastr.error(error.responseJSON.message);
@@ -701,6 +840,51 @@ const changeStep = (buttonClicked) => {
 			toastr.error("Please choose an excel file.");
 			return true;
         }
+	}
+	let mappedArray = []; 
+	let [community, elevation,elevation_type,color_scheme,color_scheme_feature,floor,floor_feature] = [[],[],[],[],[],[],[]];
+	function userMappedData(type,index,label)
+	{
+		switch(type){
+			case 'community':
+				community[label] = $('#community_dropdown_'+index).val();
+				mappedArray['community'] = community;
+			break;
+
+			case 'elevation':
+				elevation[label] = $('#elevation_dropdown_'+index).val();
+				mappedArray['elevation'] = elevation;
+			break;
+
+			case 'elevation_type':
+				elevation_type[label] = $('#elevation_type_dropdown_'+index).val();
+				mappedArray['elevation_type'] = elevation_type;
+			break;
+
+			case 'color_scheme':
+				color_scheme[label] = $('#color_scheme_dropdown_'+index).val();
+				mappedArray['color_scheme'] = color_scheme;
+			break;
+
+			case 'color_scheme_feature':
+				color_scheme_feature[label] = $('#color_scheme_feature_dropdown_'+index).val();
+				mappedArray['color_scheme_feature'] = color_scheme_feature;
+			break;
+
+			case 'floor':
+				floor[label] = $('#floor_dropdown_'+index).val();
+				mappedArray['floor'] = floor;
+			break;
+
+			case 'floor_feature':
+				floor_feature[label] = $('#floor_feature_dropdown_'+index).val();
+				mappedArray['floor_feature'] = floor_feature;
+			break;
+
+			default:
+			break;
+		}
+		console.log(mappedArray)
 	}
 </script>
 @endpush

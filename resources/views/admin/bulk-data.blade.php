@@ -914,11 +914,19 @@ const changeStep = (buttonClicked) => {
 	{
 		if(!jQuery.isEmptyObject(mappedArray))
 		{
+			console.log(mappedArray);
+			var formData = new FormData();
+        	formData.append('mappedArray', mappedArray);
+			let importAs = $('#importOptions').val();
+			formData.append('importOption',importAs);
 			$.ajax({
 				type 		:'post',
-				url  		: "/api/mega-import",
+				url  		: '/api/mega-import',
 				headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-				data        : {'mappedArray':mappedArray,'importOption':$('#importOptions').val()},
+				data        : formData,
+				cache       : false,
+                contentType : false,
+                processData : false,
 				success		: function(response){
 					return true;
 				},
@@ -926,6 +934,7 @@ const changeStep = (buttonClicked) => {
 
 				},
 			})
+			return true;
 		}
 		else
 		{

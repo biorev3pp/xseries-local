@@ -82,13 +82,13 @@ class ImportController extends Controller
      */
     public function store(Request $request)
     {   
-        // Excel::import(new ManageImport, $request->excelFile);
         $mapArray = json_decode($request->mapped);
         $dir = public_path('/uploads/excel/');
         $path = $dir.$request->session()->get('excel');
-        $array = (new ManageImport($mapArray))->toArray($path);
-        dd($array);
-        return "Import Successful";
+        $res = Excel::import(new ManageImport($mapArray), $path);
+        // $array = ();
+        // dd($array);
+        return response()->json($res);
     }
 
     /**

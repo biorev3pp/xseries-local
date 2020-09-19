@@ -72,6 +72,6 @@ class SettingsController extends Controller
     }
 
     public function importHistory(){
-        return view('admin.settings.import_history')->with($this->data);
+        return view('admin.settings.import-history')->with($this->data);
     }
 }

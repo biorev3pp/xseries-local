@@ -130,10 +130,13 @@ a.add_button.active {
 
 .fix-sync {
 	height: calc(100vh - 240px);
-	overflow: hidden;
+	overflow: auto;
 	background: #fff;
 	border: 1px solid #e4e4e4;
 	border-radius: 7px;
+	display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .fix-sync h3 {
@@ -141,11 +144,6 @@ a.add_button.active {
 	font-weight: 600;
 	text-transform: uppercase;
 	margin-top: 10px;
-}
-
-.scrollable-table {
-	height: calc(100vh - 475px);
-	overflow: auto
 }
 
 .bg-sdanger {
@@ -272,10 +270,8 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .footer-buttons{
-    position: absolute;
-    text-align: center;
-    right: 15px;
-    bottom: 15px;
+    text-align: right;
+    padding: 0 15px 15px 0;
 }
 
 .mapping-fields-wrapper{
@@ -289,105 +285,113 @@ tr.bg-sdanger input[type="checkbox"] {
 	transition: 0.3s ease background-color;
 }
 
-#importOptions{
-	max-width: 300px;
-	width: 100%;
+.mapping-action-wrap button{
+	background: transparent;
+	border: 1px solid #f1f1f1;
+	border-radius: 50px;
+	width: 100px;
+	color: #f1f1f1;
+	padding: 3px 0;
+	font-size: 14px;
+	transition: 0.3s ease all;
+	outline:none;
 }
-@media(max-width:1200px){
-	.fix-sync{
-		overflow: auto;
-	}
-	.mapping-fields-wrapper{
-		height: auto;
-		overflow: hidden;
-		padding-bottom: 30px;
-	}
-	.footer-buttons{
-		right: 30px;
-	}
+
+.mapping-action-wrap button:hover{
+	color: #363636;
+	background: #f1f1f1;
 }
-   </style>
+
+</style>
 <div class="container-fluid page-wrapper">
-   <div class="row justify-content-between pl-1 pr-1 align-items-center">
-      <h1 class="a_dash m-0">Bulk Images Upload</h1> 
-      <div class="btn-group">
-         <a style="position:relative;" href="{{route('uploads')}}" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Back</a>
-      </div>
-   </div>
-   <div id="syncresponse">
-      <div class="sync-process text-center mb-1">
-         <ul class="text-center">
-            <li>
-               <a class="active text-center" id="ss_step">1</a>
-            </li>
-            <li>
-               <a class="incomplete text-center" id="drm_step">2</a>
-            </li>
-            <li>
-               <a class="incomplete text-center" id="sr_step">3</a>
-            </li>
-         </ul>
-      </div>
-      <div class="fix-sync" >
-         <div class="sync-container">
-            <div id="ss_step_div" class="text-center containers">
-               <div>
-                  <form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
-                     @csrf
-                     <input type="hidden" name="type" id="type">
-                     <div class="dz-default dz-message">
-                        <h3 class="dropzone-custom-title">Drag and drop to upload media files!</h3>
-                        <button class="dz-button" type="button">...or click to select files from your computer</button>
-                     </div>
-                  </form>
-               </div>
-               <div class="border border-light mt-1 p-1 category-wrapper">
-                  <h5 class="text-left mb-1" style="font-weight:500">Select Category</h5>
-                  <div class="d-flex flex-sm-row flex-column justify-content-between">
-                     <div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
-                        <label class="d-block text-left mb-0 text-dark" for="">Select Type</label>
-                        <select name="" id="" class="form-control">
-                           <option value="">No option selected</option>
-                           <option value="">Community</option>
-                           <option value="">Elevation</option>
-                           <option value="">Floor</option>
-                           <option value="">Floor-Feature</option>
-                        </select>
-                     </div>
-                     <div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
-                        <label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
-                        <select name="" id="" class="form-control ">
-                           <option value="">No option selected</option>
-                           <option value="">Enclave of Twin Run</option>
-                           <option value="">Big Fork Landing</option>
-                        </select>
-                     </div>
-                     <div class="w-100">
-                        <label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
-                        <select name="" id="" class="form-control">
-                           <option value="">No option selected</option>
-                           <option value="">Logo</option>
-                           <option value="">Banner</option>
-                           <option value="">Map Marker</option>
-                           <option value="">Gallery</option>
-                        </select>
-                     </div>
-                  </div>
-                  <div class="mt-1">
-                     <label class="text-left d-block text-dark mb-0" style="font-weight:500 !important">Import Options</label>
-                     <select name="" style="max-width:300px;" class="form-control" id="">
-                        <option value="">No option selected</option>
-                        <option value="">override</option>
-                        <option value="">update</option>
-                        <option value="">skip</option>
-                     </select>
-                  </div>
-               </div>
-               <div id="start_sync" class="d-none"><p>Please wait.. We are importing the data.</p><p class="syncloader"><img src="{{ asset('images/spinner.gif') }}"></p></div>
-            </div>
-            <div id="drm_step_div" class="table-responsive containers">
+	<div class="row justify-content-between pl-1 pr-1 align-items-center">
+		<div>
+			<h1 class="a_dash p-0 m-0 d-inline-block">Uploads <small><span class="color-secondary">|</span></small></h1>
+			<div class="row breadcrumbs-top pl-2 d-inline-block">
+				<ol class="breadcrumb"> 
+					<li class="breadcrumb-item">
+					<a href="{{ route('bulk-media') }}"> Bulk Images Upload </a>
+					</li>
+				</ol>
+			</div>
+		</div>      
+		<div class="btn-group">
+			<a style="position:relative;" href="{{route('uploads')}}" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Back</a>
+		</div>
+	</div>
+	<div id="syncresponse">
+		<div class="sync-process text-center mb-1">
+			<ul class="text-center">
+				<li>
+				<a class="active text-center" id="ss_step">1</a>
+				</li>
+				<li>
+				<a class="incomplete text-center" id="drm_step">2</a>
+				</li>
+				<li>
+				<a class="incomplete text-center" id="sr_step">3</a>
+				</li>
+			</ul>
+		</div>
+		<div class="fix-sync">
+			<div class="sync-container">
+				<div id="ss_step_div" class="text-center containers d-none">
+					<div>
+						<form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
+							@csrf
+							<input type="hidden" name="type" id="type">
+							<div class="dz-default dz-message">
+								<h3 class="dropzone-custom-title">Drag and drop to upload media files!</h3>
+								<button class="dz-button" type="button">...or click to select files from your computer</button>
+							</div>
+						</form>
+					</div>
+					<div class="border border-light mt-1 p-1 category-wrapper">
+						<h5 class="text-left mb-1" style="font-weight:500">Select Category</h5>
+						<div class="d-flex flex-sm-row flex-column justify-content-between">
+							<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
+								<label class="d-block text-left mb-0 text-dark" for="">Select Type</label>
+								<select name="" id="" class="form-control">
+								<option value="">No option selected</option>
+								<option value="">Community</option>
+								<option value="">Elevation</option>
+								<option value="">Floor</option>
+								<option value="">Floor-Feature</option>
+								</select>
+							</div>
+							<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
+								<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
+								<select name="" id="" class="form-control ">
+								<option value="">No option selected</option>
+								<option value="">Enclave of Twin Run</option>
+								<option value="">Big Fork Landing</option>
+								</select>
+							</div>
+							<div class="w-100">
+								<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
+								<select name="" id="" class="form-control">
+								<option value="">No option selected</option>
+								<option value="">Logo</option>
+								<option value="">Banner</option>
+								<option value="">Map Marker</option>
+								<option value="">Gallery</option>
+								</select>
+							</div>
+						</div>
+						<div class="mt-1">
+							<label class="text-left d-block text-dark mb-0" style="font-weight:500 !important">Import Options</label>
+							<select name="" style="max-width:300px;" class="form-control" id="">
+								<option value="">No option selected</option>
+								<option value="">override</option>
+								<option value="">update</option>
+								<option value="">skip</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div id="drm_step_div" class="table-responsive containers d-block">
 					<h3 class="text-center mb-1">Images Mapping</h3>
-               <ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
+					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped</a>
 						</li>
@@ -399,40 +403,122 @@ tr.bg-sdanger input[type="checkbox"] {
 						</li>
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
-                  <div class="tab-pane fade show active" id="pills-mapped" role="tabpanel" aria-labelledby="pills-mapped-tab">
-                     <ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                           <a class="nav-link active" id="pills-communties-tab" data-toggle="pill" href="#pills-communties" role="tab" aria-controls="pills-communties" aria-selected="true">Communties</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                           <a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                           <a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors</a>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                           <a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features</a>
-                        </li>
-                     </ul>
-					      <div class="tab-content">
-                        <div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">...
-                        </div>
-                        <div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">test
-                        </div>
-                        <div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...
-                        </div>
-                        <div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">...
-                        </div>
-                     </div>
-                  </div>
-                  <div class="tab-pane fade" id="pills-unmapped" role="tabpanel" aria-labelledby="pills-unmapped-tab">
-                     unpadded tab
-                  </div>
-                  <div class="tab-pane fade" id="pills-deleted" role="tabpanel" aria-labelledby="pills-deleted-tab">
-                     delete tab
-                  </div>
-               </div>
-            </div>
+						<div class="tab-pane fade show active" id="pills-mapped" role="tabpanel" aria-labelledby="pills-mapped-tab">
+							<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
+								<li class="nav-item" role="presentation">
+								<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communties</a>
+								</li>
+								<li class="nav-item" role="presentation">
+								<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations</a>
+								</li>
+								<li class="nav-item" role="presentation">
+								<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors</a>
+								</li>
+								<li class="nav-item" role="presentation">
+								<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features</a>
+								</li>
+							</ul>
+							<div class="tab-content">
+								<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
+									<div class="w-100 border mapping-action-wrap" style="background:#363636; padding:8px 20px; margin: 8px 0">
+										<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+										<button class="mr-1">Add</button>
+										<button class="mr-1">Update</button>
+										<button class="mr-1">Delete</button>
+									</div>
+									<div class="table-responsive" id="custom_table">
+										<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width:40px"><input type="checkbox"></th>
+													<th>Image Name</th>
+													<th>Category or Mapped</th> 
+													<th>Uploaded By</th>
+													<th>Image</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td><input type="checkbox"></td>
+													<td>cottage-garden-g-park</td>
+													<td>Cottage Garden - Gallery</td>
+													<td>Admin</td>
+													<td></td>
+													<td>
+														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+													</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox"></td>
+													<td>cottage-garden-g-view</td>
+													<td>Cottage Garden - Gallery</td>
+													<td>Admin</td>
+													<td></td>
+													<td>
+														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+													</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox"></td>
+													<td>cottage-garden-g-park</td>
+													<td>Cottage Garden - Gallery</td>
+													<td>Admin</td>
+													<td></td>
+													<td>
+														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+													</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox"></td>
+													<td>cottage-garden-g-view</td>
+													<td>Cottage Garden - Gallery</td>
+													<td>Admin</td>
+													<td></td>
+													<td>
+														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+													</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox"></td>
+													<td>cottage-garden-g-park</td>
+													<td>Cottage Garden - Gallery</td>
+													<td>Admin</td>
+													<td></td>
+													<td>
+														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+													</td>
+												</tr>
+												<tr>
+													<td><input type="checkbox"></td>
+													<td>cottage-garden-g-view</td>
+													<td>Cottage Garden - Gallery</td>
+													<td>Admin</td>
+													<td></td>
+													<td>
+														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+													</td>
+												</tr>	
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">test
+								</div>
+								<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...
+								</div>
+								<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">...
+								</div>
+							</div>
+						</div>
+						<div class="tab-pane fade" id="pills-unmapped" role="tabpanel" aria-labelledby="pills-unmapped-tab">
+							unpadded tab
+						</div>
+						<div class="tab-pane fade" id="pills-deleted" role="tabpanel" aria-labelledby="pills-deleted-tab">
+							delete tab
+						</div>
+					</div>
+				</div>
 				<div id="sr_step_div" class="containers">
 					<h3 class="text-center">Report</h3>
 					<div>
@@ -458,10 +544,10 @@ tr.bg-sdanger input[type="checkbox"] {
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="footer-buttons">
-			<button class="btn btn-secondary btn-sm ftbtn" id="backButton" type="button" onclick="changeStep(false)"> Back </button>
-			<button class="btn btn-info btn-sm ftbtn" type="button" onclick="changeStep(true)"> Next </button>
+			<div class="footer-buttons">
+				<button type="button" class="btn-orange" id="backButton" onclick="changeStep(false)" style="background: #313131; margin-right:5px; float:unset;"> Back </button>
+				<button class="btn-orange" onclick="changeStep(true)" type="button" style="float:unset;"> Next </button>
+			</div>
 		</div>
 	</div>
 </div>

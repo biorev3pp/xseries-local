@@ -244,7 +244,7 @@ tr.bg-sdanger input[type="checkbox"] {
     text-align: center;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 12px;
-    width: calc(100% - 96px);
+    width: calc(100% - 106px);
 }
 
 .file-upload .file-select {
@@ -384,6 +384,10 @@ tr.bg-sdanger input[type="checkbox"] {
 	padding-bottom: .5rem;
 }
 
+.tab-content label{
+	font-size: 15px;
+}
+
 .footer-buttons{
     position: absolute;
     text-align: center;
@@ -392,7 +396,7 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .mapping-fields-wrapper{
-	height: calc(100vh - 480px);
+	height: calc(100vh - 500px);
 	overflow: auto;
 }
 
@@ -427,7 +431,16 @@ tr.bg-sdanger input[type="checkbox"] {
 </style>
 <div class="container-fluid page-wrapper">
 	<div class="row justify-content-between pl-1 pr-1 align-items-center">
-		<h1 class="a_dash m-0">Bulk Data Upload</h1> 
+		<div>
+			<h1 class="a_dash p-0 m-0 d-inline-block">Uploads <small><span class="color-secondary">|</span></small></h1>
+			<div class="row breadcrumbs-top pl-2 d-inline-block">
+                <ol class="breadcrumb"> 
+                <li class="breadcrumb-item">
+                <a href="{{ route('bulk-data') }}"> Bulk Data Upload </a>
+                </li>
+                </ol>
+            </div>
+		</div>
 		<div class="btn-group">
 			<a style="position:relative;" href="{{route('uploads')}}" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Back</a>
 		</div>
@@ -445,7 +458,7 @@ tr.bg-sdanger input[type="checkbox"] {
 				<div id="ss_step_div" class="text-center containers">
 					<h3 class="text-center">Import Files</h3>
 					<div class="pt-0 pb-2">
-						<h6>Have existing records in your own file? Import your own excel file. If not you can download sample file.</h6>
+						<h6 style="font-weight: 500;">Have existing records in your own file? Import your own excel file. If not you can download sample file.</h6>
 					</div>
 					<div class="row pl-1 pr-1 justify-content-between align-items-center choose-file-wrap">
 						<div class="file-upload pr-md-1 pr-0">
@@ -456,12 +469,13 @@ tr.bg-sdanger input[type="checkbox"] {
                             </div>
 						</div> 
                         <a href="{{ url('/admin/bulk-upload-sample.xlsx') }}">
-                            <button class="btn btn-secondary btn-sm ftbtn" type="button"> Sample File </button>
+							<button class="btn-orange" type="button"> Sample File </button>
                         </a>
                     </div>
 					<h6 class="my-2">OR</h6>
-                    <button class="btn btn-info btn-sm ftbtn" type="button"> Import From Google </button>
-					<a href="{{route('import-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto;">View Recent Reports</h6></a>
+                    <button class="btn-orange" type="button" style="float:unset;"> Import From Google </button>
+
+					<a href="{{route('import-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto; font-weight:500;">View Recent Reports</h6></a>
 				</div>
 				<div id="drm_step_div" class="table-responsive containers">
 					<h3 class="text-center mb-1">Data Mapping</h3>
@@ -492,12 +506,13 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="d-flex justify-content-end align-items-center px-1">
 							<label class="m-0 text-dark">Import Options:</label>
 							<select class="form-control" id="importOptions">
-								<option value='create'>Create</option>
-								<option calue='update'>Update</option>
+								<option value='override'>Override</option>
+								<option value='update'>Update</option>
+								<option value='skip' selected>Skip</option>
 							</select>
 						</div>
 						<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
@@ -506,7 +521,7 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
@@ -515,7 +530,7 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
@@ -524,7 +539,7 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
@@ -533,7 +548,7 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
@@ -542,7 +557,7 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
@@ -551,7 +566,7 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">
-							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:.6rem 1rem;">
+							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
 								<h6 class="mb-0 w-100">Map Into Field</h6>
 							</div>
@@ -588,8 +603,8 @@ tr.bg-sdanger input[type="checkbox"] {
 			</div>
 		</div>
 		<div class="footer-buttons">
-			<button class="btn btn-secondary btn-sm ftbtn" id="backButton" type="button" onclick="changeStep(false)"> Back </button>
-			<button class="btn btn-info btn-sm ftbtn" type="button" onclick="changeStep(true)"> Next </button>
+			<button type="button" class="btn-orange" id="backButton" onclick="changeStep(false)" style="background: #313131; margin-right:5px; float:unset;"> Back </button>
+			<button class="btn-orange" onclick="changeStep(true)" type="button" style="float:unset;"> Next </button>
 		</div>
 	</div>
 </div>

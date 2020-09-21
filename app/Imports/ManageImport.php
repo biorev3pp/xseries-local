@@ -11,19 +11,28 @@ class ManageImport implements WithMultipleSheets,SkipsUnknownSheets
 {
     use Importable;
     public $mapArray;
-    public function __construct($mapArray){
+    public $importing_on;
+    public function __construct($mapArray,$importing_on){
         $this->mapArray = $mapArray;
+        $this->importing_on = $importing_on;
+        
     }
     public function sheets(): array
     {
         return [
-            'Communities'                   => new CommunitiesImport($this->mapArray->{'community'}),
-            'Elevations'                    => new HomesImport(),
-            'Floors'                        => new FloorsImport(),
-            'Floor Features'                => new FloorFeaturesImport(),
-            'Elevation Types'               => new HomeTypesImport(),
-            'Color Schemes'                 => new ColorSchemesImport(),
-            'Color Scheme Features'         => new HomeFeaturesImport(),
+            'Communities'                   => new CommunitiesImport($this->mapArray->{'community'},$this->importing_on),
+
+            'Elevations'                    => new HomesImport($this->mapArray->{'elevation'},$this->importing_on),
+
+            'Floors'                        => new FloorsImport($this->mapArray->{'floor'},$this->importing_on),
+
+            'Floor Features'                => new FloorFeaturesImport($this->mapArray->{'floor_feature'},$this->importing_on),
+
+            'Elevation Types'               => new HomeTypesImport($this->mapArray->{'elevation_type'},$this->importing_on),
+
+            'Color Schemes'                 => new ColorSchemesImport($this->mapArray->{'color_scheme'},$this->importing_on),
+            
+            'Color Scheme Features'         => new HomeFeaturesImport($this->mapArray->{'color_scheme_feature'},$this->importing_on),
         ];
     }
     public function onUnknownSheet($sheetName)

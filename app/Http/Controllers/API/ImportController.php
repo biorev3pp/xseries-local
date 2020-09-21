@@ -8,7 +8,13 @@ use App\Imports\ManageImport;
 use App\Imports\ExcelHeadings;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Models\Communities;
-
+use App\Models\ColorSchemes;
+use App\Models\HomeFeatures;
+use App\Models\Homes;
+use App\Models\Floor;
+use App\Models\Features;
+use App\Models\History;
+use App\Models\ErrorHistory;
 class ImportController extends Controller
 {
     /**
@@ -82,12 +88,42 @@ class ImportController extends Controller
      */
     public function store(Request $request)
     {   
+        $importing_on = time();
         $mapArray = json_decode($request->mapped);
         $dir = public_path('/uploads/excel/');
         $path = $dir.$request->session()->get('excel');
-        $res = Excel::import(new ManageImport($mapArray), $path);
+         Excel::import(new ManageImport($mapArray,$importing_on), $path);
         // $array = ();
         // dd($array);
+        $com_success = Communities::where('imported_on',$importing_on)->count();
+        $ele_success = Homes::where('imported_on',$importing_on)->count();
+        $ele_type_success = Homes::where('imported_on',$importing_on)->where('parent_id','!=',0)->count();
+        $color_success = ColorSchemes::where('imported_on',$importing_on)->count();
+        $color_feature_success = HomeFeatures::where('imported_on',$importing_on)->count();
+        $floor_success = Floor::where('imported_on',$importing_on)->count();
+        $floor_feature_success = Features::where('imported_on',$importing_on)->count();
+        $total_success = $com_success+$ele_success+$ele_type_success+$color_success+$color_feature_success+$floor_feature_success+$floor_success;
+
+        $com_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'community'])->count();
+        $ele_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'elevation'])->count();
+        $ele_type_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'elevation_type'])->count();
+        $color_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'color_scheme'])->count();
+        $color_feature_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'color_scheme_feature'])->count();
+        $floor_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'floor'])->count();
+        $floor_feature_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'floor_feature'])->count();
+        $total_fail = $com_fail+$ele_fail+$ele_type_fail+$color_fail+$color_feature_fail+$floor_fail+$floor_feature_fail;
+
+        $success_percent = ($total_success)/($total_fail+$total_success);
+        $res = array(
+            'success'       =>$total_success,
+            'fail'          => $total_fail,
+            'percentage'    => $success_percent 
+        );
+        // $res = ErrorHistory::where('imported_on',$importing_on)->get();
+        // foreach($res as $r)
+        // {
+        //     $r = unserialize($r->data);
+        // }
         return response()->json($res);
     }
 

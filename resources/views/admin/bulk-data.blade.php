@@ -647,7 +647,7 @@ const changeStep = (buttonClicked) => {
 			$('#drm_step_div').fadeIn();
 			break;
 		case 3: 
-			let finalStep = uploadData();
+			let finalStep =  uploadData();
 			if(!finalStep){
 				step = 2;
 				return;
@@ -886,6 +886,14 @@ const changeStep = (buttonClicked) => {
         }
 	}
 	let mappedArray = {}; 
+	let count = 0;
+	mappedArray['community'] = {};
+	mappedArray['elevation'] = {};
+	mappedArray['elevation_type'] = {};
+	mappedArray['color_scheme'] = {};
+	mappedArray['color_scheme_feature'] = {};
+	mappedArray['floor'] = {};
+	mappedArray['floor_feature'] = {};
 	let [community, elevation,elevation_type,color_scheme,color_scheme_feature,floor,floor_feature] = [{},{},{},{},{},{},{}];
 	function userMappedData(type,index,label)
 	{
@@ -894,10 +902,12 @@ const changeStep = (buttonClicked) => {
 				if($('#community_dropdown_'+index).val()=='')
 				{
 					delete community[label];
+					count--;
 				}
 				else
 				{
 					community[label] = $('#community_dropdown_'+index).val();
+					count++;
 				}
 				mappedArray['community'] = community;
 			break;
@@ -906,10 +916,12 @@ const changeStep = (buttonClicked) => {
 				if($('#elevation_dropdown_'+index).val()=='')
 				{
 					delete elevation[label];
+					count--;
 				}
 				else
 				{
 					elevation[label] = $('#elevation_dropdown_'+index).val();
+					count++;
 				}
 				mappedArray['elevation'] = elevation;
 			break;
@@ -918,10 +930,12 @@ const changeStep = (buttonClicked) => {
 				if($('#elevation_dropdown_'+index).val()=='')
 				{
 					delete elevation_type[label];
+					count--;
 				}
 				else
 				{
 					elevation_type[label] = $('#elevation_type_dropdown_'+index).val();
+					count++;
 				}
 				mappedArray['elevation_type'] = elevation_type;
 			break;
@@ -930,10 +944,12 @@ const changeStep = (buttonClicked) => {
 				if($('#color_scheme_dropdown_'+index).val()=='')
 				{
 					delete color_scheme[label];
+					count--;
 				}
 				else
 				{
 					color_scheme[label] = $('#color_scheme_dropdown_'+index).val();
+					count++;
 				}
 				mappedArray['color_scheme'] = color_scheme;
 			break;
@@ -942,10 +958,12 @@ const changeStep = (buttonClicked) => {
 				if($('#color_scheme_feature_dropdown_'+index).val()=='')
 				{
 					delete color_scheme_feature[label];
+					count--;
 				}
 				else
 				{
 					color_scheme_feature[label] = $('#color_scheme_feature_dropdown_'+index).val();
+					count++;
 				}
 				mappedArray['color_scheme_feature'] = color_scheme_feature;
 			break;
@@ -954,10 +972,12 @@ const changeStep = (buttonClicked) => {
 				if($('#floor_dropdown_'+index).val()=='')
 				{
 					delete floor[label];
+					count--;
 				}
 				else
 				{
 					floor[label] = $('#floor_dropdown_'+index).val();
+					count--
 				}
 				mappedArray['floor'] = floor;
 			break;
@@ -965,7 +985,13 @@ const changeStep = (buttonClicked) => {
 			case 'floor_feature':
 				if($('#floor_feature_dropdown_'+index).val()=='')
 				{
+					delete floor_feature[label];
+					count--;
+				}
+				else
+				{
 					floor_feature[label] = $('#floor_feature_dropdown_'+index).val();
+					count++;
 				}
 				mappedArray['floor_feature'] = floor_feature;
 			break;
@@ -976,8 +1002,7 @@ const changeStep = (buttonClicked) => {
 	}
 	function uploadData()
 	{
-		console.log(mappedArray);
-		if(!jQuery.isEmptyObject(mappedArray))
+		if(count!=0)
 		{
 			mappedArray['import_as'] = $('#importOptions').val();
 			let dat = JSON.stringify(mappedArray);
@@ -986,10 +1011,10 @@ const changeStep = (buttonClicked) => {
 				url  		: '/api/mega-import',
 				headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 				data        : {'mapped':dat},
-				dataType	:'application/json',
 				success		: function(response){
-					console.log(response)
-					return true;
+					$('.badge-success').html(response.success);
+					$('.badge-danger').html(response.fail);
+					$('.badge-info').html(`${response.percentage}%`);
 				},
 				error		: function(error){
 

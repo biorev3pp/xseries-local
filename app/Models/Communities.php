@@ -8,7 +8,7 @@ class Communities extends Model
 {
     protected $table = 'communities';
     
-    protected $fillable = ['state_id', 'city_id', 'name', 'location', 'marker', 'slug', 'logo', 'banner', 'zipcode','description', 'contact_person', 'contact_email','marker_image', 'contact_number', 'status_id','features','community_type', 'lat', 'lng', 'gallery', 'map_type_id', 'map_zoom'];
+    protected $fillable = ['state_id', 'city_id', 'name', 'location', 'marker', 'slug', 'logo', 'banner', 'zipcode','description', 'contact_person', 'contact_email','marker_image', 'contact_number', 'status_id','features','community_type', 'lat', 'lng', 'gallery', 'map_type_id', 'map_zoom','imported_on'];
 
     public function city(){
         return $this->belongsTo('App\Models\Cities', 'city_id', 'id');

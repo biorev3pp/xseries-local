@@ -6,6 +6,8 @@ use App\Models\Communities;
 use App\Models\States;
 use App\Models\Cities;
 use App\Models\Plots;
+use App\Models\History;
+use App\Models\ErrorHistory;
 use App\Models\LegendGroups;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToModel;
@@ -15,6 +17,7 @@ use Illuminate\Validation\Rule;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Validators\Failure;
+// setting the default heading structure to none
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 HeadingRowFormatter::default('none');
 class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFailure
@@ -23,12 +26,15 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
     public $mapChoice;
     public $rules = [];
     public $errormsg = [];
+    public $imported_on;
     
-    public function __construct($mapChoice)
+    public function __construct($mapChoice,$importing_on)
     {
         # code...
         $this->mapChoice = (array)$mapChoice;
+        $this->imported_on = $importing_on;
         $this->mapChoice = array_flip($this->mapChoice);
+        
         if(array_key_exists('name',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['name']] = 'required';
@@ -70,55 +76,45 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
 
     public function model(array $row)
     {
-        // dd($row);
-        // Validator::make($rows->toArray(), [
-        //     '*.community_name'      => 'required',
-        //     '*.contact_person'      => 'required|regex:/^[a-zA-Z\s]*$/',
-        //     '*.contact_email'       => 'required|email|max:180',
-        //     '*.contact_number'      => 'required|digits:10',
-        //     '*.location'            => 'required',
-        //     '*.state_id'            => 'required|numeric',
-        //     '*.city_id'             => 'required|numeric',  
-        //     '*.zipcode'             => 'required|numeric|digits_between:5,6',
-        // ])->validate();
-  
-            // $slug_key = array_search('name',$this->mapChoice);
-            if(!array_key_exists('name',$this->mapChoice)){
-                
-                // there is no field map with community name. Terminate the whole process and exit
-                dd("no key found");
-                return;
-            }
-            foreach($this->mapChoice as $key => $value)
-            {
-                $c_data[$key] =  $row[$this->mapChoice[$key]];
-            }
-            $slug = str_replace(' ', '-', strtolower($row[$this->mapChoice['name']]));
-            if(Communities::where('slug', $slug)->count() == 0)
-            { 
-                $c_data['slug'] = $slug; 
-                // Handle exception
-                $community =  new Communities($c_data);
-                $community = Communities::create($c_data);
-                $plot = Plots::create([
-                    'community_id' => $community->id,
-                ]);
-    
-                $legend_group = LegendGroups::create([
-                    'plot_id' => $plot->id,
-                    'groupname' => 'Color Legends',
-                    'status_id' =>2
-                ]);
-    
-                Plots::where('id', $plot->id)->update([
-                    'legend_group_id' => $legend_group->id
-                ]);
-                return;
-                
-            }
-            else{
-                return null;
-            }
+        //continue or stop
+        if(!array_key_exists('name',$this->mapChoice))
+        {
+            // there is no field map with community name. Terminate the whole process and exit.
+            return;
+        }
+        foreach($this->mapChoice as $key => $value)
+        {
+            $c_data[$key] =  $row[$this->mapChoice[$key]];
+        }
+        
+        $slug = str_replace(' ', '-', strtolower($row[$this->mapChoice['name']]));
+        if(Communities::where('slug', $slug)->count() == 0)
+        { 
+            $c_data['slug'] = $slug; 
+            $c_data['imported_on'] = $this->imported_on;
+            // Handle exception
+            $community =  new Communities($c_data);
+            $community = Communities::create($c_data);
+            $c_id = Communities::where('slug',$community->slug)->get(['id'])->first();
+            $plot = Plots::create([
+                'community_id' => $c_id->id,
+            ]);
+
+            $legend_group = LegendGroups::create([
+                'plot_id' => $plot->id,
+                'groupname' => 'Color Legends',
+                'status_id' =>2
+            ]);
+
+            Plots::where('id', $plot->id)->update([
+                'legend_group_id' => $legend_group->id
+            ]);
+            return;
+            
+        }
+        else{
+            return null;
+        }
     }
     public function rules(): array
     {   
@@ -131,6 +127,11 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
     public function onFailure(Failure ...$failures)
     {
         // Handle the failures how you'd like.
-        dd($failures);
+        $err = serialize($failures);
+        ErrorHistory::create([
+            'data'          => $err,
+            'type'          => 'community',
+            'imported_on'   => $this->imported_on
+        ]);
     }
 }

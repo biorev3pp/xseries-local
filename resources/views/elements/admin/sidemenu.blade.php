@@ -72,7 +72,14 @@
                 <ul class="menu-content" style="">
                     <li class="is-shown"><a class="waves-effect waves-dark" href="{{ route('settings') }}"><i></i><span data-i18n="eCommerce">Settings</span></a>
                     </li>
-                    <li class="is-shown"><a class="waves-effect waves-dark" href="{{ route('import-history') }}"><i></i><span data-i18n="Crypto">View Reports</span></a>
+                    <li class="is-shown has-sub">
+                        <a class="waves-effect waves-dark"><i></i><span data-i18n="Crypto">View Reports</span></a>
+                        <ul class="menu-content">
+                            <li class="is-shown"><a class="waves-effect waves-dark" href="{{ route('import-history') }}"><i></i><span data-i18n="eCommerce">Data</span></a>
+                            </li>
+                            <li class="is-shown"><a class="waves-effect waves-dark" href="{{ route('import-images-history') }}"><i></i><span data-i18n="eCommerce">Images</span></a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </li>

@@ -168,6 +168,8 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::post('settings/save', 'Admin\SettingsController@update');
     Route::post('settings/{id}', 'Admin\SettingsController@updateAdmins');
     Route::get('settings/import-history', 'Admin\SettingsController@importHistory')->name('import-history');
+    Route::get('settings/import-images-history', 'Admin\SettingsController@importImagesHistory')->name('import-images-history');
+
 
     // ADMIN ESTIMATE
     Route::get('/estimates', 'Admin\DashboardController@estimates')->name('estimates');

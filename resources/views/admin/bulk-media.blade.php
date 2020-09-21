@@ -272,6 +272,8 @@ tr.bg-sdanger input[type="checkbox"] {
 .footer-buttons{
     text-align: right;
     padding: 0 15px 15px 0;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .mapping-fields-wrapper{
@@ -283,6 +285,23 @@ tr.bg-sdanger input[type="checkbox"] {
 	display: none;
 	background-color: #313131!important;
 	transition: 0.3s ease background-color;
+}
+
+.counter{
+	background: white;
+    border-radius: 50%;
+    color: #323232;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.mapping-action-wrap{
+	background: #363636;
+    padding: 8px 20px;
+    margin: 8px 0;
 }
 
 .mapping-action-wrap button{
@@ -300,6 +319,178 @@ tr.bg-sdanger input[type="checkbox"] {
 .mapping-action-wrap button:hover{
 	color: #363636;
 	background: #f1f1f1;
+}
+
+.add-image-button{
+	border: none;
+	background: #007bff;
+	color: #fff;
+	padding: 6px 25px;
+	font-size: 14px;
+	border-radius: 50px;
+	outline: none;
+}
+
+.add-image-button:focus{
+	outline: none;
+}
+
+.modal-footer a{
+	color: #4598D3;
+	margin: 0 !important;
+}
+
+.modal-footer div button{
+	background: transparent;
+    border: 1px solid #363636;
+    border-radius: 50px;
+    padding: 3px 20px;
+	margin-right: 10px;
+	outline:none;
+}
+
+.modal-footer div button:nth-child(2){
+	margin-right: 0px;
+	background: #ACD9A5;
+    border: 1px solid #ACD9A5;
+	color: #fff;
+}
+
+.feather.feather-check-circle{
+	display:none;
+}
+
+#unmappedTable .add-image-button {
+	background: #aaa;
+}
+
+.image-edit-button{
+    position: absolute;
+    right: 0;
+    background: rgba(245, 105, 84, 0.8);
+    padding: 3px;
+    top: 0;
+	cursor: pointer;
+	transition: .3s ease all;
+}
+.image-edit-button:hover{
+	background: rgba(245, 105, 84, 0.9)
+}
+
+/* Choose File */
+.file-upload {
+    display: block;
+    text-align: center;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    width: 100%;
+}
+
+.file-upload .file-select {
+    display: block;
+    border: 2px solid #dce4ec;
+    color: #34495e;
+    cursor: pointer;
+    height: 40px;
+    line-height: 40px;
+    text-align: left;
+    background: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+}
+
+.file-upload .file-select .file-select-button {
+    background: #dce4ec;
+    padding: 0 10px;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+}
+
+.file-upload .file-select .file-select-name {
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.file-upload .file-select:hover {
+    border-color: #34495e;
+    transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+}
+
+.file-upload .file-select:hover .file-select-button {
+    background: #34495e;
+    color: #FFFFFF;
+    transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+}
+
+.file-upload.active .file-select {
+    border-color: #3fa46a;
+    transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+}
+
+.file-upload.active .file-select .file-select-button {
+    background: #3fa46a;
+    color: #FFFFFF;
+    transition: all .2s ease-in-out;
+    -moz-transition: all .2s ease-in-out;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+}
+
+.file-upload .file-select input[type=file] {
+    z-index: 100;
+    cursor: pointer;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+.file-upload .file-select.file-select-disabled {
+    opacity: 0.65;
+}
+
+.file-upload .file-select.file-select-disabled:hover {
+    cursor: default;
+    display: block;
+    border: 2px solid #dce4ec;
+    color: #34495e;
+    cursor: pointer;
+    height: 40px;
+    line-height: 40px;
+    margin-top: 5px;
+    text-align: left;
+    background: #FFFFFF;
+    overflow: hidden;
+    position: relative;
+}
+
+.file-upload .file-select.file-select-disabled:hover .file-select-button {
+    background: #dce4ec;
+    color: #666666;
+    padding: 0 10px;
+    display: inline-block;
+    height: 40px;
+    line-height: 40px;
+}
+
+.file-upload .file-select.file-select-disabled:hover .file-select-name {
+    line-height: 40px;
+    display: inline-block;
+    padding: 0 10px;
 }
 
 </style>
@@ -335,7 +526,7 @@ tr.bg-sdanger input[type="checkbox"] {
 		</div>
 		<div class="fix-sync">
 			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers d-none">
+				<div id="ss_step_div" class="text-center containers">
 					<div>
 						<form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
 							@csrf
@@ -389,48 +580,48 @@ tr.bg-sdanger input[type="checkbox"] {
 						</div>
 					</div>
 				</div>
-				<div id="drm_step_div" class="table-responsive containers d-block">
+				<div id="drm_step_div" class="table-responsive containers">
 					<h3 class="text-center mb-1">Images Mapping</h3>
 					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped</a>
+							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter">6</span></a>
 						</li>
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-unmapped-tab" data-toggle="pill" href="#pills-unmapped" role="tab" aria-controls="pills-unmapped" aria-selected="false">Unmapped</a>
+							<a class="nav-link" id="pills-unmapped-tab" data-toggle="pill" href="#pills-unmapped" role="tab" aria-controls="pills-unmapped" aria-selected="false">Unmapped <span class="counter">1</span></a>
 						</li>
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-deleted-tab" data-toggle="pill" href="#pills-deleted" role="tab" aria-controls="pills-deleted" aria-selected="false">Deleted</a>
+							<a class="nav-link" id="pills-deleted-tab" data-toggle="pill" href="#pills-deleted" role="tab" aria-controls="pills-deleted" aria-selected="false">Deleted <span class="counter">1</span></a>
 						</li>
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-mapped" role="tabpanel" aria-labelledby="pills-mapped-tab">
 							<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
 								<li class="nav-item" role="presentation">
-								<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communties</a>
+								<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communties <span class="counter">6</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations</a>
+								<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations <span class="counter">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors</a>
+								<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors <span class="counter">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features</a>
+								<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features <span class="counter">0</span></a>
 								</li>
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
-									<div class="w-100 border mapping-action-wrap" style="background:#363636; padding:8px 20px; margin: 8px 0">
+									<div class="w-100 border mapping-action-wrap">
 										<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-										<button class="mr-1">Add</button>
-										<button class="mr-1">Update</button>
-										<button class="mr-1">Delete</button>
+										<button class="mr-1 add-button">Add</button>
+										<button class="mr-1 update-button">Update</button>
+										<button class="mr-1 delete-button">Delete</button>
 									</div>
 									<div class="table-responsive" id="custom_table">
 										<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
-													<th style="width:40px"><input type="checkbox"></th>
+													<th style="width:40px"><input type="checkbox" class="checkall"></th>
 													<th>Image Name</th>
 													<th>Category or Mapped</th> 
 													<th>Uploaded By</th>
@@ -441,92 +632,198 @@ tr.bg-sdanger input[type="checkbox"] {
 											<tbody>
 												<tr>
 													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-park</td>
+													<td>cottage-garden-g-1</td>
 													<td>Cottage Garden - Gallery</td>
 													<td>Admin</td>
-													<td></td>
+													<td width="100px" style="min-width:100px;">
+														<div style="position:relative;">
+															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+														</div>
+													</td>
 													<td>
-														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+														<button type="button" class="add-image-button">Add</button>
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
 												<tr>
 													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-view</td>
+													<td>cottage-garden-g-2</td>
 													<td>Cottage Garden - Gallery</td>
 													<td>Admin</td>
-													<td></td>
+													<td width="100px" style="min-width:100px;">
+														<div style="position:relative;">
+															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+														</div>
+													</td>
 													<td>
-														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+														<button type="button" class="add-image-button">Add</button>
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
 												<tr>
 													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-park</td>
+													<td>cottage-garden-g-3</td>
 													<td>Cottage Garden - Gallery</td>
 													<td>Admin</td>
-													<td></td>
+													<td width="100px" style="min-width:100px;">
+														<div style="position:relative;">
+															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+														</div>
+													</td>
 													<td>
-														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+														<button type="button" class="add-image-button">Add</button>
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
 												<tr>
 													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-view</td>
+													<td>cottage-garden-g-4</td>
 													<td>Cottage Garden - Gallery</td>
 													<td>Admin</td>
-													<td></td>
+													<td width="100px" style="min-width:100px;">
+														<div style="position:relative;">
+															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+														</div>
+													</td>
 													<td>
-														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+														<button type="button" class="add-image-button">Add</button>
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
 												<tr>
 													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-park</td>
+													<td>cottage-garden-g-5</td>
 													<td>Cottage Garden - Gallery</td>
 													<td>Admin</td>
-													<td></td>
+													<td width="100px" style="min-width:100px;">
+														<div style="position:relative;">
+															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+														</div>
+													</td>
 													<td>
-														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+														<button type="button" class="add-image-button">Add</button>
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
 												<tr>
 													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-view</td>
+													<td>cottage-garden-g-6</td>
 													<td>Cottage Garden - Gallery</td>
 													<td>Admin</td>
-													<td></td>
+													<td width="100px" style="min-width:100px;">
+														<div style="position:relative;">
+															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+														</div>
+													</td>
 													<td>
-														<button type="button" class="btn-orange" style="float:unset;">Add</button>
+														<button type="button" class="add-image-button">Add</button>
+														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>	
 											</tbody>
 										</table>
 									</div>
 								</div>
-								<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">test
+								<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">
+									<div class="alert alert-danger mt-1" role="alert">No Images are Mapped in this section.</div>
 								</div>
-								<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">...
+								<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">
+									<div class="alert alert-danger mt-1" role="alert">No Images are Mapped in this section.</div>
 								</div>
-								<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">...
+								<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">
+									<div class="alert alert-danger mt-1" role="alert">No Images are Mapped in this section.</div>
 								</div>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-unmapped" role="tabpanel" aria-labelledby="pills-unmapped-tab">
-							unpadded tab
+							<div class="w-100 border mapping-action-wrap">
+								<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+								<button class="mr-1 add-button">Add</button>
+								<button class="mr-1 update-button">Update</button>
+								<button class="mr-1 delete-button">Delete</button>
+							</div>
+							<div class="table-responsive" id="custom_table">
+								<table class="table table-bordered table-hover" id="unmappedTable" width="100%" cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width:40px"><input type="checkbox" class="checkall"></th>
+											<th>Image Name</th>
+											<th>Category or Mapped</th> 
+											<th>Uploaded By</th>
+											<th>Image</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>test_image</td>
+											<td>Undefined</td>
+											<td>Admin</td>
+											<td width="100px" style="min-width:100px;">
+												<img class="w-100" src="{{asset('uploads/interior.png')}}">
+												<!-- <div style="position:relative;">
+													<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+												</div> -->
+											</td>
+											<td>
+												<button type="button" class="add-image-button">Add</button>
+												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-deleted" role="tabpanel" aria-labelledby="pills-deleted-tab">
-							delete tab
+							<div class="w-100 border mapping-action-wrap">
+								<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+								<button class="mr-1 undo-button">Undo</button>
+							</div>
+							<div class="table-responsive" id="custom_table">
+								<table class="table table-bordered table-hover" id="deleteTable" width="100%" cellspacing="0">
+									<thead>
+										<tr>
+											<th style="width:40px"><input type="checkbox" class="checkall"></th>
+											<th>Image Name</th>
+											<th>Category or Mapped</th> 
+											<th>Uploaded By</th>
+											<th>Image</th>
+											<th>Action</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td><input type="checkbox"></td>
+											<td>cottage-garden-g-7</td>
+											<td>Cottage Garden - Gallery</td>
+											<td>Admin</td>
+											<td width="100px" style="min-width:100px;"><img class="w-100" src="{{asset('uploads/Kingsmark-C2.jpg')}}"></td>
+											<td>
+												<button type="button" class="add-image-button undo-button">Undo</button>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
 				<div id="sr_step_div" class="containers">
 					<h3 class="text-center">Report</h3>
 					<div>
-						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>All data has been imported successfully.</span>
+						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>Images has been uploaded successfully.</span>
 							<ul class="same-btns">
-								<li> <a href="{{route('bulk-data')}}">Import More Data </a> </li>
-								<li> <a href="{{route('import-history')}}">View Report </a> </li>
-								<li> <a href="{{route('uploads')}}">Upload Images </a> </li>
+								<li> <a href="{{route('bulk-media')}}">Upload More Images </a> </li>
+								<li> <a href="{{route('import-images-history')}}">View Report </a> </li>
+								<li> <a href="{{route('bulk-data')}}">Import Data </a> </li>
 							</ul>
 							<ul class="sys-btns">
 								<li> <a href="{{route('communities')}}">Manage Communities </a> </li>
@@ -536,27 +833,98 @@ tr.bg-sdanger input[type="checkbox"] {
 						</div>
 						<div class="sr-synop">
 							<h6>Activity Log </h6>
-							
-							<p> <span class="border-bottom"> <b class="badge badge-success">15</b> New entries has been imported successfully.  </span> </p>
-							<p> <span class="border-bottom"> <b class="badge badge-danger">3</b> Entries failed to import. </span> </p>
-							<p> <span class="border-bottom"> <b class="badge badge-info">83%</b> Import Process Completed. </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-success">6</b> New images has been uploaded successfully.  </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-danger">0</b> Images failed to upload. </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-info">100%</b> Upload Completed. </span> </p>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="footer-buttons">
 				<button type="button" class="btn-orange" id="backButton" onclick="changeStep(false)" style="background: #313131; margin-right:5px; float:unset;"> Back </button>
-				<button class="btn-orange" onclick="changeStep(true)" type="button" style="float:unset;"> Next </button>
+				<button class="btn-orange" onclick="changeStep(true)" type="button"> Next </button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Update Selected Rows</h5>
+			</div>
+			<div class="modal-body px-2 pt-2 pb-0">
+				<div class="w-100 mb-1 mr-0">
+					<label class="d-block text-left mb-0 text-dark" for="">Select Type</label>
+					<select name="" id="" class="form-control">
+					<option value="">No option selected</option>
+					<option value="">Community</option>
+					<option value="">Elevation</option>
+					<option value="">Floor</option>
+					<option value="">Floor-Feature</option>
+					</select>
+				</div>
+				<div class="w-100 mb-1 mr-0">
+					<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
+					<select name="" id="" class="form-control ">
+					<option value="">No option selected</option>
+					<option value="">Enclave of Twin Run</option>
+					<option value="">Big Fork Landing</option>
+					</select>
+				</div>
+				<div class="w-100">
+					<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
+					<select name="" id="" class="form-control">
+					<option value="">No option selected</option>
+					<option value="">Logo</option>
+					<option value="">Banner</option>
+					<option value="">Map Marker</option>
+					<option value="">Gallery</option>
+					</select>
+				</div>
+			</div>
+			<div class="modal-footer d-flex justify-content-between align-items-center p-2" style="border:none;">
+				<a href="javascript:;" data-dismiss="modal">Cancel</a>
+				<div>
+					<button type="button" class="">Apply</button>
+					<button type="button" class="">Apply and Add</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="replaceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Replace Image</h5>
+			</div>
+			<div class="modal-body px-2 pt-2 pb-0">
+				<div class="w-100">
+					<div class="file-upload pr-md-1 pr-0">
+						<div class="file-select">
+							<div class="file-select-button" id="fileName">Choose Image</div>
+							<div class="file-select-name" id="noFile">No file chosen...</div>
+							<input type="file" name="excel_file" id="image"> 
+						</div>
+					</div> 
+				</div>	
+			</div>
+			<div class="modal-footer d-flex justify-content-between align-items-center p-2" style="border:none;">
+				<a href="javascript:;" data-dismiss="modal">Cancel</a>
+				<div><button type="button">Update</button></div>
 			</div>
 		</div>
 	</div>
 </div>
 <script src="{{asset('Xseries-new-ui/dropzone/dropzone.js')}}"></script>
+<script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 @endsection
 @push('scripts')
 <script>
 // buttonClicked = true for next and false for back
 let step = 1;
+let rowsSelected = 0;
 const changeStep = (buttonClicked) => {
 	if(buttonClicked == true)
 	{
@@ -593,5 +961,136 @@ const changeStep = (buttonClicked) => {
 			break;
 	}
 }
+
+// Mapped Section
+
+$("#pills-mapped .tab-pane.active .checkall").on('click', function(){
+	$("#pills-communities tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
+	rowsSelected = $("#pills-communities tbody input[type=checkbox]:checked").length;
+	$("#pills-communities .mapping-action-wrap span b").html(rowsSelected);
+});
+$("#pills-mapped .tab-pane.active tbody input[type=checkbox]").on('click', function()
+{
+	if(this.checked)
+	{
+		rowsSelected++;
+	}
+	else{
+		rowsSelected--;
+	}
+	$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rowsSelected);
+});	
+$("#pills-mapped .tab-pane.active .mapping-action-wrap button").click(function(){
+	if(rowsSelected < 1){
+		toastr.error('Please select atleast one row');
+		return;
+	}
+	switch($(this).attr('class').split(' ').pop())
+	{
+		case "add-button":
+			break;			
+		case "update-button" : 
+			$("#updateModal").modal('show');
+			break;			
+		case "delete-button": 
+			break;			
+	}
+});
+
+$('#pills-mapped .tab-pane.active .add-image-button').on('click', function(){
+	const button = $(this);
+	button.fadeOut(function(){
+		button.next().fadeIn();
+	})
+});
+
+function replaceImage(){
+	$("#replaceModal").modal("show");
+}
+
+// Unmapped Section
+
+$("#pills-unmapped .checkall").on('click', function(){
+	$("#pills-unmapped tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
+	rowsSelected = $("#pills-unmapped tbody input[type=checkbox]:checked").length;
+	$("#pills-unmapped .mapping-action-wrap span b").html(rowsSelected);
+});
+$("#pills-unmapped tbody input[type=checkbox]").on('click', function()
+{
+	if(this.checked)
+	{
+		rowsSelected++;
+	}
+	else{
+		rowsSelected--;
+	}
+	$("#pills-unmapped .mapping-action-wrap span b").html(rowsSelected);
+});	
+$("#pills-unmapped .mapping-action-wrap button").click(function(){
+	if(rowsSelected < 1){
+		toastr.error('Please select atleast one row');
+		return;
+	}
+	switch($(this).attr('class').split(' ').pop())
+	{
+		case "add-button":
+			break;			
+		case "update-button" : 
+			$("#updateModal").modal('show');
+			break;			
+		case "delete-button": 
+			break;			
+	}
+});
+
+// Deleted Section
+
+$("#pills-deleted .checkall").on('click', function(){
+	$("#pills-deleted tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
+	rowsSelected = $("#pills-deleted tbody input[type=checkbox]:checked").length;
+	$("#pills-deleted .mapping-action-wrap span b").html(rowsSelected);
+});
+$("#pills-deleted tbody input[type=checkbox]").on('click', function()
+{
+	if(this.checked)
+	{
+		rowsSelected++;
+	}
+	else{
+		rowsSelected--;
+	}
+	$("#pills-deleted .mapping-action-wrap span b").html(rowsSelected);
+});	
+$("#pills-deleted .mapping-action-wrap button").click(function(){
+	if(rowsSelected < 1){
+		toastr.error('Please select atleast one row');
+		return;
+	}
+});
+
+$(document).ready( function () {
+	$('#unmappedTable').DataTable();
+	$('#deleteTable').DataTable();
+});
+
+$('#image').on('change', function () {
+	var filename = $("#image").val();
+	if (/^\s*$/.test(filename)) {
+		$(".file-upload").removeClass('active');
+		$("#noFile").text("No file chosen..."); 
+	}
+	else {
+		$(".file-upload").addClass('active');
+		$("#noFile").text(filename.replace("C:\\fakepath\\", "")); 
+	}
+});
+
+// Modal Event
+$('#replaceModal').on('hidden.bs.modal', function (e) {
+	$("#image").val('');
+	$(".file-upload").removeClass('active');
+	$("#noFile").text("No file chosen..."); 
+})
+
 </script>
 @endpush

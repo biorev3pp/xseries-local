@@ -9,10 +9,6 @@
 	display:none;
 }
 
-#syncresponse{
-	position:relative;
-}
-
 th .form-control-checkbox,
 td .form-control-checkbox {
 	float: right
@@ -122,7 +118,7 @@ a.add_button.active {
 }
 
 .fix-sync {
-	height: calc(100vh - 240px);
+	height: calc(100vh - 225px);
 	overflow: hidden;
 	background: #fff;
 	border: 1px solid #e4e4e4;
@@ -389,14 +385,12 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .footer-buttons{
-    position: absolute;
-    text-align: center;
-    right: 15px;
-    bottom: 15px;
+    text-align: right;
+	margin-top: 5px;
 }
 
 .mapping-fields-wrapper{
-	height: calc(100vh - 500px);
+	height: calc(100vh - 397px);
 	overflow: auto;
 }
 
@@ -406,10 +400,14 @@ tr.bg-sdanger input[type="checkbox"] {
 	transition: 0.3s ease background-color;
 }
 
-#importOptions{
-	max-width: 300px;
-	width: 100%;
+.nowrap{
+	white-space: nowrap;
 }
+
+select.form-control:disabled{
+	background-color: #eee;
+}
+
 @media(max-width:1200px){
 	.fix-sync{
 		overflow: auto;
@@ -424,9 +422,38 @@ tr.bg-sdanger input[type="checkbox"] {
 	}
 }
 
+@media(min-width: 992px){
+	.sync-process{
+		position: absolute;
+		top: 14px;
+		left: 0;
+		right: 0;
+		margin: 0 auto; 
+		z-index: 1111; 
+	}
+}
+
+@media(max-width: 992px){
+	#syncresponse{
+		position:relative;
+	}
+	.fix-sync{height: auto;}
+}
+
 @media(max-width:768px){
-    .file-upload{width: 100%;}
+    .file-upload{width: 100%; margin-bottom: 5px;}
     .choose-file-wrap{max-width: 100%;}
+}
+@media(max-width: 425px){
+	.nowrap{
+		white-space: unset;
+	}
+	.sync-process li{
+		width: 80px;
+	}
+	.sync-process ul li:not(:first-child) a::before{
+		width: 47px;
+	}
 }
 </style>
 <div class="container-fluid page-wrapper">
@@ -474,11 +501,24 @@ tr.bg-sdanger input[type="checkbox"] {
                     </div>
 					<h6 class="my-2">OR</h6>
                     <button class="btn-orange" type="button" style="float:unset;"> Import From Google </button>
-
 					<a href="{{route('import-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto; font-weight:500;">View Recent Reports</h6></a>
+					<div class="mt-2 mx-auto border border-light py-1 px-2" style="max-width:450px;">
+						<label class="text-left d-block text-dark" style="font-weight:500 !important; margin-bottom: 5px;">Import Options</label>
+						<div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
+							<select id="importOptions" class="form-control mr-0 mr-sm-1 mb-1 mb-sm-0" disabled>
+								<option value="">override</option>
+								<option value="">update</option>
+								<option value="" selected>skip</option>
+							</select>
+							<div class="w-100 d-flex align-items-center">
+								<input type="checkbox" id="importCheck" style="margin-right: 5px;">
+								<span class="nowrap">Update existing data while importing.</span>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div id="drm_step_div" class="table-responsive containers">
-					<h3 class="text-center mb-1">Data Mapping</h3>
+					<h3 class="text-center mb-1">Mapping</h3>
 					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communities</a>
@@ -503,18 +543,10 @@ tr.bg-sdanger input[type="checkbox"] {
 						</li>
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
-						<div class="d-flex justify-content-end align-items-center px-1">
-							<label class="m-0 text-dark">Import Options:</label>
-							<select class="form-control" id="importOptions">
-								<option value='override'>Override</option>
-								<option value='update'>Update</option>
-								<option value='skip' selected>Skip</option>
-							</select>
-						</div>
 						<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100" style="max-width:300px;">Map Into Field</h6>
 							</div>
 							<div class="mapping-fields-wrapper" id="community-tab">
 								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
@@ -523,7 +555,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100" style="max-width:300px;">Map Into Field</h6>
 							</div>
 							<div class="mapping-fields-wrapper" id="elevation-tab">
 								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
@@ -532,7 +564,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="tab-pane fade" id="pills-elevation-types" role="tabpanel" aria-labelledby="pills-elevation-types-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100" style="max-width:300px;">Map Into Field</h6>
 							</div>
 							<div class="mapping-fields-wrapper" id="elevation-type-tab">
 								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
@@ -541,7 +573,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="tab-pane fade" id="pills-color-schemes" role="tabpanel" aria-labelledby="pills-color-schemes-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100" style="max-width:300px;">Map Into Field</h6>
 							</div>
 							<div class="mapping-fields-wrapper" id="color-scheme-tab">
 								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
@@ -550,7 +582,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100" style="max-width:300px;">Map Into Field</h6>
 							</div>
 							<div class="mapping-fields-wrapper" id="color-scheme-features-tab">
 								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
@@ -559,7 +591,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100" style="max-width:300px;">Map Into Field</h6>
 							</div>
 							<div class="mapping-fields-wrapper" id="floor-tab">
 								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
@@ -568,7 +600,7 @@ tr.bg-sdanger input[type="checkbox"] {
 						<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">
 							<div class="d-flex justify-content-between border-bottom bg-light" style="padding:1.21rem;">
 								<h6 class="mb-0 w-100">Column To Import</h6>
-								<h6 class="mb-0 w-100">Map Into Field</h6>
+								<h6 class="mb-0 w-100" style="max-width:300px;">Map Into Field</h6>
 							</div>
 							<div class="mapping-fields-wrapper" id="floor-features-tab">
 								<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
@@ -593,7 +625,6 @@ tr.bg-sdanger input[type="checkbox"] {
 						</div>
 						<div class="sr-synop">
 							<h6>Activity Log </h6>
-							
 							<p> <span class="border-bottom"> <b class="badge badge-success">15</b> New entries has been imported successfully.  </span> </p>
 							<p> <span class="border-bottom"> <b class="badge badge-danger">3</b> Entries failed to import. </span> </p>
 							<p> <span class="border-bottom"> <b class="badge badge-info">83%</b> Import Process Completed. </span> </p>
@@ -602,9 +633,11 @@ tr.bg-sdanger input[type="checkbox"] {
 				</div>
 			</div>
 		</div>
-		<div class="footer-buttons">
-			<button type="button" class="btn-orange" id="backButton" onclick="changeStep(false)" style="background: #313131; margin-right:5px; float:unset;"> Back </button>
-			<button class="btn-orange" onclick="changeStep(true)" type="button" style="float:unset;"> Next </button>
+	</div>
+	<div class="footer-buttons">
+		<div class="btn-group">
+			<a style="position:relative; margin-right:5px;" id="backButton" href="javascript:;" onclick="changeStep(false)" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Back </a>
+			<a style="position:relative;" href="javascript:;" id="importButton" onclick="changeStep(true)" class="add_button"> <span>Next</span> <i style="top:0;" class="fa fa-arrow-right"></i></a>
 		</div>
 	</div>
 </div>
@@ -629,6 +662,7 @@ const changeStep = (buttonClicked) => {
 		case 1:
 			$('#ss_step').addClass('active').removeClass('incomplete');
 			$('#drm_step').addClass('incomplete').removeClass('active');
+			$("#importButton span").text('Next');
 			$(".containers").hide();
 			$('#ss_step_div').fadeIn();
 			$('#backButton').fadeOut();
@@ -642,6 +676,7 @@ const changeStep = (buttonClicked) => {
 			}
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
+			$("#importButton span").text('Import');
 			$(".containers").hide();
 			$('#backButton').fadeIn();
 			$('#drm_step_div').fadeIn();
@@ -715,7 +750,7 @@ const changeStep = (buttonClicked) => {
 							});
 							let communityData = ``;
 							$.each(response.headings.Communities[0],(key,val)=>{
-								communityData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								communityData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
 										<label class="w-100 m-0 text-dark">${val}</label>
 										<select class="form-control" style="max-width: 300px;" id="community_dropdown_${key}" onchange="userMappedData('community',${key},'${val}')">
 										${communityOptions}
@@ -737,7 +772,7 @@ const changeStep = (buttonClicked) => {
 							});
 							var elevationData = ``;
 							$.each(response.headings.Elevations[0],(key,val)=>{
-								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
 										<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
 										<select class="form-control" style="max-width: 300px;" id="elevation_dropdown_${key}" onchange="userMappedData('elevation',${key},'${val}')">
 										${elevationOptions}
@@ -759,7 +794,7 @@ const changeStep = (buttonClicked) => {
 							});
 							var elevationData = ``;
 							$.each(response.headings['Elevation Types'][0],(key,val)=>{
-								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
 										<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
 										<select class="form-control" style="max-width: 300px;" id="elevation_type_dropdown_${key}" onchange="userMappedData('elevation_type',${key},'${val}')">
 										${elevationOptions}
@@ -781,7 +816,7 @@ const changeStep = (buttonClicked) => {
 							});
 							let colorData = ``;
 							$.each(response.headings['Color Schemes'][0],(key,val)=>{
-								colorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+								colorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
 										<label class="w-100 m-0 text-dark" data-index='${key}'>${val}</label>
 										<select class="form-control" style="max-width: 300px;" id="color_scheme_dropdown_${key}" onchange="userMappedData('color_scheme',${key},'${val}')">
 										${colorOptions}
@@ -803,7 +838,7 @@ const changeStep = (buttonClicked) => {
 								});
 								let colorFeatureData = ``;
 								$.each(response.headings['Color Scheme Features'][0],(key,val)=>{
-									colorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									colorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
 											<label class="w-100 m-0 text-dark">${val}</label>
 											<select class="form-control" style="max-width: 300px;" id="color_scheme_feature_dropdown_${key}" onchange="userMappedData('color_scheme_feature',${key},'${val}')">
 											${colorFeatureOptions}
@@ -824,7 +859,7 @@ const changeStep = (buttonClicked) => {
 								});
 								let floorData = ``;
 								$.each(response.headings['Floors'][0],(key,val)=>{
-									floorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									floorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
 											<label class="w-100 m-0 text-dark">${val}</label>
 											<select class="form-control" style="max-width: 300px;" id="floor_dropdown_${key}" onchange="userMappedData('floor',${key},'${val}')">
 											${floorOptions}
@@ -845,7 +880,7 @@ const changeStep = (buttonClicked) => {
 								});
 								let floorFeatureData = ``;
 								$.each(response.headings['Floor Features'][0],(key,val)=>{
-									floorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
+									floorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
 											<label class="w-100 m-0 text-dark">${val}</label>
 											<select class="form-control" style="max-width: 300px;" id="floor_feature_dropdown_${key}" onchange="userMappedData('floor_feature',${key},'${val}')">
 											${floorFeatureOptions}
@@ -1028,5 +1063,15 @@ const changeStep = (buttonClicked) => {
 			return false;
 		}
 	}
+	$("#importCheck").click(function(){
+		if(this.checked)
+		{	
+			$("#importOptions").removeAttr('disabled');
+		}
+		else
+		{
+			$("#importOptions").attr('disabled', true);
+		}
+	});
 </script>
 @endpush

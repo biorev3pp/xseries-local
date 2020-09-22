@@ -24,7 +24,6 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
     use Importable;
     public $mapChoice;
     public $rules = [];
-    public $errormsg = [];
     public $imported_on;
     
     public function __construct($mapChoice,$importing_on)
@@ -37,27 +36,22 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
         if(array_key_exists('name',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['name']] = 'required';
-            // $this->errormsg[$this->mapChoice['name']] = 'There should be valid name'; 
         }
         if(array_key_exists('zipcode',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['zipcode']] = 'required|numeric|digits_between:5,6';
-            // $this->errormsg[$this->mapChoice['zipcode']] = 'This field mapped with zipcode, make sure a valid zipcode between 5 to 6 digits';
         }
         if(array_key_exists('contact_email',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['contact_email']] = 'required|email|max:180';
-            // $this->errormsg[$this->mapChoice['contact_email']] = 'This field mapped with email, make sure a valid email';
         }
         if(array_key_exists('contact_person',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['contact_person']] = 'required|regex:/^[a-zA-Z\s]*$/';
-            // $this->errormsg[$this->mapChoice['contact_person']] = 'This field mapped with contact person name, make sure a valid name';
         }
         if(array_key_exists('contact_number',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['contact_number']] = 'required|digits:10';
-            // $this->errormsg[$this->mapChoice['contact_number']] = 'This field mapped with contact number, make sure a valid number';
         }
         if(array_key_exists('location',$this->mapChoice))
         {
@@ -92,7 +86,6 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
             $c_data['slug'] = $slug; 
             $c_data['imported_on'] = $this->imported_on;
             // Handle exception
-            $community =  new Communities($c_data);
             $community = Communities::create($c_data);
             $c_id = Communities::where('slug',$community->slug)->get(['id'])->first();
             $plot = Plots::create([

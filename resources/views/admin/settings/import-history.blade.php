@@ -36,7 +36,7 @@
                         <td>{{$key+1}}</td>
                         <td>{{$h->file_name}}</td>
                         <td>{{$h->name}}</td>
-                        <td>Finished On <span class="subbottom"> Sep 18, 2020 </span></td>
+                        <td>Finished On <span class="subbottom"> {{date('M',$h->imported_on)}} {{date('d',$h->imported_on)}}, {{date('Y',$h->imported_on)}} </span></td>
                         <td class="progress-row">
                             <span class="progresss-span-bg"> 
                                 <a href="javascript:;" class="progresss-span" style="width:{{$h->percent}}%"> {{$h->percent}}% complete </a>

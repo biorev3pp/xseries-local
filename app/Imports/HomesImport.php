@@ -22,7 +22,6 @@ class HomesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFailu
     use Importable;
     public $mapChoice;
     public $rules = [];
-    public $errormsg = [];
     public $imported_on;
 
     
@@ -36,27 +35,22 @@ class HomesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFailu
         if(array_key_exists('title',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['title']] = 'required';
-            // $this->errormsg[$this->mapChoice['name']] = 'There should be valid name'; 
         }
         if(array_key_exists('price',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['price']] = 'nullable|numeric|min:0';
-            // $this->errormsg[$this->mapChoice['zipcode']] = 'This field mapped with zipcode, make sure a valid zipcode between 5 to 6 digits';
         }
         if(array_key_exists('area',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['area']] = 'nullable|numeric|between:100,1000000';
-            // $this->errormsg[$this->mapChoice['contact_email']] = 'This field mapped with email, make sure a valid email';
         }
         if(array_key_exists('bedroom',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['bedroom']] = 'nullable|numeric|between:0,100';
-            // $this->errormsg[$this->mapChoice['contact_person']] = 'This field mapped with contact person name, make sure a valid name';
         }
         if(array_key_exists('bathroom',$this->mapChoice))
         {
             $this->rules[$this->mapChoice['bathroom']] = 'nullable|numeric|between:0,100';
-            // $this->errormsg[$this->mapChoice['contact_number']] = 'This field mapped with contact number, make sure a valid number';
         }
         if(array_key_exists('garage',$this->mapChoice))
         {
@@ -84,6 +78,7 @@ class HomesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFailu
         $slug = str_replace(' ', '-', strtolower($row[$this->mapChoice['title']]));
         if(Homes::where('slug', $slug)->count() == 0)
         { 
+            $c_data['parent_id'] = 0;
             $c_data['slug'] = $slug; 
             $c_data['imported_on'] = $this->imported_on;
             // Handle exception

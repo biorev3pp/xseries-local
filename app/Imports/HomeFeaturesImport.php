@@ -5,43 +5,100 @@ namespace App\Imports;
 use App\Models\ColorSchemes;
 use App\Models\Homes;
 use App\Models\HomeFeatures;
+use App\Models\History;
+use App\Models\ErrorHistory;
 use Illuminate\Support\Collection;
-use Maatwebsite\Excel\Concerns\ToCollection;
+use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
-use Illuminate\Support\Facades\Validator;
-
-class HomeFeaturesImport implements ToCollection, WithHeadingRow
+use Maatwebsite\Excel\Concerns\WithValidation;
+use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Concerns\Importable;
+use Maatwebsite\Excel\Concerns\SkipsOnFailure;
+use Maatwebsite\Excel\Validators\Failure;
+// setting the default heading structure to none
+use Maatwebsite\Excel\Imports\HeadingRowFormatter;
+HeadingRowFormatter::default('none');
+class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFailure
 {
-    public function collection(Collection $rows)
+    use Importable;
+    public $mapChoice;
+    public $rules = [];
+    public $imported_on;
+    
+    public function __construct($mapChoice,$importing_on)
+    {
+        # code...
+        $this->mapChoice = (array)$mapChoice;
+        $this->imported_on = $importing_on;
+        $this->mapChoice = array_flip($this->mapChoice);
+        if(array_key_exists('home_id',$this->mapChoice))
+        {
+            $this->rules[$this->mapChoice['home_id']] = 'required';
+        }
+        if(array_key_exists('color_scheme_id',$this->mapChoice))
+        {
+            $this->rules[$this->mapChoice['color_scheme_id']] = 'required';
+        }
+        if(array_key_exists('title',$this->mapChoice))
+        {
+            $this->rules[$this->mapChoice['title']] = 'required';
+        }
+        if(array_key_exists('price',$this->mapChoice))
+        {
+            $this->rules[$this->mapChoice['home_id']] = 'nullable|numeric|min:0';
+        }
+        if(array_key_exists('upgraded',$this->mapChoice))
+        {
+            $this->rules[$this->mapChoice['upgraded']] = 'required|numeric|between:0,1';
+        }
+        if(array_key_exists('upgrade_type',$this->mapChoice))
+        {
+            $this->rules[$this->mapChoice['upgrade_type']] = 'required|numeric|between:0,3';
+        }
+    }
+
+    public function model(array $row)
+    {
+        //continue or stop
+        if(!array_key_exists('home_id',$this->mapChoice) && !array_key_exists('color_scheme_id',$this->mapChoice)){
+            // there is no field map with  name. Terminate the whole process and exit
+            return;
+        }
+        foreach($this->mapChoice as $key => $value)
+        {
+            $c_data[$key] =  $row[$this->mapChoice[$key]];
+        }
+        $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
+        $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
+        $color_scheme      = ColorSchemes::where('title', 'like', $row[$this->mapChoice['color_scheme_id']])->where('home_id', $home->id)->first();
+        if(!$color_scheme) return;
+        if(HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->count() == 0)
+        { 
+            $c_data['imported_on'] = $this->imported_on;
+            $c_data['priority']          = 1;
+            $c_data['color_scheme_id'] = $color_scheme->id;
+            return new HomeFeatures($c_data);
+        }
+        else{
+            return null;
+        }
+    }
+    public function rules(): array
     {   
-        // Validator::make($rows->toArray(), [
-        //     '*.elevation_or_elevation_type_title'           => 'required',
-        //     '*.color_scheme_title'                          => 'required',
-        //     '*.feature_title'                               => 'required',
-        //     '*.feature_price'                               => 'nullable|numeric|min:0',
-        //     '*.upgrade1_base0'                              => 'required|numeric|between:0,1',
-        //     '*.upgraded_typeconcrete1_window2_wall3_base0'  => 'required|numeric|between:0,3',
-        // ])->validate();
-        // foreach ($rows as $row) 
-        // {
-        //     $home_or_home_type_slug = str_replace(' ', '-', strtolower($row['elevation_or_elevation_type_title']));
-        //     $home_or_home_type = Homes::where('slug', $home_or_home_type_slug)->get(['id', 'slug'])->first();
-        //     $color_scheme      = ColorSchemes::where('title', 'like', $row['color_scheme_title'])->where('home_id', $home_or_home_type->id)->first();
-        //     if(HomeFeatures::where('title', 'like', $row['feature_title'])->where('color_scheme_id', $color_scheme->id)->count() == 0){
-        //         HomeFeatures::create([
-        //             'color_scheme_id'   => $color_scheme->id,
-        //             'title'             => $row['feature_title'],
-        //             'price'             => ($row['feature_price'])?$row['feature_price']:0,
-        //             'img'               => $row['feature_image'],
-        //             'priority'          => 1,
-        //             'stared'            => $row['upgrade1_base0'],
-        //             'upgrade_type'      => $row['upgraded_typeconcrete1_window2_wall3_base0'],
-        //             'material'          => $row['material'],
-        //             'manufacturer'      => $row['manufacturer'],
-        //             'name'              => $row['name'],
-        //             'm_id'              => $row['manufacturer_id'],
-        //         ]);
-        //     }
-        // }
+        return $this->rules;
+    }
+
+    /**
+     * @param Failure[] $failures
+     */
+    public function onFailure(Failure ...$failures)
+    {
+        // Handle the failures how you'd like.
+        $err = serialize($failures);
+        ErrorHistory::create([
+            'data'          => $err,
+            'type'          =>'color_scheme_feature',
+            'imported_on'   => $this->imported_on
+        ]);
     }
 }

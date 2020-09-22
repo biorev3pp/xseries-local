@@ -1034,6 +1034,7 @@ const changeStep = (buttonClicked) => {
 	}
 	function uploadData()
 	{
+		console.log(mappedArray);
 		if(count!=0)
 		{
 			mappedArray['import_as'] = $('#importOptions').val();
@@ -1056,7 +1057,7 @@ const changeStep = (buttonClicked) => {
 		}
 		else
 		{
-			toastr.error("Please select atleat one field to map.");
+			toastr.error("Please select atleast one field to map.");
 			return false;
 		}
 	}

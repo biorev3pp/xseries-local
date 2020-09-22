@@ -54,7 +54,7 @@ class ImportController extends Controller
             }
             if(array_key_exists('Elevation Types',$array))
             {
-                $data['elevation_types'] = ['title'=>'Name','price'=>'Price','area'=>'Area','bedroom'=>'Bedroom','bathroom'=>'Bathroom','img'=>'Image','specifications'=>'Description','garage'=>'Garage','floor'=>'Number Of Floors','gallery'=>'Gallery'];
+                $data['elevation_types'] = ['title'=>'Name','parent_id'=>'Base Elevation','price'=>'Price','area'=>'Area','bedroom'=>'Bedroom','bathroom'=>'Bathroom','img'=>'Image','specifications'=>'Description','garage'=>'Garage','floor'=>'Number Of Floors','gallery'=>'Gallery'];
             }
             if(array_key_exists('Floors',$array))
             {
@@ -62,7 +62,7 @@ class ImportController extends Controller
             }
             if(array_key_exists('Floor Features',$array))
             {
-                $data['floor_feature'] = ['home'=>'Elevation Name','floor'=>'Floor Title','title'=>'Feature Title','price'=>'Price','image'=>'Image','group'=>'Feature Or Feature Group'];
+                $data['floor_feature'] = ['home_id'=>'Elevation Name','floor_id'=>'Floor Title','title'=>'Feature Title','price'=>'Price','image'=>'Image','group'=>'Feature Or Feature Group'];
             }
             if(array_key_exists('Color Schemes',$array))
             {
@@ -70,7 +70,7 @@ class ImportController extends Controller
             }
             if(array_key_exists('Color Scheme Features',$array))
             {
-                $data['color_scheme_features'] = ['home'=>'Elevation Or Elevation Type Name','color_scheme_id'=>'Color Scheme Title','title'=>'Feature Title','price'=>'Price','upgraded'=>'Upgrade Or Base','upgrade_type'=>'Upgraded Type','material'=>'Material','manufacturer'=>'Manufacturer','name'=>'Name','m_id'=>'Manufacturer ID','img'=>'Feature Image',];
+                $data['color_scheme_features'] = ['home_id'=>'Elevation Or Elevation Type Name','color_scheme_id'=>'Color Scheme Title','title'=>'Feature Title','price'=>'Price','upgraded'=>'Upgrade Or Base','upgrade_type'=>'Upgraded Type','material'=>'Material','manufacturer'=>'Manufacturer','name'=>'Name','m_id'=>'Manufacturer ID','img'=>'Feature Image'];
             }
             $file = $request->excelFile;
             $name = $file->getClientOriginalName();
@@ -119,19 +119,29 @@ class ImportController extends Controller
             $res = array(
                 'success'       =>$total_success,
                 'fail'          => $total_fail,
-                'percentage'    => $success_percent 
+                'percentage'    => number_format($success_percent, 2) 
             );
             History::where('imported_on',$importing_on)->update([
                 'success'    =>$total_success,
                 'fail'       =>$total_fail,
-                'percentage' => $success_percent 
+                'percent' => number_format($success_percent, 2) 
             ]);
         }
-        // $res = ErrorHistory::where('imported_on',$importing_on)->get();
-        // foreach($res as $r)
-        // {
-        //     $r = unserialize($r->data);
-        // }
+        else
+        {
+            $res = array(
+                'success'       =>0,
+                'fail'          => 0,
+                'percentage'    => 0 
+            );
+            History::where('imported_on',$importing_on)->update([
+                'success'    =>0,
+                'fail'       =>0,
+                'percent' => 0 
+            ]);
+        }
+        $request->session()->forget('excel');
+        unlink($path);
         return response()->json($res);
     }
 

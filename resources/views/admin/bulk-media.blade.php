@@ -129,7 +129,7 @@ a.add_button.active {
 }
 
 .fix-sync {
-	height: calc(100vh - 240px);
+	height: calc(100vh - 225px);
 	overflow: auto;
 	background: #fff;
 	border: 1px solid #e4e4e4;
@@ -271,9 +271,7 @@ tr.bg-sdanger input[type="checkbox"] {
 
 .footer-buttons{
     text-align: right;
-    padding: 0 15px 15px 0;
-	display: flex;
-	justify-content: flex-end;
+	margin-top: 5px;
 }
 
 .mapping-fields-wrapper{
@@ -298,10 +296,20 @@ tr.bg-sdanger input[type="checkbox"] {
     text-align: center;
 }
 
+.table-responsive{
+	position: relative;
+	margin-top: 10px;
+}
+
 .mapping-action-wrap{
 	background: #363636;
-    padding: 8px 20px;
-    margin: 8px 0;
+    padding: 6px 20px;
+    margin: 0;
+	position: absolute;
+    top: 0;
+    z-index: 1;
+    right: 1px;
+	display: none;
 }
 
 .mapping-action-wrap button{
@@ -333,27 +341,6 @@ tr.bg-sdanger input[type="checkbox"] {
 
 .add-image-button:focus{
 	outline: none;
-}
-
-.modal-footer a{
-	color: #4598D3;
-	margin: 0 !important;
-}
-
-.modal-footer div button{
-	background: transparent;
-    border: 1px solid #363636;
-    border-radius: 50px;
-    padding: 3px 20px;
-	margin-right: 10px;
-	outline:none;
-}
-
-.modal-footer div button:nth-child(2){
-	margin-right: 0px;
-	background: #ACD9A5;
-    border: 1px solid #ACD9A5;
-	color: #fff;
 }
 
 .feather.feather-check-circle{
@@ -493,6 +480,44 @@ tr.bg-sdanger input[type="checkbox"] {
     padding: 0 10px;
 }
 
+.nowrap{
+	white-space: nowrap;
+}
+
+select.form-control:disabled{
+	background-color: #eee;
+}
+
+@media(min-width: 992px){
+	.sync-process{
+		position: absolute;
+		top: 14px;
+		left: 0;
+		right: 0;
+		margin: 0 auto; 
+		z-index: 1111; 
+	}
+}
+
+@media(max-width: 992px){
+	#syncresponse{
+		position:relative;
+	}
+	.fix-sync{height: auto;}
+}
+
+@media(max-width: 425px){
+	.nowrap{
+		white-space: unset;
+	}
+	.sync-process li{
+		width: 80px;
+	}
+	.sync-process ul li:not(:first-child) a::before{
+		width: 47px;
+	}
+}
+
 </style>
 <div class="container-fluid page-wrapper">
 	<div class="row justify-content-between pl-1 pr-1 align-items-center">
@@ -510,23 +535,23 @@ tr.bg-sdanger input[type="checkbox"] {
 			<a style="position:relative;" href="{{route('uploads')}}" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Back</a>
 		</div>
 	</div>
+	<div class="sync-process text-center mb-1">
+		<ul class="text-center">
+			<li>
+			<a class="active text-center" id="ss_step">1</a>
+			</li>
+			<li>
+			<a class="incomplete text-center" id="drm_step">2</a>
+			</li>
+			<li>
+			<a class="incomplete text-center" id="sr_step">3</a>
+			</li>
+		</ul>
+	</div>
 	<div id="syncresponse">
-		<div class="sync-process text-center mb-1">
-			<ul class="text-center">
-				<li>
-				<a class="active text-center" id="ss_step">1</a>
-				</li>
-				<li>
-				<a class="incomplete text-center" id="drm_step">2</a>
-				</li>
-				<li>
-				<a class="incomplete text-center" id="sr_step">3</a>
-				</li>
-			</ul>
-		</div>
 		<div class="fix-sync">
 			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers">
+				<div id="ss_step_div" class="text-center containers d-none">
 					<div>
 						<form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
 							@csrf
@@ -537,52 +562,63 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</form>
 					</div>
-					<div class="border border-light mt-1 p-1 category-wrapper">
-						<h5 class="text-left mb-1" style="font-weight:500">Select Category</h5>
-						<div class="d-flex flex-sm-row flex-column justify-content-between">
-							<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
-								<label class="d-block text-left mb-0 text-dark" for="">Select Type</label>
-								<select name="" id="" class="form-control">
-								<option value="">No option selected</option>
-								<option value="">Community</option>
-								<option value="">Elevation</option>
-								<option value="">Floor</option>
-								<option value="">Floor-Feature</option>
-								</select>
-							</div>
-							<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
-								<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
-								<select name="" id="" class="form-control ">
-								<option value="">No option selected</option>
-								<option value="">Enclave of Twin Run</option>
-								<option value="">Big Fork Landing</option>
-								</select>
-							</div>
-							<div class="w-100">
-								<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
-								<select name="" id="" class="form-control">
-								<option value="">No option selected</option>
-								<option value="">Logo</option>
-								<option value="">Banner</option>
-								<option value="">Map Marker</option>
-								<option value="">Gallery</option>
-								</select>
+					<div class="d-flex justify-content-between flex-xl-row flex-column">
+						<div class="border border-light mt-1 p-1 category-wrapper w-100 mr-1">
+							<h5 class="text-left mb-1" style="font-weight:500">Select Category</h5>
+							<div class="d-flex flex-sm-row flex-column justify-content-between">
+								<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
+									<label class="d-block text-left mb-0 text-dark" for="">Select Type</label>
+									<select name="" id="" class="form-control">
+									<option value="">No option selected</option>
+									<option value="">Community</option>
+									<option value="">Elevation</option>
+									<option value="">Floor</option>
+									<option value="">Floor-Feature</option>
+									</select>
+								</div>
+								<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
+									<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
+									<select name="" id="" class="form-control ">
+									<option value="">No option selected</option>
+									<option value="">Enclave of Twin Run</option>
+									<option value="">Big Fork Landing</option>
+									</select>
+								</div>
+								<div class="w-100">
+									<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
+									<select name="" id="" class="form-control">
+									<option value="">No option selected</option>
+									<option value="">Logo</option>
+									<option value="">Banner</option>
+									<option value="">Map Marker</option>
+									<option value="">Gallery</option>
+									</select>
+								</div>
 							</div>
 						</div>
-						<div class="mt-1">
-							<label class="text-left d-block text-dark mb-0" style="font-weight:500 !important">Import Options</label>
-							<select name="" style="max-width:300px;" class="form-control" id="">
-								<option value="">No option selected</option>
-								<option value="">override</option>
-								<option value="">update</option>
-								<option value="">skip</option>
-							</select>
+						<div class="border border-light mt-1 p-1 category-wrapper w-100" style="max-width:450px;">
+						<h5 class="text-left mb-1" style="font-weight:500">Upload Options</h5>
+							<div class="mt-1">
+								<label class="text-left d-block text-dark mb-0" style="font-weight:500 !important">Select Option</label>
+								<div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
+									<select id="importOptions" class="form-control mr-0 mr-sm-1 mb-1 mb-sm-0" disabled>
+										<option value="">override</option>
+										<option value="">update</option>
+										<option value="" selected>skip</option>
+									</select>
+									<div class="w-100 d-flex align-items-center">
+										<input type="checkbox" id="importCheck" style="margin-right: 5px;">
+										<span class="nowrap">Update existing images while uploading.</span>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
+					<a href="{{route('import-images-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto; font-weight:500;">View Recent Reports</h6></a>
 				</div>
-				<div id="drm_step_div" class="table-responsive containers">
-					<h3 class="text-center mb-1">Images Mapping</h3>
-					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
+				<div id="drm_step_div" class="containers d-block">
+					<h3 class="text-center mb-1">Mapping</h3>
+					<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter">6</span></a>
 						</li>
@@ -595,7 +631,7 @@ tr.bg-sdanger input[type="checkbox"] {
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-mapped" role="tabpanel" aria-labelledby="pills-mapped-tab">
-							<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
+							<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 								<li class="nav-item" role="presentation">
 								<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communties <span class="counter">6</span></a>
 								</li>
@@ -611,13 +647,13 @@ tr.bg-sdanger input[type="checkbox"] {
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
-									<div class="w-100 border mapping-action-wrap">
-										<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-										<button class="mr-1 add-button">Add</button>
-										<button class="mr-1 update-button">Update</button>
-										<button class="mr-1 delete-button">Delete</button>
-									</div>
 									<div class="table-responsive" id="custom_table">
+										<div class="w-100 border mapping-action-wrap">
+											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+											<button class="mr-1 add-button">Add</button>
+											<button class="mr-1 update-button">Update</button>
+											<button class="mr-1 delete-button">Delete</button>
+										</div>
 										<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
@@ -742,13 +778,13 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-unmapped" role="tabpanel" aria-labelledby="pills-unmapped-tab">
-							<div class="w-100 border mapping-action-wrap">
-								<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-								<button class="mr-1 add-button">Add</button>
-								<button class="mr-1 update-button">Update</button>
-								<button class="mr-1 delete-button">Delete</button>
-							</div>
 							<div class="table-responsive" id="custom_table">
+								<div class="w-100 border mapping-action-wrap">
+									<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+									<button class="mr-1 add-button">Add</button>
+									<button class="mr-1 update-button">Update</button>
+									<button class="mr-1 delete-button">Delete</button>
+								</div>
 								<table class="table table-bordered table-hover" id="unmappedTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
@@ -783,11 +819,11 @@ tr.bg-sdanger input[type="checkbox"] {
 							</div>
 						</div>
 						<div class="tab-pane fade" id="pills-deleted" role="tabpanel" aria-labelledby="pills-deleted-tab">
-							<div class="w-100 border mapping-action-wrap">
-								<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-								<button class="mr-1 undo-button">Undo</button>
-							</div>
 							<div class="table-responsive" id="custom_table">
+								<div class="w-100 border mapping-action-wrap">
+									<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+									<button class="mr-1 undo-button">Undo</button>
+								</div>
 								<table class="table table-bordered table-hover" id="deleteTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
@@ -840,10 +876,12 @@ tr.bg-sdanger input[type="checkbox"] {
 					</div>
 				</div>
 			</div>
-			<div class="footer-buttons">
-				<button type="button" class="btn-orange" id="backButton" onclick="changeStep(false)" style="background: #313131; margin-right:5px; float:unset;"> Back </button>
-				<button class="btn-orange" onclick="changeStep(true)" type="button"> Next </button>
-			</div>
+		</div>
+	</div>
+	<div class="footer-buttons">
+		<div class="btn-group">
+			<a style="position:relative; margin-right:5px;" id="backButton" href="javascript:;" onclick="changeStep(false)" class="add_button"><i style="top:0;" class="fa fa-arrow-left"></i> Back </a>
+			<a style="position:relative;" href="javascript:;" id="importButton" onclick="changeStep(true)" class="add_button"> <span>Next</span> <i style="top:0;" class="fa fa-arrow-right"></i></a>
 		</div>
 	</div>
 </div>
@@ -851,7 +889,10 @@ tr.bg-sdanger input[type="checkbox"] {
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Update Selected Rows</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle" style="font-weight:600; font-size: 17px;">Update Selected Rows</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true"><i class="fa fa-times"></i> </span>
+				</button>
 			</div>
 			<div class="modal-body px-2 pt-2 pb-0">
 				<div class="w-100 mb-1 mr-0">
@@ -884,10 +925,10 @@ tr.bg-sdanger input[type="checkbox"] {
 				</div>
 			</div>
 			<div class="modal-footer d-flex justify-content-between align-items-center p-2" style="border:none;">
-				<a href="javascript:;" data-dismiss="modal">Cancel</a>
+				<button type="button" data-dismiss="modal" class="btn-orange t_b_s d_gr m-0">Cancel</button>
 				<div>
-					<button type="button" class="">Apply</button>
-					<button type="button" class="">Apply and Add</button>
+					<button type="button" class="btn-orange" style="float:unset;">Apply</button>
+					<button type="button" class="btn-orange" style="float:unset;">Apply and Add</button>
 				</div>
 			</div>
 		</div>
@@ -897,7 +938,7 @@ tr.bg-sdanger input[type="checkbox"] {
 	<div class="modal-dialog modal-dialog-centered" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle">Replace Image</h5>
+				<h5 class="modal-title" id="exampleModalLongTitle" style="font-weight:600; font-size: 17px;">Replace Image</h5>
 			</div>
 			<div class="modal-body px-2 pt-2 pb-0">
 				<div class="w-100">
@@ -910,9 +951,9 @@ tr.bg-sdanger input[type="checkbox"] {
 					</div> 
 				</div>	
 			</div>
-			<div class="modal-footer d-flex justify-content-between align-items-center p-2" style="border:none;">
-				<a href="javascript:;" data-dismiss="modal">Cancel</a>
-				<div><button type="button">Update</button></div>
+			<div class="modal-footer d-flex justify-content-start align-items-center p-2" style="border:none;">
+				<button type="button" data-dismiss="modal" class="btn-orange t_b_s d_gr m-0">Cancel</button>
+				<button type="button" class="btn-orange" style="float:unset;">Update</button>
 			</div>
 		</div>
 	</div>
@@ -944,6 +985,7 @@ const changeStep = (buttonClicked) => {
 		case 1:
 			$('#ss_step').addClass('active').removeClass('incomplete');
 			$('#drm_step').addClass('incomplete').removeClass('active');
+			$("#importButton span").text('Next');
 			$(".containers").hide();
 			$('#ss_step_div').fadeIn();
 			$('#backButton').fadeOut();
@@ -951,6 +993,7 @@ const changeStep = (buttonClicked) => {
 		case 2: 
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
+			$("#importButton span").text('Upload');
 			$(".containers").hide();
 			$('#backButton').fadeIn();
 			$('#drm_step_div').fadeIn();
@@ -968,9 +1011,17 @@ const changeStep = (buttonClicked) => {
 // Mapped Section
 
 $("#pills-mapped .tab-pane.active .checkall").on('click', function(){
-	$("#pills-communities tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
-	rowsSelected = $("#pills-communities tbody input[type=checkbox]:checked").length;
-	$("#pills-communities .mapping-action-wrap span b").html(rowsSelected);
+	$("#pills-mapped .tab-pane.active tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
+	rowsSelected = $("#pills-mapped .tab-pane.active tbody input[type=checkbox]:checked").length;
+	$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rowsSelected);
+	if(rowsSelected > 0)
+	{
+		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+	}
+	else
+	{
+		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+	}
 });
 $("#pills-mapped .tab-pane.active tbody input[type=checkbox]").on('click', function()
 {
@@ -982,6 +1033,14 @@ $("#pills-mapped .tab-pane.active tbody input[type=checkbox]").on('click', funct
 		rowsSelected--;
 	}
 	$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rowsSelected);
+	if(rowsSelected > 0)
+	{
+		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+	}
+	else
+	{
+		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+	}
 });	
 $("#pills-mapped .tab-pane.active .mapping-action-wrap button").click(function(){
 	if(rowsSelected < 1){
@@ -1017,6 +1076,14 @@ $("#pills-unmapped .checkall").on('click', function(){
 	$("#pills-unmapped tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
 	unmappedrowsSelected = $("#pills-unmapped tbody input[type=checkbox]:checked").length;
 	$("#pills-unmapped .mapping-action-wrap span b").html(unmappedrowsSelected);
+	if(unmappedrowsSelected > 0)
+	{
+		$("#pills-unmapped .table-responsive .mapping-action-wrap").fadeIn();
+	}
+	else
+	{
+		$("#pills-unmapped  .table-responsive .mapping-action-wrap").fadeOut();
+	}
 });
 $("#pills-unmapped tbody input[type=checkbox]").on('click', function()
 {
@@ -1028,6 +1095,14 @@ $("#pills-unmapped tbody input[type=checkbox]").on('click', function()
 		unmappedrowsSelected--;
 	}
 	$("#pills-unmapped .mapping-action-wrap span b").html(unmappedrowsSelected);
+	if(unmappedrowsSelected > 0)
+	{
+		$("#pills-unmapped .table-responsive .mapping-action-wrap").fadeIn();
+	}
+	else
+	{
+		$("#pills-unmapped  .table-responsive .mapping-action-wrap").fadeOut();
+	}
 });	
 $("#pills-unmapped .mapping-action-wrap button").click(function(){
 	if(unmappedrowsSelected < 1){
@@ -1052,6 +1127,14 @@ $("#pills-deleted .checkall").on('click', function(){
 	$("#pills-deleted tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
 	deletedrowsSelected = $("#pills-deleted tbody input[type=checkbox]:checked").length;
 	$("#pills-deleted .mapping-action-wrap span b").html(deletedrowsSelected);
+	if(deletedrowsSelected > 0)
+	{
+		$("#pills-deleted .table-responsive .mapping-action-wrap").fadeIn();
+	}
+	else
+	{
+		$("#pills-deleted  .table-responsive .mapping-action-wrap").fadeOut();
+	}
 });
 $("#pills-deleted tbody input[type=checkbox]").on('click', function()
 {
@@ -1063,6 +1146,14 @@ $("#pills-deleted tbody input[type=checkbox]").on('click', function()
 		deletedrowsSelected--;
 	}
 	$("#pills-deleted .mapping-action-wrap span b").html(deletedrowsSelected);
+	if(deletedrowsSelected > 0)
+	{
+		$("#pills-deleted .table-responsive .mapping-action-wrap").fadeIn();
+	}
+	else
+	{
+		$("#pills-deleted  .table-responsive .mapping-action-wrap").fadeOut();
+	}
 });	
 $("#pills-deleted .mapping-action-wrap button").click(function(){
 	if(deletedrowsSelected < 1){
@@ -1094,6 +1185,17 @@ $('#replaceModal').on('hidden.bs.modal', function (e) {
 	$(".file-upload").removeClass('active');
 	$("#noFile").text("No file chosen..."); 
 })
+
+$("#importCheck").click(function(){
+	if(this.checked)
+	{	
+		$("#importOptions").removeAttr('disabled');
+	}
+	else
+	{
+		$("#importOptions").attr('disabled', true);
+	}
+});
 
 </script>
 @endpush

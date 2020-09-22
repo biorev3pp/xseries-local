@@ -417,9 +417,6 @@ select.form-control:disabled{
 		overflow: hidden;
 		padding-bottom: 30px;
 	}
-	.footer-buttons{
-		right: 30px;
-	}
 }
 
 @media(min-width: 992px){

@@ -51,9 +51,9 @@
     <div><h1 class="a_dash p-0 m-0">Bulk Uploads</h1></div>
   </div>  
   <div class="d-flex px-2 pb-2 buttons-wrap align-items-center">
-    <a href="{{route('bulk-data')}}" class="add_button">Upload Data</a>
+    <a href="{{route('bulk-data')}}" class="add_button">Import Data</a>
     <p class="m-0">OR</p>
-    <a href="{{route('bulk-media')}}" class="add_button">Upload Media</a>
+    <a href="{{route('bulk-media')}}" class="add_button">Upload Images</a>
   </div>
   <div class="card d-inline-block w-100 mt-1" id="list">
     <div class="card-body">

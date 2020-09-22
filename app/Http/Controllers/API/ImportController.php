@@ -115,7 +115,7 @@ class ImportController extends Controller
         $total = $total_fail + $total_success;
         if($total !=0)
         {
-            $success_percent = ($total_success)/($total_fail+$total_success);
+            $success_percent = (($total_success)/($total_fail+$total_success))*100;
             $res = array(
                 'success'       =>$total_success,
                 'fail'          => $total_fail,

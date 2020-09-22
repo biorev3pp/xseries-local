@@ -10,7 +10,6 @@
    }
    #ss_step_div{
 	display: block;
-	padding: 15px 0;
 }
 
 .containers{

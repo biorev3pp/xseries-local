@@ -62,7 +62,7 @@ td .form-control-checkbox {
 }
 
 .sync-container {
-	padding: 15px
+	padding: 0 15px;
 }
 
 .fix-sync h6 {
@@ -330,13 +330,7 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .add-image-button{
-	border: none;
-	background: #007bff;
-	color: #fff;
-	padding: 6px 25px;
-	font-size: 14px;
-	border-radius: 50px;
-	outline: none;
+	float: unset;
 }
 
 .add-image-button:focus{
@@ -347,8 +341,9 @@ tr.bg-sdanger input[type="checkbox"] {
 	display:none;
 }
 
-#unmappedTable .add-image-button {
+.disabled-button {
 	background: #aaa;
+	pointer-events: none;
 }
 
 .image-edit-button{
@@ -551,7 +546,7 @@ select.form-control:disabled{
 	<div id="syncresponse">
 		<div class="fix-sync">
 			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers d-none">
+				<div id="ss_step_div" class="text-center containers">
 					<div>
 						<form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
 							@csrf
@@ -616,7 +611,7 @@ select.form-control:disabled{
 					</div>
 					<a href="{{route('import-images-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto; font-weight:500;">View Recent Reports</h6></a>
 				</div>
-				<div id="drm_step_div" class="containers d-block">
+				<div id="drm_step_div" class="containers">
 					<h3 class="text-center mb-1">Mapping</h3>
 					<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
@@ -678,7 +673,7 @@ select.form-control:disabled{
 														</div>
 													</td>
 													<td>
-														<button type="button" class="add-image-button">Add</button>
+														<button type="button" class="add-image-button btn-orange">Add</button>
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
@@ -694,7 +689,7 @@ select.form-control:disabled{
 														</div>
 													</td>
 													<td>
-														<button type="button" class="add-image-button">Add</button>
+														<button type="button" class="add-image-button btn-orange">Add</button>
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
@@ -710,7 +705,7 @@ select.form-control:disabled{
 														</div>
 													</td>
 													<td>
-														<button type="button" class="add-image-button">Add</button>
+														<button type="button" class="add-image-button btn-orange">Add</button>
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
@@ -726,7 +721,7 @@ select.form-control:disabled{
 														</div>
 													</td>
 													<td>
-														<button type="button" class="add-image-button">Add</button>
+														<button type="button" class="add-image-button btn-orange">Add</button>
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
@@ -742,7 +737,7 @@ select.form-control:disabled{
 														</div>
 													</td>
 													<td>
-														<button type="button" class="add-image-button">Add</button>
+														<button type="button" class="add-image-button btn-orange">Add</button>
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>
@@ -758,7 +753,7 @@ select.form-control:disabled{
 														</div>
 													</td>
 													<td>
-														<button type="button" class="add-image-button">Add</button>
+														<button type="button" class="add-image-button btn-orange">Add</button>
 														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 													</td>
 												</tr>	
@@ -803,14 +798,13 @@ select.form-control:disabled{
 											<td>Undefined</td>
 											<td>Admin</td>
 											<td width="100px" style="min-width:100px;">
-												<img class="w-100" src="{{asset('uploads/interior.png')}}">
-												<!-- <div style="position:relative;">
-													<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
+												<div style="position:relative;">
+													<img class="w-100" src="{{asset('uploads/interior.png')}}">
 													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-												</div> -->
+												</div>
 											</td>
 											<td>
-												<button type="button" class="add-image-button">Add</button>
+												<button type="button" class="add-image-button disabled-button btn-orange">Add</button>
 												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 											</td>
 										</tr>
@@ -843,7 +837,7 @@ select.form-control:disabled{
 											<td>Admin</td>
 											<td width="100px" style="min-width:100px;"><img class="w-100" src="{{asset('uploads/Kingsmark-C2.jpg')}}"></td>
 											<td>
-												<button type="button" class="add-image-button undo-button">Undo</button>
+												<button type="button" class="add-image-button btn-orange undo-button">Undo</button>
 											</td>
 										</tr>
 									</tbody>
@@ -1050,6 +1044,9 @@ $("#pills-mapped .tab-pane.active .mapping-action-wrap button").click(function()
 	switch($(this).attr('class').split(' ').pop())
 	{
 		case "add-button":
+			$("#pills-mapped .tab-pane.active tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').fadeOut(function(){
+				$("#pills-mapped .tab-pane.active tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').next().fadeIn();
+			});
 			break;			
 		case "update-button" : 
 			$("#updateModal").modal('show');
@@ -1112,6 +1109,9 @@ $("#pills-unmapped .mapping-action-wrap button").click(function(){
 	switch($(this).attr('class').split(' ').pop())
 	{
 		case "add-button":
+			// $("#pills-unmapped tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').fadeOut(function(){
+			// 	$("#pills-unmapped tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').next().fadeIn();
+			// });
 			break;			
 		case "update-button" : 
 			$("#updateModal").modal('show');

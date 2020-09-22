@@ -51,7 +51,7 @@ td .form-control-checkbox {
 }
 
 .sync-container {
-	padding: 15px
+	padding: 0 15px;
 }
 
 .fix-sync h6 {
@@ -119,7 +119,7 @@ a.add_button.active {
 
 .fix-sync {
 	height: calc(100vh - 225px);
-	overflow: hidden;
+	overflow: auto;
 	background: #fff;
 	border: 1px solid #e4e4e4;
 	border-radius: 7px;
@@ -390,7 +390,7 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .mapping-fields-wrapper{
-	height: calc(100vh - 397px);
+	height: calc(100vh - 383px);
 	overflow: auto;
 }
 
@@ -409,9 +409,6 @@ select.form-control:disabled{
 }
 
 @media(max-width:1200px){
-	.fix-sync{
-		overflow: auto;
-	}
 	.mapping-fields-wrapper{
 		height: auto;
 		overflow: hidden;

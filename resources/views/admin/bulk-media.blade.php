@@ -10,6 +10,7 @@
    }
    #ss_step_div{
 	display: block;
+	padding: 15px 0;
 }
 
 .containers{
@@ -62,7 +63,7 @@ td .form-control-checkbox {
 }
 
 .sync-container {
-	padding: 0 15px;
+	padding: 15px;
 }
 
 .fix-sync h6 {

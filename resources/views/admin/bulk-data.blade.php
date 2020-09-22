@@ -717,7 +717,7 @@ const changeStep = (buttonClicked) => {
 							$.each(response.headings.Communities[0],(key,val)=>{
 								communityData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 										<label class="w-100 m-0 text-dark">${val}</label>
-										<select class="form-control" id="community_dropdown_${key}" onchange="userMappedData('community',${key},'${val}')">
+										<select class="form-control" style="max-width: 300px;" id="community_dropdown_${key}" onchange="userMappedData('community',${key},'${val}')">
 										${communityOptions}
 										</select>
 									</div>`;
@@ -739,7 +739,7 @@ const changeStep = (buttonClicked) => {
 							$.each(response.headings.Elevations[0],(key,val)=>{
 								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 										<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
-										<select class="form-control" id="elevation_dropdown_${key}" onchange="userMappedData('elevation',${key},'${val}')">
+										<select class="form-control" style="max-width: 300px;" id="elevation_dropdown_${key}" onchange="userMappedData('elevation',${key},'${val}')">
 										${elevationOptions}
 										</select>
 									</div>`;
@@ -761,7 +761,7 @@ const changeStep = (buttonClicked) => {
 							$.each(response.headings['Elevation Types'][0],(key,val)=>{
 								elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 										<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
-										<select class="form-control" id="elevation_type_dropdown_${key}" onchange="userMappedData('elevation_type',${key},'${val}')">
+										<select class="form-control" style="max-width: 300px;" id="elevation_type_dropdown_${key}" onchange="userMappedData('elevation_type',${key},'${val}')">
 										${elevationOptions}
 										</select>
 									</div>`;
@@ -783,7 +783,7 @@ const changeStep = (buttonClicked) => {
 							$.each(response.headings['Color Schemes'][0],(key,val)=>{
 								colorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 										<label class="w-100 m-0 text-dark" data-index='${key}'>${val}</label>
-										<select class="form-control" id="color_scheme_dropdown_${key}" onchange="userMappedData('color_scheme',${key},'${val}')">
+										<select class="form-control" style="max-width: 300px;" id="color_scheme_dropdown_${key}" onchange="userMappedData('color_scheme',${key},'${val}')">
 										${colorOptions}
 										</select>
 									</div>`;
@@ -805,7 +805,7 @@ const changeStep = (buttonClicked) => {
 								$.each(response.headings['Color Scheme Features'][0],(key,val)=>{
 									colorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 											<label class="w-100 m-0 text-dark">${val}</label>
-											<select class="form-control" id="color_scheme_feature_dropdown_${key}" onchange="userMappedData('color_scheme_feature',${key},'${val}')">
+											<select class="form-control" style="max-width: 300px;" id="color_scheme_feature_dropdown_${key}" onchange="userMappedData('color_scheme_feature',${key},'${val}')">
 											${colorFeatureOptions}
 											</select>
 										</div>`;
@@ -826,7 +826,7 @@ const changeStep = (buttonClicked) => {
 								$.each(response.headings['Floors'][0],(key,val)=>{
 									floorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 											<label class="w-100 m-0 text-dark">${val}</label>
-											<select class="form-control" id="floor_dropdown_${key}" onchange="userMappedData('floor',${key},'${val}')">
+											<select class="form-control" style="max-width: 300px;" id="floor_dropdown_${key}" onchange="userMappedData('floor',${key},'${val}')">
 											${floorOptions}
 											</select>
 										</div>`;
@@ -847,7 +847,7 @@ const changeStep = (buttonClicked) => {
 								$.each(response.headings['Floor Features'][0],(key,val)=>{
 									floorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1">
 											<label class="w-100 m-0 text-dark">${val}</label>
-											<select class="form-control" id="floor_feature_dropdown_${key}" onchange="userMappedData('floor_feature',${key},'${val}')">
+											<select class="form-control" style="max-width: 300px;" id="floor_feature_dropdown_${key}" onchange="userMappedData('floor_feature',${key},'${val}')">
 											${floorFeatureOptions}
 											</select>
 										</div>`;

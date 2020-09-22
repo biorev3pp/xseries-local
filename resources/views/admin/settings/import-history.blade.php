@@ -65,7 +65,7 @@
     text-align: left !important;}
     .subbottom{display: block; color: #aaa; position: relative; top: -4px; font-size: 85%;}
     .progresss-span-bg{display: block; background: #dc3545; height: 26px; color: #fff; border-radius: 4px; line-height: 26px; position: relative; font-weight: 500;}
-    .progresss-span{background: #28a745; display: block; height: 26px; color: #fff; border-radius: 4px; line-height: 26px; padding: 0 10px; text-align:left;}
+    .progresss-span{background: #28a745; display: block; height: 26px; color: #fff; border-radius: 4px; line-height: 26px; padding: 0 10px; text-align:left;     position: absolute;left: 0;white-space: nowrap;}
     .progresss-span:hover, .progresss-span:focus{color: #000;}
     .progresss-side-span{position: absolute; right: 14px; top: 0; font-weight: 500; color: #fff; text-decoration:none}
     .progresss-side-span:hover, .progresss-side-span:focus{color:#000}

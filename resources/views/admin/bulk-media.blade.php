@@ -925,6 +925,9 @@ tr.bg-sdanger input[type="checkbox"] {
 // buttonClicked = true for next and false for back
 let step = 1;
 let rowsSelected = 0;
+let unmappedrowsSelected = 0;
+let deletedrowsSelected = 0;
+
 const changeStep = (buttonClicked) => {
 	if(buttonClicked == true)
 	{
@@ -1012,22 +1015,22 @@ function replaceImage(){
 
 $("#pills-unmapped .checkall").on('click', function(){
 	$("#pills-unmapped tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
-	rowsSelected = $("#pills-unmapped tbody input[type=checkbox]:checked").length;
-	$("#pills-unmapped .mapping-action-wrap span b").html(rowsSelected);
+	unmappedrowsSelected = $("#pills-unmapped tbody input[type=checkbox]:checked").length;
+	$("#pills-unmapped .mapping-action-wrap span b").html(unmappedrowsSelected);
 });
 $("#pills-unmapped tbody input[type=checkbox]").on('click', function()
 {
 	if(this.checked)
 	{
-		rowsSelected++;
+		unmappedrowsSelected++;
 	}
 	else{
-		rowsSelected--;
+		unmappedrowsSelected--;
 	}
-	$("#pills-unmapped .mapping-action-wrap span b").html(rowsSelected);
+	$("#pills-unmapped .mapping-action-wrap span b").html(unmappedrowsSelected);
 });	
 $("#pills-unmapped .mapping-action-wrap button").click(function(){
-	if(rowsSelected < 1){
+	if(unmappedrowsSelected < 1){
 		toastr.error('Please select atleast one row');
 		return;
 	}
@@ -1047,22 +1050,22 @@ $("#pills-unmapped .mapping-action-wrap button").click(function(){
 
 $("#pills-deleted .checkall").on('click', function(){
 	$("#pills-deleted tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
-	rowsSelected = $("#pills-deleted tbody input[type=checkbox]:checked").length;
-	$("#pills-deleted .mapping-action-wrap span b").html(rowsSelected);
+	deletedrowsSelected = $("#pills-deleted tbody input[type=checkbox]:checked").length;
+	$("#pills-deleted .mapping-action-wrap span b").html(deletedrowsSelected);
 });
 $("#pills-deleted tbody input[type=checkbox]").on('click', function()
 {
 	if(this.checked)
 	{
-		rowsSelected++;
+		deletedrowsSelected++;
 	}
 	else{
-		rowsSelected--;
+		deletedrowsSelected--;
 	}
-	$("#pills-deleted .mapping-action-wrap span b").html(rowsSelected);
+	$("#pills-deleted .mapping-action-wrap span b").html(deletedrowsSelected);
 });	
 $("#pills-deleted .mapping-action-wrap button").click(function(){
-	if(rowsSelected < 1){
+	if(deletedrowsSelected < 1){
 		toastr.error('Please select atleast one row');
 		return;
 	}

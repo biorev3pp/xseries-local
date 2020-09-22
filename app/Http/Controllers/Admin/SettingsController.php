@@ -10,6 +10,7 @@ use App\Validators\FloorValidator;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Settings;
 use App\Admins;
+use App\Models\History;
 USE DB;
 use File;
 use Crypt;
@@ -72,6 +73,14 @@ class SettingsController extends Controller
     }
 
     public function importHistory(){
+        $this->data['history'] = History::orderBy('id', 'desc')->take(15)->get();
+        foreach($this->data['history'] as $history)
+        {
+            $uploaded_by = Admins::whereId($history->imported_by)->get(['name'])->first();
+            $uploaded_by = $uploaded_by->name;
+            $history['name'] = $uploaded_by; 
+        }
+        // dd($this->data);
         return view('admin.settings.import-history')->with($this->data);
     }
     public function importImagesHistory(){

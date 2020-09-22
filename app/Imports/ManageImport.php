@@ -5,7 +5,8 @@ namespace App\Imports;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\SkipsUnknownSheets;
-
+use App\Models\History;
+use Illuminate\Support\Facades\Auth;
 
 class ManageImport implements WithMultipleSheets,SkipsUnknownSheets
 {
@@ -15,7 +16,12 @@ class ManageImport implements WithMultipleSheets,SkipsUnknownSheets
     public function __construct($mapArray,$importing_on){
         $this->mapArray = $mapArray;
         $this->importing_on = $importing_on;
-        
+        History::create([
+            'type' => 'data',
+            'imported_on' => $this->importing_on,
+            'imported_by' => Auth::user()->id,
+            'file_name' => session('excel')
+        ]);
     }
     public function sheets(): array
     {

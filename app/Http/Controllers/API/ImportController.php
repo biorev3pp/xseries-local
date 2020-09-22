@@ -112,13 +112,21 @@ class ImportController extends Controller
         $floor_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'floor'])->count();
         $floor_feature_fail = ErrorHistory::where(['imported_on'=>$importing_on,'type' =>'floor_feature'])->count();
         $total_fail = $com_fail+$ele_fail+$ele_type_fail+$color_fail+$color_feature_fail+$floor_fail+$floor_feature_fail;
-
-        $success_percent = ($total_success)/($total_fail+$total_success);
-        $res = array(
-            'success'       =>$total_success,
-            'fail'          => $total_fail,
-            'percentage'    => $success_percent 
-        );
+        $total = $total_fail + $total_success;
+        if($total !=0)
+        {
+            $success_percent = ($total_success)/($total_fail+$total_success);
+            $res = array(
+                'success'       =>$total_success,
+                'fail'          => $total_fail,
+                'percentage'    => $success_percent 
+            );
+            History::where('imported_on',$importing_on)->update([
+                'success'    =>$total_success,
+                'fail'       =>$total_fail,
+                'percentage' => $success_percent 
+            ]);
+        }
         // $res = ErrorHistory::where('imported_on',$importing_on)->get();
         // foreach($res as $r)
         // {

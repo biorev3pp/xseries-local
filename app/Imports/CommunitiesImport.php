@@ -6,7 +6,6 @@ use App\Models\Communities;
 use App\Models\States;
 use App\Models\Cities;
 use App\Models\Plots;
-use App\Models\History;
 use App\Models\ErrorHistory;
 use App\Models\LegendGroups;
 use Illuminate\Support\Collection;

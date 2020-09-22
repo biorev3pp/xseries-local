@@ -31,23 +31,25 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($history as $key => $h)
                         <tr>
-                        <td>1.</td>
-                        <td>bulk-upload-sample.xlsx</td>
-                        <td>Admin</td>
+                        <td>{{$key+1}}</td>
+                        <td>{{$h->file_name}}</td>
+                        <td>{{$h->name}}</td>
                         <td>Finished On <span class="subbottom"> Sep 18, 2020 </span></td>
                         <td class="progress-row">
                             <span class="progresss-span-bg"> 
-                                <a href="javascript:;" class="progresss-span" style="width:83%"> 83% complete </a>
-                                <a href="javascript:;" class="float-right progresss-side-span"> 3 of 18 failed </a>
+                                <a href="javascript:;" class="progresss-span" style="width:{{$h->percent}}%"> {{$h->percent}}% complete </a>
+                                <a href="javascript:;" class="float-right progresss-side-span">  {{$h->fail}} of {{$h->success+$h->fail}} failed </a>
                             </span>
                         </td>
                         <td class="action">
-                            <a href="#" class="d-inline-block"> 18 <span class="subbottom"> Total </span> </a>
-                            <a href="#" class="d-inline-block"> 15 <span class="subbottom"> Imported </span> </a>
-                            <a href="#" class="mr-0 d-inline-block"> 3 <span class="subbottom"> Failure </span> </a>
+                            <a href="#" class="d-inline-block">{{$h->success+$h->fail}} <span class="subbottom"> Total </span> </a>
+                            <a href="#" class="d-inline-block"> {{$h->success}} <span class="subbottom"> Imported </span> </a>
+                            <a href="#" class="mr-0 d-inline-block"> {{$h->fail}} <span class="subbottom"> Failure </span> </a>
                         </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

@@ -3,6 +3,7 @@
 
 #ss_step_div{
 	display: block;
+	padding: 15px 0;
 }
 
 .containers{
@@ -400,6 +401,10 @@ tr.bg-sdanger input[type="checkbox"] {
 	transition: 0.3s ease background-color;
 }
 
+.report-wrap{
+	display: none;
+}
+
 .nowrap{
 	white-space: nowrap;
 }
@@ -604,7 +609,8 @@ select.form-control:disabled{
 				</div>
 				<div id="sr_step_div" class="containers">
 					<h3 class="text-center">Report</h3>
-					<div>
+					<p class="uploadloader text-center my-2"><img src="{{asset('images/spinner.gif')}}"></p>
+					<div class="report-wrap">
 						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>All data has been imported successfully.</span>
 							<ul class="same-btns">
 								<li> <a href="{{route('bulk-data')}}">Import More Data </a> </li>
@@ -1108,6 +1114,8 @@ const changeStep = (buttonClicked) => {
 					$('.badge-success').html(response.success);
 					$('.badge-danger').html(response.fail);
 					$('.badge-info').html(`${response.percentage}%`);
+					$(".uploadloader").hide();
+					$('.report-wrap').fadeIn();
 				},
 				error		: function(error){
 

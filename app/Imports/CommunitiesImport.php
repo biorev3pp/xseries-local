@@ -25,12 +25,14 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
     public $mapChoice;
     public $rules = [];
     public $imported_on;
+    public $flag;
     
-    public function __construct($mapChoice,$importing_on)
+    public function __construct($mapChoice,$importing_on,$flag)
     {
         # code...
         $this->mapChoice = (array)$mapChoice;
         $this->imported_on = $importing_on;
+        $this->flag = $flag;
         $this->mapChoice = array_flip($this->mapChoice);
         
         if(array_key_exists('name',$this->mapChoice))
@@ -104,8 +106,24 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
             return;
             
         }
-        else{
+        elseif(Communities::where('slug', $slug)->count() != 0 && $this->flag =='skip'){
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'community',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on
+            ]); 
             return null;
+        }
+        elseif(Communities::where('slug', $slug)->count() != 0 && $this->flag =='update'){
+
+            $c_data['imported_on'] = $this->imported_on;
+             Communities::where('slug',$slug)->update($c_data);
+            return;
+        }
+        else{
+            return;
         }
     }
     public function rules(): array

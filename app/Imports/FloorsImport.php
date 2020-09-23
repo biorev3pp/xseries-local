@@ -54,7 +54,17 @@ class FloorsImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFail
         }
         $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
-        if(!$home) return;
+        if(!$home) {
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'floor',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on,
+                'msg'           => 'Elevation or Elevation type found in sheet do not exist'    
+            ]);
+            return;
+        }
         if(Floor::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->count() == 0)
         { 
             $c_data['status_id'] = 1;
@@ -62,8 +72,22 @@ class FloorsImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFail
             $c_data['imported_on'] = $this->imported_on;
             return new Floor($c_data);
         }
-        else{
+        elseif(Floor::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->count() != 0 && $this->flag == 'skip'){
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'floor',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on
+            ]); 
             return null;
+        }
+        elseif(Floor::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->count() != 0 && $this->flag == 'update'){
+            $c_data['imported_on'] = $this->imported_on;
+            Floor::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->update($c_data);
+        }
+        else{
+            return;
         }
     }
     public function rules(): array

@@ -24,12 +24,14 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
     public $mapChoice;
     public $rules = [];
     public $imported_on;
-    
-    public function __construct($mapChoice,$importing_on)
+    public $flag;
+
+    public function __construct($mapChoice,$importing_on,$flag)
     {
         # code...
         $this->mapChoice = (array)$mapChoice;
         $this->imported_on = $importing_on;
+        $this->flag = $flag;
         $this->mapChoice = array_flip($this->mapChoice);
         if(array_key_exists('home_id',$this->mapChoice))
         {
@@ -71,7 +73,17 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
         $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
         $color_scheme      = ColorSchemes::where('title', 'like', $row[$this->mapChoice['color_scheme_id']])->where('home_id', $home->id)->first();
-        if(!$color_scheme) return;
+        if(!$color_scheme) {
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'color_scheme_feature',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on,
+                'msg'           => 'Color Scheme found in sheet do not exist.'    
+            ]);
+            return;
+        }
         if(HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->count() == 0)
         { 
             $c_data['imported_on'] = $this->imported_on;
@@ -79,8 +91,22 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
             $c_data['color_scheme_id'] = $color_scheme->id;
             return new HomeFeatures($c_data);
         }
-        else{
+        elseif(HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->count()!=0 && $this->flag =='skip'){
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'floor_feature',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on
+            ]); 
             return null;
+        }
+        elseif(HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->count()!=0 && $this->flag =='update'){
+            $c_data['imported_on'] = $this->imported_on;
+            HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->update($c_data);
+        }
+        else{
+            return;
         }
     }
     public function rules(): array

@@ -23,13 +23,14 @@ class HomeTypesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnF
     public $mapChoice;
     public $rules = [];
     public $imported_on;
-
+    public $flag;
     
-    public function __construct($mapChoice,$importing_on)
+    public function __construct($mapChoice,$importing_on,$flag)
     {
         # code...
         $this->mapChoice = (array)$mapChoice;
         $this->imported_on = $importing_on;
+        $this->flag = $flag;
         $this->mapChoice = array_flip($this->mapChoice);
         if(array_key_exists('title',$this->mapChoice))
         {
@@ -88,8 +89,23 @@ class HomeTypesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnF
             // Handle exception
             return  new Homes($c_data);
         }
-        else{
+        elseif(Homes::where('slug', $slug)->count() != 0 && $home && $this->flag =='skip'){
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'elevation_type',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on
+            ]); 
             return null;
+        }
+        elseif(Homes::where('slug', $slug)->count() != 0 && $home && $this->flag =='update'){
+            $c_data['imported_on'] = $this->imported_on;
+            Homes::where('slug',$slug)->update($c_data);
+            return;
+        }
+        else{
+            return;
         }
     }
     public function rules(): array

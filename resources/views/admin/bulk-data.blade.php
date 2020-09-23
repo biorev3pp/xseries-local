@@ -500,9 +500,9 @@ select.form-control:disabled{
 						<label class="text-left d-block text-dark" style="font-weight:500 !important; margin-bottom: 5px;">Import Options</label>
 						<div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
 							<select id="importOptions" class="form-control mr-0 mr-sm-1 mb-1 mb-sm-0" disabled>
-								<option value="">override</option>
-								<option value="">update</option>
-								<option value="" selected>skip</option>
+								<option value="override">override</option>
+								<option value="update">update</option>
+								<option value="skip" selected>skip</option>
 							</select>
 							<div class="w-100 d-flex align-items-center">
 								<input type="checkbox" id="importCheck" style="margin-right: 5px;">
@@ -956,7 +956,7 @@ const changeStep = (buttonClicked) => {
 			break;
 
 			case 'elevation_type':
-				if($('#elevation_dropdown_'+index).val()=='')
+				if($('#elevation_type_dropdown_'+index).val()=='')
 				{
 					delete elevation_type[label];
 					count--;
@@ -1031,7 +1031,70 @@ const changeStep = (buttonClicked) => {
 	}
 	function uploadData()
 	{
-		console.log(mappedArray);
+		if(Object.keys(mappedArray.community).length!=0)
+		{
+			let swappedObj = swap(mappedArray.community);
+			if(!swappedObj.hasOwnProperty('name'))
+			{
+				toastr.error("Name should be mapped in community section.");
+				return false;
+			}
+		}
+		if(Object.keys(mappedArray.elevation).length!=0)
+		{
+			let swappedObj = swap(mappedArray.elevation);
+			if(!swappedObj.hasOwnProperty('title'))
+			{
+				toastr.error("Name should be mapped in elevation section.");
+				return false;
+			}
+		}
+		if(Object.keys(mappedArray.elevation_type).length!=0)
+		{
+			let swappedObj = swap(mappedArray.elevation_type);
+			console.log(swappedObj);
+			if(!swappedObj.hasOwnProperty('title') || !swappedObj.hasOwnProperty('parent_id'))
+			{
+				toastr.error("Name and Base Elevation should be mapped in elevation type section.");
+				return false;
+			}
+		}
+		if(Object.keys(mappedArray.floor).length!=0)
+		{
+			let swappedObj = swap(mappedArray.floor);
+			if(!swappedObj.hasOwnProperty('title') || !swappedObj.hasOwnProperty('home_id'))
+			{
+				toastr.error("Title and  Elevation Title should be mapped in Floor section.");
+				return false;
+			}
+		}
+		if(Object.keys(mappedArray.floor_feature).length!=0)
+		{
+			let swappedObj = swap(mappedArray.floor_feature);
+			if(!swappedObj.hasOwnProperty('home_id') || !swappedObj.hasOwnProperty('floor_id') || !swappedObj.hasOwnProperty('title') || !swappedObj.hasOwnProperty('group'))
+			{
+				toastr.error("Elevation Name, Floor Title, Feature Title and Feature or Feature group should be mapped in Floor Features section.");
+				return false;
+			}
+		}
+		if(Object.keys(mappedArray.color_scheme).length!=0)
+		{
+			let swappedObj = swap(mappedArray.color_scheme);
+			if(!swappedObj.hasOwnProperty('home_id') || !swappedObj.hasOwnProperty('title'))
+			{
+				toastr.error("Elevation Or Elevation Type Name and Color Scheme Title should be mapped in Color Scheme section.");
+				return false;
+			}
+		}
+		if(Object.keys(mappedArray.color_scheme_feature).length!=0)
+		{
+			let swappedObj = swap(mappedArray.color_scheme_feature);
+			if(!swappedObj.hasOwnProperty('home_id') || !swappedObj.hasOwnProperty('color_scheme_id') || !swappedObj.hasOwnProperty('title'))
+			{
+				toastr.error("Elevation Or Elevation Type Name, Color Scheme Title and Feature Title should be mapped in Color Scheme Features section.");
+				return false;
+			}
+		}
 		if(count!=0)
 		{
 			mappedArray['import_as'] = $('#importOptions').val();
@@ -1058,6 +1121,13 @@ const changeStep = (buttonClicked) => {
 			return false;
 		}
 	}
+	function swap(json){
+		var ret = {};
+		for(var key in json){
+			ret[json[key]] = key;
+		}
+		return ret;
+		}
 	$("#importCheck").click(function(){
 		if(this.checked)
 		{	

@@ -13,9 +13,11 @@ class ManageImport implements WithMultipleSheets,SkipsUnknownSheets
     use Importable;
     public $mapArray;
     public $importing_on;
-    public function __construct($mapArray,$importing_on){
+    public $flag;
+    public function __construct($mapArray,$importing_on,$flag){
         $this->mapArray = $mapArray;
         $this->importing_on = $importing_on;
+        $this->flag= $flag;
         History::create([
             'type' => 'data',
             'imported_on' => $this->importing_on,
@@ -26,19 +28,19 @@ class ManageImport implements WithMultipleSheets,SkipsUnknownSheets
     public function sheets(): array
     {
         return [
-            'Communities'                   => new CommunitiesImport($this->mapArray->{'community'},$this->importing_on),
+            'Communities'                   => new CommunitiesImport($this->mapArray->{'community'},$this->importing_on,$this->flag),
 
-            'Elevations'                    => new HomesImport($this->mapArray->{'elevation'},$this->importing_on),
+            'Elevations'                    => new HomesImport($this->mapArray->{'elevation'},$this->importing_on,$this->flag),
 
-            'Floors'                        => new FloorsImport($this->mapArray->{'floor'},$this->importing_on),
+            'Floors'                        => new FloorsImport($this->mapArray->{'floor'},$this->importing_on,$this->flag),
 
-            'Floor Features'                => new FloorFeaturesImport($this->mapArray->{'floor_feature'},$this->importing_on),
+            'Floor Features'                => new FloorFeaturesImport($this->mapArray->{'floor_feature'},$this->importing_on,$this->flag),
 
-            'Elevation Types'               => new HomeTypesImport($this->mapArray->{'elevation_type'},$this->importing_on),
+            'Elevation Types'               => new HomeTypesImport($this->mapArray->{'elevation_type'},$this->importing_on,$this->flag),
 
-            'Color Schemes'                 => new ColorSchemesImport($this->mapArray->{'color_scheme'},$this->importing_on),
+            'Color Schemes'                 => new ColorSchemesImport($this->mapArray->{'color_scheme'},$this->importing_on,$this->flag),
             
-            'Color Scheme Features'         => new HomeFeaturesImport($this->mapArray->{'color_scheme_feature'},$this->importing_on),
+            'Color Scheme Features'         => new HomeFeaturesImport($this->mapArray->{'color_scheme_feature'},$this->importing_on,$this->flag),
         ];
     }
     public function onUnknownSheet($sheetName)

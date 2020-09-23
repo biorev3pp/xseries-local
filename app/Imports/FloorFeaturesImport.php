@@ -25,11 +25,13 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
     public $rules = [];
     public $imported_on;
     public $parent_id;
-    public function __construct($mapChoice,$importing_on)
+    public $flag;
+    public function __construct($mapChoice,$importing_on,$flag)
     {
         # code...
         $this->mapChoice = (array)$mapChoice;
         $this->imported_on = $importing_on;
+        $this->flag = $flag;
         $this->mapChoice = array_flip($this->mapChoice);
         if(array_key_exists('home_id',$this->mapChoice))
         {
@@ -67,7 +69,17 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
         $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
         $floor      = Floor::where('title', 'like', $row[$this->mapChoice['floor_id']])->where('home_id', $home->id)->first();
-        if(!$floor) return;
+        if(!$floor) {
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'floor_feature',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on,
+                'msg'           => 'Elevation or Elevation type or Floor found in sheet do not exist'    
+            ]);
+            return;
+        }
         if(Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->count() == 0)
         { 
                if($row[$this->mapChoice['group']] == 1)
@@ -92,8 +104,23 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
                     return new Features($c_data);
                 }
         }
-        else{
+        elseif(Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->count()!=0 && $this->flag =='skip'){
+            $data = json_encode($row);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'floor_feature',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on
+            ]); 
             return null;
+        }
+        elseif(Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->count()!=0 && $this->flag =='update'){
+            $c_data['imported_on'] = $this->imported_on;
+            Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->update($c_data);
+            return;
+        }
+        else{
+            return;
         }
     }
     public function rules(): array

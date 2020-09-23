@@ -92,7 +92,8 @@ class ImportController extends Controller
         $mapArray = json_decode($request->mapped);
         $dir = public_path('/uploads/excel/');
         $path = $dir.$request->session()->get('excel');
-         Excel::import(new ManageImport($mapArray,$importing_on), $path);
+        $flag = $mapArray->import_as;
+         Excel::import(new ManageImport($mapArray,$importing_on,$flag), $path);
         // $array = ();
         // dd($array);
         $com_success = Communities::where('imported_on',$importing_on)->count();

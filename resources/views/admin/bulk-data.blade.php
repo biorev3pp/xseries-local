@@ -626,6 +626,7 @@ select.form-control:disabled{
 						<div class="sr-synop">
 							<h6>Activity Log </h6>
 							<p> <span class="border-bottom"> <b class="badge badge-success">15</b> New entries has been imported successfully.  </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-light">0</b> entries has been skipped.  </span> </p>
 							<p> <span class="border-bottom"> <b class="badge badge-danger">3</b> Entries failed to import. </span> </p>
 							<p> <span class="border-bottom"> <b class="badge badge-info">83%</b> Import Process Completed. </span> </p>
 						</div>

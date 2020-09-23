@@ -27,7 +27,7 @@
                         <th width="200px">Uploaded By</th> 
                         <th width="130px">Status</th>
                         <th>Progress</th>
-                        <th width="200px">Action</th>
+                        <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,6 +47,7 @@
                             <a href="#" class="d-inline-block">{{$h->success+$h->fail}} <span class="subbottom"> Total </span> </a>
                             <a href="#" class="d-inline-block"> {{$h->success}} <span class="subbottom"> Imported </span> </a>
                             <a href="#" class="mr-0 d-inline-block"> {{$h->fail}} <span class="subbottom"> Failure </span> </a>
+                            <a href="#" class="mr-0 d-inline-block"> {{$h->fail}} <span class="subbottom"> Skipped </span> </a>
                         </td>
                         </tr>
                         @endforeach
@@ -59,7 +60,7 @@
 
 <style>
     .imp-table tbody td{padding: 8px !important; font-size: 15px;}
-    .action{min-width: 160px;}
+    .action{min-width: 180px;}
     .poptable td, .poptable th{    padding: 8px !important;
     font-size: 11px !important;
     text-align: left !important;}

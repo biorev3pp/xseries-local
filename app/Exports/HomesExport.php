@@ -21,7 +21,7 @@ class HomesExport implements FromArray,WithTitle,WithHeadings,ShouldAutoSize,Wit
     public function map($row): array
     {
         return [
-            $row['title'],$row['specifications'],$row['price'],$row['area'],$row['bedroom'],$row['bathroom'],$row['garage'],$row['floor'],$row['gallery'],$row['img']
+            $row['title'],$row['specifications'],$row['price'],$row['area'],$row['bedroom'],$row['bathroom'],$row['garage'],$row['floor'],$row['gallery'],$row['img'],$row['status']
         ];
     }
     public function headings(): array

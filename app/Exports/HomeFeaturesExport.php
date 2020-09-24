@@ -22,7 +22,7 @@ class HomeFeaturesExport implements FromArray,WithTitle,WithHeadings,ShouldAutoS
     public function map($row): array
     {
         return [
-            $row['home_id'],$row['color_scheme_id'],$row['title'],$row['price'],$row['upgraded'],$row['upgrade_type'],$row['material'],$row['manufacturer'],$row['name'],$row['m_id'],$row['img']
+            $row['home_id'],$row['color_scheme_id'],$row['title'],$row['price'],$row['upgraded'],$row['upgrade_type'],$row['material'],$row['manufacturer'],$row['name'],$row['m_id'],$row['img'],$row['status']
         ];
     }
     public function headings(): array

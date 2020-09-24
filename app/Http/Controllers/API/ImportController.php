@@ -200,19 +200,22 @@ class ImportController extends Controller
         $data['community_heading'] = ['Name','Location','State','City','Marker Image','Description','Zipcode','Logo Image','Banner','Latitude','Longitude','Gallery','Contact Number','Contact Email','Contact Person','Status'];
 
         // Elevation or elevation type
-        $data['home_heading'] = ['Name','Description','Price','Area','Bedroom','Bathroom','Garage','Floor','Featured Image'];
+        $data['home_heading'] = ['Elevation Title','Specifications','Price','Area','Bedroom','Bathroom','Garage','Floor','Gallery','Featured Image','Status'];
+
+        // Elevation or elevation type
+        $data['home_type_heading'] = ['Elevation Title','Base Elevation','Specifications','Price','Area','Bedroom','Bathroom','Garage','Floor','Gallery','Featured Image','Status'];
 
         //floor 
-        $data['floor_heading'] = ['Title','Elevation Title','Image'];
+        $data['floor_heading'] = ['Title','Elevation Title','Image','Status'];
 
         //floor feature
-        $data['floor_feature_heading'] = ['Elevation Name','Floor Title','Feature Title','Price','Image','Feature Or Feature Group'];
+        $data['floor_feature_heading'] = ['Elevation Name','Floor Title','Feature Title','Price','Image','Feature Or Feature Group','Status'];
 
         // Color scheme
-        $data['color_scheme_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Image','Price'];
+        $data['color_scheme_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Image','Price','Status'];
 
         // color scheme feature.
-        $data['color_scheme_feature_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Feature Title','Price','Upgrade Or Base','Upgraded Type','Material','Manufacturer','Name','Manufacturer ID','Feature Image'];
+        $data['color_scheme_feature_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Feature Title','Price','Upgrade Or Base','Upgraded Type','Material','Manufacturer','Name','Manufacturer ID','Feature Image','Status'];
 
         //Community keys
         $com_key = ['name','location','state_id','city_id','marker_image','description','zipcode','logo','banner','lat','lng','gallery','contact_number','contact_email','contact_person'];

@@ -21,7 +21,7 @@ class ColorSchemesExport implements FromArray,WithTitle,WithHeadings,ShouldAutoS
     public function map($row): array
     {
         return [
-            $row['title'],$row['home_id'],$row['img'],$row['price']
+            $row['title'],$row['home_id'],$row['img'],$row['price'],$row['status']
         ];
     }
     public function headings(): array

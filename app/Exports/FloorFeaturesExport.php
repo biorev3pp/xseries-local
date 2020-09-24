@@ -22,7 +22,7 @@ class FloorFeaturesExport implements FromArray,WithTitle,WithHeadings,ShouldAuto
     public function map($row): array
     {
         return [
-            $row['home_id'],$row['floor_id'],$row['title'],$row['price'],$row['image'],$row['group']
+            $row['home_id'],$row['floor_id'],$row['title'],$row['price'],$row['image'],$row['group'],$row['status']
         ];
     }
     public function headings(): array

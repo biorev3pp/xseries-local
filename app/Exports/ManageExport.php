@@ -26,7 +26,7 @@ class ManageExport implements FromArray,WithMultipleSheets
         $sheets = [
             new CommunitiesExport($this->sheets['community'],$this->sheets['community_heading']),
             new HomesExport($this->sheets['elevation'],$this->sheets['home_heading']),
-            new HomeTypesExport($this->sheets['elevation_type'],$this->sheets['home_heading']),
+            new HomeTypesExport($this->sheets['elevation_type'],$this->sheets['home_type_heading']),
             new FloorsExport($this->sheets['floor'],$this->sheets['floor_heading']),
             new FloorFeaturesExport($this->sheets['floor_feature'],$this->sheets['floor_feature_heading']),
             new ColorSchemesExport($this->sheets['color_scheme'],$this->sheets['color_scheme_heading']),

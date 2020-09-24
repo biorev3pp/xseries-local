@@ -55,7 +55,7 @@ class FloorsImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFail
         $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
         if(!$home) {
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'floor',
@@ -73,7 +73,7 @@ class FloorsImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFail
             return new Floor($c_data);
         }
         elseif(Floor::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->count() != 0 && $this->flag == 'skip'){
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'floor',

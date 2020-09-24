@@ -107,7 +107,7 @@ class CommunitiesImport implements ToModel, WithHeadingRow,WithValidation,SkipsO
             
         }
         elseif(Communities::where('slug', $slug)->count() != 0 && $this->flag =='skip'){
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'community',

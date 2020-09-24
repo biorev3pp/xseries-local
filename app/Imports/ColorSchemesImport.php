@@ -61,7 +61,7 @@ class ColorSchemesImport implements ToModel, WithHeadingRow,WithValidation,Skips
         $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
         if(!$home) {
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'color_scheme',

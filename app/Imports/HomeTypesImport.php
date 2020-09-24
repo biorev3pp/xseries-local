@@ -90,7 +90,7 @@ class HomeTypesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnF
             return  new Homes($c_data);
         }
         elseif(Homes::where('slug', $slug)->count() != 0 && $home && $this->flag =='skip'){
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'elevation_type',

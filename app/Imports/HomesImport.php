@@ -86,7 +86,7 @@ class HomesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFailu
             return  new Homes($c_data);
         }
         elseif(Homes::where('slug', $slug)->count() != 0 && $this->flag =='skip'){
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'elevation',

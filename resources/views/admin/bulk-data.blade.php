@@ -1114,6 +1114,7 @@ const changeStep = (buttonClicked) => {
 				success		: function(response){
 					$('.badge-success').html(response.success);
 					$('.badge-danger').html(response.fail);
+					$('.badge-light').html(response.skip);
 					$('.badge-info').html(`${response.percentage}%`);
 					$(".uploadloader").hide();
 					$('.report-wrap').fadeIn();

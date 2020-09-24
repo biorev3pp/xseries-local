@@ -39,15 +39,15 @@
                         <td>Finished On <span class="subbottom"> {{date('M',$h->imported_on)}} {{date('d',$h->imported_on)}}, {{date('Y',$h->imported_on)}} </span></td>
                         <td class="progress-row">
                             <span class="progresss-span-bg"> 
-                                <a href="javascript:;" class="progresss-span" style="width:{{$h->percent}}%"> {{$h->percent}}% complete </a>
-                                <a href="javascript:;" class="float-right progresss-side-span">  {{$h->fail}} of {{$h->success+$h->fail}} failed </a>
+                                <a href="{{route('export-history',['timestamp'=>$h->imported_on])}}" class="progresss-span" style="width:{{$h->percent}}%"> {{$h->percent}}% complete </a>
+                                <a href="javascript:;" class="float-right progresss-side-span">  {{$h->fail}} of {{$h->success+$h->fail+$h->skip}} failed </a>
                             </span>
                         </td>
                         <td class="action">
-                            <a href="#" class="d-inline-block">{{$h->success+$h->fail}} <span class="subbottom"> Total </span> </a>
+                            <a href="#" class="d-inline-block">{{$h->success+$h->fail+$h->skip}} <span class="subbottom"> Total </span> </a>
                             <a href="#" class="d-inline-block"> {{$h->success}} <span class="subbottom"> Imported </span> </a>
                             <a href="#" class="mr-0 d-inline-block"> {{$h->fail}} <span class="subbottom"> Failure </span> </a>
-                            <a href="#" class="mr-0 d-inline-block"> {{$h->fail}} <span class="subbottom"> Skipped </span> </a>
+                            <a href="#" class="mr-0 d-inline-block"> {{$h->skip}} <span class="subbottom"> Skipped </span> </a>
                         </td>
                         </tr>
                         @endforeach

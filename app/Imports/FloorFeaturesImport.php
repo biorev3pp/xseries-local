@@ -70,7 +70,7 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
         $floor      = Floor::where('title', 'like', $row[$this->mapChoice['floor_id']])->where('home_id', $home->id)->first();
         if(!$floor) {
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'floor_feature',
@@ -105,7 +105,7 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
                 }
         }
         elseif(Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->count()!=0 && $this->flag =='skip'){
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'floor_feature',

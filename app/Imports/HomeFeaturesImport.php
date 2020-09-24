@@ -74,7 +74,7 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
         $color_scheme      = ColorSchemes::where('title', 'like', $row[$this->mapChoice['color_scheme_id']])->where('home_id', $home->id)->first();
         if(!$color_scheme) {
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'color_scheme_feature',
@@ -92,7 +92,7 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
             return new HomeFeatures($c_data);
         }
         elseif(HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->count()!=0 && $this->flag =='skip'){
-            $data = json_encode($row);
+            $data = serialize($c_data);
             ErrorHistory::create([
                 'data'          => $data,
                 'type'          => 'floor_feature',

@@ -21,7 +21,7 @@ class HomeTypesExport implements FromArray,WithTitle,WithHeadings,ShouldAutoSize
     public function map($row): array
     {
         return [
-            $row['title'],$row['parent_id'],$row['specifications'],$row['price'],$row['area'],$row['bedroom'],$row['bathroom'],$row['garage'],$row['floor'],$row['gallery'],$row['img'],$row['status']
+            $row['title'],$row['parent_id'],$row['specifications'],$row['price'],$row['area'],$row['bedroom'],$row['bathroom'],$row['garage'],$row['floor'],$row['gallery'],$row['img'],$row['status'],$row['msg']
         ];
     }
     public function headings(): array

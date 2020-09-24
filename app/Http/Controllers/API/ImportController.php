@@ -199,23 +199,23 @@ class ImportController extends Controller
         //Community heading
         $data['community_heading'] = ['Name','Location','State','City','Marker Image','Description','Zipcode','Logo Image','Banner','Latitude','Longitude','Gallery','Contact Number','Contact Email','Contact Person','Status'];
 
-        // Elevation or elevation type
+        // Elevation 
         $data['home_heading'] = ['Elevation Title','Specifications','Price','Area','Bedroom','Bathroom','Garage','Floor','Gallery','Featured Image','Status'];
 
-        // Elevation or elevation type
-        $data['home_type_heading'] = ['Elevation Title','Base Elevation','Specifications','Price','Area','Bedroom','Bathroom','Garage','Floor','Gallery','Featured Image','Status'];
+        // Elevation type
+        $data['home_type_heading'] = ['Elevation Title','Base Elevation','Specifications','Price','Area','Bedroom','Bathroom','Garage','Floor','Gallery','Featured Image','Status','Message'];
 
         //floor 
-        $data['floor_heading'] = ['Title','Elevation Title','Image','Status'];
+        $data['floor_heading'] = ['Title','Elevation Title','Image','Status','Message'];
 
         //floor feature
-        $data['floor_feature_heading'] = ['Elevation Name','Floor Title','Feature Title','Price','Image','Feature Or Feature Group','Status'];
+        $data['floor_feature_heading'] = ['Elevation Name','Floor Title','Feature Title','Price','Image','Feature Or Feature Group','Status','Message'];
 
         // Color scheme
-        $data['color_scheme_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Image','Price','Status'];
+        $data['color_scheme_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Image','Price','Status','Message'];
 
         // color scheme feature.
-        $data['color_scheme_feature_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Feature Title','Price','Upgrade Or Base','Upgraded Type','Material','Manufacturer','Name','Manufacturer ID','Feature Image','Status'];
+        $data['color_scheme_feature_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Feature Title','Price','Upgrade Or Base','Upgraded Type','Material','Manufacturer','Name','Manufacturer ID','Feature Image','Status','Message'];
 
         //Community keys
         $com_key = ['name','location','state_id','city_id','marker_image','description','zipcode','logo','banner','lat','lng','gallery','contact_number','contact_email','contact_person'];
@@ -287,6 +287,7 @@ class ImportController extends Controller
                     $parent_elevation = Homes::where('parent_id',$type->parent_id)->first()->title;
                     $temp_type['parent_id'] = $parent_elevation;
                     $temp_type['status'] = 'imported';
+                    $temp_type['msg'] = 'ok';
                     array_push($data['elevation_type'],$temp_ele);
                 }
         }
@@ -302,6 +303,7 @@ class ImportController extends Controller
                 }
             }
             $d['status'] = 'skipped';
+            $d['msg'] = $skip->msg;
             array_push($data['elevation_type'],$d);
         }
 
@@ -313,6 +315,7 @@ class ImportController extends Controller
                 $parent_elevation = Homes::where('id',$temp_floor->home_id)->first()->title;
                 $temp_floor['home_id'] = $parent_elevation;
                 $temp_floor['status'] = 'imported';
+                $temp_color['msg'] = 'ok';
                 array_push($data['floor'],$temp_floor);
             }
         }
@@ -327,6 +330,7 @@ class ImportController extends Controller
                 }
             }
             $d['status'] = 'skipped';
+            $d['msg'] = $skip->msg;
             array_push($data['floor'],$d);
         }
 
@@ -340,6 +344,7 @@ class ImportController extends Controller
                 $temp_feature['floor_id'] = $cFloor->title;
                 $temp_feature['home_id'] = $parent_elevation;
                 $temp_feature['status'] = 'imported';
+                $temp_feature['msg'] = 'ok';
                 array_push($data['floor_feature'],$temp_feature);
             }
         }
@@ -354,6 +359,7 @@ class ImportController extends Controller
                 }
             }
             $d['status'] = 'skipped';
+            $d['msg'] = $skip->msg;
             array_push($data['floor_feature'],$d);
         }
         // Color Schemes Related Data
@@ -365,6 +371,7 @@ class ImportController extends Controller
                 $color_scheme_parent_ele = Homes::where('id',$temp_color->home_id)->first()->title;
                 $temp_color['home_id'] = $color_scheme_parent_ele;
                 $temp_color['status'] = 'imported';
+                $temp_color['msg'] = 'ok';
                 array_push($data['color_scheme'],$temp_color);
             }
         }
@@ -372,12 +379,13 @@ class ImportController extends Controller
         foreach($skipped_color as $skip)
         {
             $d = unserialize($skip->data);
-            foreach($color_key as $key){
+            foreach($color_scheme_key as $key){
                 if(!array_key_exists($key,$d)){
                     $d[$key] = '';
                 }
             }
             $d['status'] = 'skipped';
+            $d['msg'] = $skip->msg;
             array_push($data['color_scheme'],$d);
         }
         // Color Scheme Feature
@@ -390,6 +398,7 @@ class ImportController extends Controller
                 $home_id = $color->home_id;
                 $parent_ele = Homes::where('id',$home_id)->first()->title;
                 $temp_f['home_id'] = $parent_ele;
+                $temp_f['msg'] = 'ok';
                 $temp_f['color_scheme_id'] = $color->title;
                 $temp_f['status'] = 'imported';
                 array_push($data['color_scheme_feature'],$temp_f);
@@ -399,12 +408,13 @@ class ImportController extends Controller
         foreach($skipped_color_feature as $skip)
         {
             $d = unserialize($skip->data);
-            foreach($color_key as $key){
+            foreach($color_feature_key as $key){
                 if(!array_key_exists($key,$d)){
                     $d[$key] = '';
                 }
             }
             $d['status'] = 'skipped';
+            $d['msg'] = $skip->msg;
             array_push($data['color_scheme_feature'],$d);
         }
         $export_file_name = History::where('imported_on',$timestamp)->get(['file_name'])->first()->file_name;

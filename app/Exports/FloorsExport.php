@@ -21,7 +21,7 @@ class FloorsExport implements FromArray,WithTitle,WithHeadings,ShouldAutoSize,Wi
     public function map($row): array
     {
         return [
-            $row['title'],$row['home_id'],$row['img'],$row['status']
+            $row['title'],$row['home_id'],$row['img'],$row['status'],$row['msg']
         ];
     }
     public function headings(): array

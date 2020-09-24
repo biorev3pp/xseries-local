@@ -284,11 +284,11 @@ class ImportController extends Controller
         if($ele_type){
             foreach($ele_type as $temp_type)
                 {
-                    $parent_elevation = Homes::where('parent_id',$type->parent_id)->first()->title;
+                    $parent_elevation = Homes::where('parent_id',$temp_type['parent_id'])->first()->title;
                     $temp_type['parent_id'] = $parent_elevation;
                     $temp_type['status'] = 'imported';
                     $temp_type['msg'] = 'ok';
-                    array_push($data['elevation_type'],$temp_ele);
+                    array_push($data['elevation_type'],$temp_type);
                 }
         }
         $skipped_ele_type = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'skip','type'=>'elevation_type'])->get();
@@ -312,10 +312,10 @@ class ImportController extends Controller
         if($floor){
             foreach($floor as $temp_floor)
             {
-                $parent_elevation = Homes::where('id',$temp_floor->home_id)->first()->title;
+                $parent_elevation = Homes::where('id',$temp_floor['home_id'])->first()->title;
                 $temp_floor['home_id'] = $parent_elevation;
                 $temp_floor['status'] = 'imported';
-                $temp_color['msg'] = 'ok';
+                $temp_floor['msg'] = 'ok';
                 array_push($data['floor'],$temp_floor);
             }
         }
@@ -339,7 +339,7 @@ class ImportController extends Controller
         if($floor_feature){
             foreach($floor_feature as $temp_feature)
             {
-                $cFloor = Floor::where('id',$temp_feature->floor_id)->first();
+                $cFloor = Floor::where('id',$temp_feature['floor_id'])->first();
                 $parent_elevation = Homes::where('id',$cFloor->home_id)->first()->title;
                 $temp_feature['floor_id'] = $cFloor->title;
                 $temp_feature['home_id'] = $parent_elevation;
@@ -368,7 +368,7 @@ class ImportController extends Controller
         {
             foreach($color_scheme as $temp_color)
             {
-                $color_scheme_parent_ele = Homes::where('id',$temp_color->home_id)->first()->title;
+                $color_scheme_parent_ele = Homes::where('id',$temp_color['home_id'])->first()->title;
                 $temp_color['home_id'] = $color_scheme_parent_ele;
                 $temp_color['status'] = 'imported';
                 $temp_color['msg'] = 'ok';
@@ -394,7 +394,7 @@ class ImportController extends Controller
         {
             foreach($color_scheme_feature as $temp_f)
             {
-                $color = ColorSchemes::where('id',$f->color_scheme_id)->first();
+                $color = ColorSchemes::where('id',$temp_f['color_scheme_id'])->first();
                 $home_id = $color->home_id;
                 $parent_ele = Homes::where('id',$home_id)->first()->title;
                 $temp_f['home_id'] = $parent_ele;

@@ -86,6 +86,7 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
         }
         if(HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->count() == 0)
         { 
+            unset($c_data['home_id']);
             $c_data['imported_on'] = $this->imported_on;
             $c_data['priority']          = 1;
             $c_data['color_scheme_id'] = $color_scheme->id;
@@ -103,6 +104,9 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
         }
         elseif(HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->count()!=0 && $this->flag =='update'){
             $c_data['imported_on'] = $this->imported_on;
+            if(array_key_exists('home_id',$c_data)){
+                unset($c_data['home_id']);
+            }
             HomeFeatures::where('title', 'like', $row[$this->mapChoice['title']])->where('color_scheme_id', $color_scheme->id)->update($c_data);
         }
         else{

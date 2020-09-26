@@ -181,7 +181,10 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::get('/export-leads','Admin\ExportController@leadsReport')->name('export-leads');
     Route::get('/export-estimates','Admin\ExportController@EstimatesReport')->name('export-estimates');
     Route::get('/single-estimates/{id}','Admin\ExportController@EstimatesSingleReport')->name('single-estimates');
-    Route::get('/mega-export/{timestamp}','API\ImportController@exportError')->name('export-history');
+    // Export Success And Skip Data
+    Route::get('/mega-export/success/{timestamp}','API\ImportController@exportSuccess')->name('export-success-history');
+    // Export Error Data
+    Route::get('/mega-export/error/{timestamp}','API\ImportController@exportError')->name('export-error-history');
     //save lat long into database
     Route::post('/saveLatlong','Admin\CommunitiesController@saveLatlong')->name('saveLatlong');
     /* Leads  Status */

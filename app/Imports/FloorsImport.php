@@ -23,13 +23,14 @@ class FloorsImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFail
     public $mapChoice;
     public $rules = [];
     public $imported_on;
-
+    public $flag;
     
-    public function __construct($mapChoice,$importing_on)
+    public function __construct($mapChoice,$importing_on,$flag)
     {
         # code...
         $this->mapChoice = (array)$mapChoice;
         $this->imported_on = $importing_on;
+        $this->flag = $flag;
         $this->mapChoice = array_flip($this->mapChoice);
         if(array_key_exists('home_id',$this->mapChoice))
         {

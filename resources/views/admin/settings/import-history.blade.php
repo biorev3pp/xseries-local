@@ -39,8 +39,8 @@
                         <td>Finished On <span class="subbottom"> {{date('M',$h->imported_on)}} {{date('d',$h->imported_on)}}, {{date('Y',$h->imported_on)}} </span></td>
                         <td class="progress-row">
                             <span class="progresss-span-bg"> 
-                                <a href="{{route('export-history',['timestamp'=>$h->imported_on])}}" class="progresss-span" style="width:{{$h->percent}}%"> {{$h->percent}}% complete </a>
-                                <a href="javascript:;" class="float-right progresss-side-span">  {{$h->fail}} of {{$h->success+$h->fail+$h->skip}} failed </a>
+                                <a href="{{route('export-success-history',['timestamp'=>$h->imported_on])}}" class="progresss-span" style="width:{{$h->percent}}%"> {{$h->percent}}% complete </a>
+                                <a href="{{route('export-error-history',['timestamp'=>$h->imported_on])}}" class="float-right progresss-side-span">  {{$h->fail}} of {{$h->success+$h->fail+$h->skip}} failed </a>
                             </span>
                         </td>
                         <td class="action">

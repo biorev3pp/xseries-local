@@ -68,6 +68,17 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
         }
         $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
+        if(!$home) {
+            $data = serialize($c_data);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'floor_feature',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on,
+                'msg'           => 'Elevation or Elevation type or Floor found in sheet do not exist'    
+            ]);
+            return;
+        }
         $floor      = Floor::where('title', 'like', $row[$this->mapChoice['floor_id']])->where('home_id', $home->id)->first();
         if(!$floor) {
             $data = serialize($c_data);
@@ -116,6 +127,7 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
         }
         elseif(Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->count()!=0 && $this->flag =='update'){
             $c_data['imported_on'] = $this->imported_on;
+            unset($c_data['home_id'],$c_data['group']);
             Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->update($c_data);
             return;
         }

@@ -94,11 +94,11 @@ class ImportController extends Controller
         $dir = public_path('/uploads/excel/');
         $path = $dir.$request->session()->get('excel');
         $flag = $mapArray->import_as;
-         Excel::import(new ManageImport($mapArray,$importing_on,$flag), $path);
+        Excel::import(new ManageImport($mapArray,$importing_on,$flag), $path);
         // $array = ();
         // dd($array);
         $com_success = Communities::where('imported_on',$importing_on)->count();
-        $ele_success = Homes::where('imported_on',$importing_on)->count();
+        $ele_success = Homes::where('imported_on',$importing_on)->where('parent_id',0)->count();
         $ele_type_success = Homes::where('imported_on',$importing_on)->where('parent_id','!=',0)->count();
         $color_success = ColorSchemes::where('imported_on',$importing_on)->count();
         $color_feature_success = HomeFeatures::where('imported_on',$importing_on)->count();
@@ -184,7 +184,7 @@ class ImportController extends Controller
         //
     }
 
-    public function exportError($timestamp)
+    public function exportSuccess($timestamp)
     {
         # code...
         $data['community'] = [];
@@ -209,7 +209,7 @@ class ImportController extends Controller
         $data['floor_heading'] = ['Title','Elevation Title','Image','Status','Message'];
 
         //floor feature
-        $data['floor_feature_heading'] = ['Elevation Name','Floor Title','Feature Title','Price','Image','Feature Or Feature Group','Status','Message'];
+        $data['floor_feature_heading'] = ['Elevation Name','Floor Title','Feature Title','Price','Image','Status','Message'];
 
         // Color scheme
         $data['color_scheme_heading'] = ['Elevation Or Elevation Type Name','Color Scheme Title','Image','Price','Status','Message'];
@@ -418,7 +418,221 @@ class ImportController extends Controller
             array_push($data['color_scheme_feature'],$d);
         }
         $export_file_name = History::where('imported_on',$timestamp)->get(['file_name'])->first()->file_name;
-        $export = new ManageExport($data);
+        $export = new ManageExport($data,false);
         return Excel::download($export,$export_file_name);
+    }
+    public function exportError($timestamp)
+    {
+        # code...
+        $data['community'] = [];
+        $data['elevation_type'] = [];
+        $data['elevation'] = [];
+        $data['color_scheme']   = [];
+        $data['floor']  = [];
+        $data['floor_feature']  = [];
+        $data['color_scheme_feature'] = [];
+
+        //Community heading
+        $data['community_heading'] =[];
+
+        // Elevation 
+        $data['home_heading'] = [];
+
+        // Elevation type
+        $data['home_type_heading'] = [];
+
+        //floor 
+        $data['floor_heading'] = [];
+
+        //floor feature
+        $data['floor_feature_heading'] = [];
+
+        // Color scheme
+        $data['color_scheme_heading'] = [];
+
+        // color scheme feature.
+        $data['color_scheme_feature_heading'] = [];
+
+        //Community related data
+        $error_community = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'error','type'=>'community'])->get();
+        if($error_community->first()){
+            $err = $error_community[0]->toArray();
+            $err_data = unserialize($err['data']);
+            // dd($err_data[0]->values());
+            $data['community_heading'] = $this->returnHeading($err_data[0]->values());
+        }
+        foreach($error_community as $skip)
+        {
+            $d = unserialize($skip->data);
+            $err_data = $d[0]->values(); 
+            $err_data['Status'] = 'error';
+            $err_data['Message'] = $this->conErrMsg($d[0]->errors());
+            array_push($data['community'],$err_data);
+        }
+        //Elevation related data
+        $error_ele = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'error','type'=>'elevation'])->get();
+        if($error_ele->first()){
+            $err = $error_ele[0]->toArray();
+            $err_data = unserialize($err['data']);
+            $data['home_heading'] = $this->returnHeading($err_data[0]->values());
+        }
+        foreach($error_ele as $skip)
+        {
+            $d = unserialize($skip->data);
+            $err_data = $d[0]->values(); 
+            $err_data['Status'] = 'error';
+            $err_data['Message'] = $this->conErrMsg($d[0]->errors());
+            array_push($data['elevation'],$err_data);
+        }
+
+        // Elevation type related data
+        $error_ele_type = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'error','type'=>'elevation_type'])->get();
+        if($error_ele_type->first()){
+            $err = $error_ele_type[0]->toArray();
+            $err_data = unserialize($err['data']);
+            $data['home_type_heading'] = $this->returnHeading($err_data[0]->values());
+        }
+        foreach($error_ele_type as $skip)
+        {
+            $d = unserialize($skip->data);
+            $err_data = $d[0]->values(); 
+            $err_data['Status'] = 'error';
+            $err_data['Message'] = $this->conErrMsg($d[0]->errors());
+            array_push($data['elevation_type'],$err_data);
+        }
+
+        // Floor related data
+        $error_floor = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'error','type'=>'floor'])->get();
+        if($error_floor->first()){
+            $err = $error_floor[0]->toArray();
+            $err_data = unserialize($err['data']);
+            $data['floor_heading'] = $this->returnHeading($err_data[0]->values());
+        }
+        foreach($error_floor as $skip)
+        {
+            $d = unserialize($skip->data);
+            $err_data = $d[0]->values(); 
+            $err_data['Status'] = 'error';
+            $err_data['Message'] = $this->conErrMsg($d[0]->errors());
+            array_push($data['floor'],$err_data);
+        }
+
+        // Floor Feature 
+        $error_floor_feature = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'error','type'=>'floor_feature'])->get();
+        if($error_floor_feature->first()){
+            $err = $error_floor_feature[0]->toArray();
+            $err_data = unserialize($err['data']);
+            $data['floor_feature_heading'] = $this->returnHeading($err_data[0]->values());
+        }
+        foreach($error_floor_feature as $skip)
+        {
+            $d = unserialize($skip->data);
+            $err_data = $d[0]->values(); 
+            $err_data['Status'] = 'error';
+            $err_data['Message'] = $this->conErrMsg($d[0]->errors());
+            array_push($data['floor_feature'],$err_data);
+        }
+        // Color Schemes Related Data
+        $error_color = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'error','type'=>'color_scheme'])->get();
+        if($error_color->first()){
+            $err = $error_color[0]->toArray();
+            $err_data = unserialize($err['data']);
+            $data['color_scheme_heading'] = $this->returnHeading($err_data[0]->values());
+        }
+        foreach($error_color as $skip)
+        {
+            $d = unserialize($skip->data);
+            $err_data = $d[0]->values(); 
+            $err_data['Status'] = 'error';
+            $err_data['Message'] = $this->conErrMsg($d[0]->errors());
+            array_push($data['color_scheme'],$err_data);
+        }
+        // Color Scheme Feature
+        $error_color_feature = ErrorHistory::where(['imported_on'=>$timestamp,'flag'=>'error','type'=>'color_scheme_feature'])->get();
+        if($error_color_feature->first()){
+            $err = $error_color_feature[0]->toArray();
+            $err_data = unserialize($err['data']);
+            $data['color_scheme_feature_heading'] = $this->returnHeading($err_data[0]->values());
+        }
+        foreach($error_color_feature as $skip)
+        {
+            $d = unserialize($skip->data);
+            $err_data = $d[0]->values(); 
+            $err_data['Status'] = 'error';
+            $err_data['Message'] = $this->conErrMsg($d[0]->errors());
+            array_push($data['color_scheme'],$err_data);
+        }
+        $export_file_name = History::where('imported_on',$timestamp)->get(['file_name'])->first()->file_name;
+        $export = new ManageExport($data,true);
+        return Excel::download($export,$export_file_name);
+    }
+    public function returnHeading($err):array
+    {
+        # code...
+        $heading = [];
+        foreach($err as $key => $value){
+            array_push($heading,$key);
+         }
+         array_push($heading,'Status');
+         array_push($heading,'Message');
+         return $heading;
+    }
+    public function conErrMsg($err):string
+    {
+        # code...
+        $msg = '';
+        foreach($err as $e){
+            $msg.=$e;
+        }
+        return $msg;
+    }
+    public function don()
+    {
+        # code...
+        //https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key=1MXwg3VDJu_VBbUQAI0UA42cbIoHzM2Mh&exportFormat=xlsx
+        // Initialize a file URL to the variable 
+        $url = 'https://docs.google.com/spreadsheets/d/1lhgEd6MqVTo2xkKjZCFoaOC1VfEK_-3m/export?format=xlsx'; 
+        
+        // Use basename() function to return the base name of file  
+        $dir = public_path('/uploads/excel/');
+        // Use file_get_contents() function to get the file 
+        // from url and use file_put_contents() function to 
+        // save the file by using base name 
+        $file_name = $dir.'try.xlsx';
+        if(file_put_contents( $file_name,file_get_contents($url))) { 
+            echo "File downloaded successfully"; 
+            return;
+        } 
+        else { 
+            echo "File downloading failed."; 
+            return;
+        } 
+        // $ch = curl_init($url); 
+  
+        // // Inintialize directory name where 
+        // // file will be save 
+        
+        // // Use basename() function to return 
+        // // the base name of file  
+        // // $file_name = basename($url); 
+        // // dd($file_name);
+        // // Save file into file location 
+        // $save_file_loc = $dir . 'file_name.xlsx'; 
+        // // dd($save_file_loc);
+        // // Open file  
+        // $fp = fopen($save_file_loc, 'wb'); 
+        
+        // // It set an option for a cURL transfer 
+        // curl_setopt($ch, CURLOPT_FILE, $fp); 
+        // curl_setopt($ch, CURLOPT_HEADER, 0); 
+        
+        // // Perform a cURL session 
+        // curl_exec($ch); 
+        
+        // // Closes a cURL session and frees all resources 
+        // curl_close($ch); 
+        
+        // // Close file 
+        // fclose($fp); 
     }
 }

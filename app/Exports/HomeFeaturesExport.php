@@ -14,16 +14,28 @@ class HomeFeaturesExport implements FromArray,WithTitle,WithHeadings,ShouldAutoS
 {
     protected $rows;
     public $heading;
-    public function __construct(array $rows,array $heading)
+    public $flag;
+    public function __construct(array $rows,array $heading,$flag)
     {
         $this->rows = $rows;
         $this->heading = $heading;
+        $this->flag = $flag;
     }
     public function map($row): array
     {
-        return [
-            $row['home_id'],$row['color_scheme_id'],$row['title'],$row['price'],$row['upgraded'],$row['upgrade_type'],$row['material'],$row['manufacturer'],$row['name'],$row['m_id'],$row['img'],$row['status'],$row['msg']
-        ];
+        if($this->flag){
+            $index = [];
+            foreach($this->heading as $key=>$value)
+            {
+                array_push($index,$row[$value]);
+            }
+            return $index;
+        }
+        else{
+            return [
+                $row['home_id'],$row['color_scheme_id'],$row['title'],$row['price'],$row['upgraded'],$row['upgrade_type'],$row['material'],$row['manufacturer'],$row['name'],$row['m_id'],$row['img'],$row['status'],$row['msg']
+            ];
+        }
     }
     public function headings(): array
     {

@@ -14,17 +14,30 @@ class FloorFeaturesExport implements FromArray,WithTitle,WithHeadings,ShouldAuto
 {
     protected $rows;
     public $heading;
-    public function __construct(array $rows,array $heading)
+    public $flag;
+    public function __construct(array $rows,array $heading,$flag)
     {
         $this->rows = $rows;
         $this->heading = $heading;
+        $this->flag = $flag;
     }
     public function map($row): array
     {
-        return [
-            // $row['home_id'],$row['floor_id'],$row['title'],$row['price'],$row['image'],$row['group'],$row['status'],$row['msg']
-            $row['home_id'],$row['floor_id'],$row['title'],$row['price'],$row['image'],$row['status'],$row['msg']
-        ];
+        if($this->flag)
+        {
+            $index = [];
+            foreach($this->heading as $key=>$value)
+            {
+                array_push($index,$row[$value]);
+            }
+            return $index;
+        }
+        else{
+            return [
+                // $row['home_id'],$row['floor_id'],$row['title'],$row['price'],$row['image'],$row['group'],$row['status'],$row['msg']
+                $row['home_id'],$row['floor_id'],$row['title'],$row['price'],$row['image'],$row['status'],$row['msg']
+            ];
+        }
     }
     public function headings(): array
     {

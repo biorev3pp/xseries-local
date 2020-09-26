@@ -505,7 +505,7 @@ select.form-control:disabled{
 						<label class="text-left d-block text-dark" style="font-weight:500 !important; margin-bottom: 5px;">Import Options</label>
 						<div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
 							<select id="importOptions" class="form-control mr-0 mr-sm-1 mb-1 mb-sm-0" disabled>
-								<option value="override">override</option>
+								<option value="update">override</option>
 								<option value="update">update</option>
 								<option value="skip" selected>skip</option>
 							</select>

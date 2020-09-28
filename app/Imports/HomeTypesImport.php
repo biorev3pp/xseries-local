@@ -79,7 +79,17 @@ class HomeTypesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnF
         }
         $base_home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['parent_id']]));
         $home       = Homes::where('slug', $base_home_slug)->get(['id', 'slug'])->first();
-        if(!$home) return;
+        if(!$home) {
+            $data = serialize($c_data);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'elevation_type',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on,
+                'msg'           => 'Elevation for this elevation type found in sheet do not exist'    
+            ]);
+            return;
+        }
         $slug = str_replace(' ', '-', strtolower($row[$this->mapChoice['title']]));
         if(Homes::where('slug', $slug)->count() == 0 && $home)
         { 
@@ -101,6 +111,7 @@ class HomeTypesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnF
         }
         elseif(Homes::where('slug', $slug)->count() != 0 && $home && $this->flag =='update'){
             $c_data['imported_on'] = $this->imported_on;
+            $c_data['parent_id'] = $home->id;
             Homes::where('slug',$slug)->update($c_data);
             return;
         }

@@ -127,6 +127,7 @@ class FloorFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skip
         }
         elseif(Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->count()!=0 && $this->flag =='update'){
             $c_data['imported_on'] = $this->imported_on;
+            $c_data['floor_id'] = $floor->id;
             unset($c_data['home_id'],$c_data['group']);
             Features::where('title', 'like', $row[$this->mapChoice['title']])->where('floor_id', $floor->id)->update($c_data);
             return;

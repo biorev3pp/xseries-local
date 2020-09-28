@@ -84,6 +84,7 @@ class FloorsImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFail
             return null;
         }
         elseif(Floor::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->count() != 0 && $this->flag == 'update'){
+            $c_data['home_id'] = $home->id;
             $c_data['imported_on'] = $this->imported_on;
             Floor::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->update($c_data);
         }

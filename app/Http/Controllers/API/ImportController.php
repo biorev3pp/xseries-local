@@ -80,6 +80,57 @@ class ImportController extends Controller
             $request->session()->put('excel',$name);
             return $data;
         }
+        else
+        {
+            if($request->session()->has('excel'))
+            {
+                $dir = public_path('/uploads/excel/');
+                $path = $dir.$request->session()->get('excel');
+                unlink($path);
+            }
+            $googleSheetUploaded = $this->downloadGoogleSheet($request);
+            if($googleSheetUploaded)
+            {
+                $dir = public_path('/uploads/excel/');
+                $file_name = $dir.$request->session()->get('excel');
+                $array = (new ExcelHeadings)->toArray($file_name);
+                $data = [];
+                $data['headings'] = $array;
+                if(array_key_exists('Communities',$array))
+                {
+                    $data['communities'] = ['name'=>'Name','location'=>'Location','state_id'=>'State','city_id'=>'City','marker_image'=>'Marker Image','description'=>'Description','zipcode'=>'Zipcode','logo'=>'Logo Image','banner'=>'Banner','lat'=>'Latitude','lng'=>'Longitude','gallery'=>'Gallery','contact_number'=>'Contact Number','contact_email'=>'Contact Email','contact_person'=>'Contact Person'];
+                }
+                if(array_key_exists('Elevations',$array))
+                {
+                    $data['elevations'] = ['title'=>'Name','price'=>'Price','area'=>'Area','bedroom'=>'Bedroom','bathroom'=>'Bathroom','img'=>'Image','specifications'=>'Description','garage'=>'Garage','floor'=>'Number Of Floors','gallery'=>'Gallery'];
+                }
+                if(array_key_exists('Elevation Types',$array))
+                {
+                    $data['elevation_types'] = ['title'=>'Name','parent_id'=>'Base Elevation','price'=>'Price','area'=>'Area','bedroom'=>'Bedroom','bathroom'=>'Bathroom','img'=>'Image','specifications'=>'Description','garage'=>'Garage','floor'=>'Number Of Floors','gallery'=>'Gallery'];
+                }
+                if(array_key_exists('Floors',$array))
+                {
+                    $data['floor'] = ['title'=>'Title','home_id'=>'Elevation Title','image'=>'Image'];
+                }
+                if(array_key_exists('Floor Features',$array))
+                {
+                    $data['floor_feature'] = ['home_id'=>'Elevation Name','floor_id'=>'Floor Title','title'=>'Feature Title','price'=>'Price','image'=>'Image','group'=>'Feature Or Feature Group'];
+                }
+                if(array_key_exists('Color Schemes',$array))
+                {
+                    $data['color_scheme'] = ['home_id'=>'Elevation Or Elevation Type Name','title'=>'Color Scheme Title','img'=>'Image','price'=>'Price'];
+                }
+                if(array_key_exists('Color Scheme Features',$array))
+                {
+                    $data['color_scheme_features'] = ['home_id'=>'Elevation Or Elevation Type Name','color_scheme_id'=>'Color Scheme Title','title'=>'Feature Title','price'=>'Price','upgraded'=>'Upgrade Or Base','upgrade_type'=>'Upgraded Type','material'=>'Material','manufacturer'=>'Manufacturer','name'=>'Name','m_id'=>'Manufacturer ID','img'=>'Feature Image'];
+                }
+                return $data;
+            }
+            else
+            {
+                return ['something went wrong'];
+            }
+        }
     }
     /**
      * Store a newly created resource in storage.
@@ -98,7 +149,7 @@ class ImportController extends Controller
         // $array = ();
         // dd($array);
         $com_success = Communities::where('imported_on',$importing_on)->count();
-        $ele_success = Homes::where('imported_on',$importing_on)->where('parent_id',0)->count();
+        $ele_success = Homes::where('imported_on',$importing_on)->count();
         $ele_type_success = Homes::where('imported_on',$importing_on)->where('parent_id','!=',0)->count();
         $color_success = ColorSchemes::where('imported_on',$importing_on)->count();
         $color_feature_success = HomeFeatures::where('imported_on',$importing_on)->count();
@@ -119,17 +170,18 @@ class ImportController extends Controller
         if($total !=0)
         {
             $success_percent = (($total_success)/($total_fail+$total_success))*100;
+            $success_percent = round($success_percent);
             $res = array(
                 'success'       =>$total_success-$total_skip,
                 'skip'          => $total_skip,
                 'fail'          => $total_fail,
-                'percentage'    => number_format($success_percent, 2) 
+                'percentage'    => $success_percent 
             );
             History::where('imported_on',$importing_on)->update([
                 'success'    =>$total_success-$total_skip,
                 'fail'       =>$total_fail,
                 'skip'       =>$total_skip,
-                'percent'    => number_format($success_percent, 2) 
+                'percent'    => $success_percent
             ]);
         }
         else
@@ -560,7 +612,7 @@ class ImportController extends Controller
             $err_data = $d[0]->values(); 
             $err_data['Status'] = 'error';
             $err_data['Message'] = $this->conErrMsg($d[0]->errors());
-            array_push($data['color_scheme'],$err_data);
+            array_push($data['color_scheme_feature'],$err_data);
         }
         $export_file_name = History::where('imported_on',$timestamp)->get(['file_name'])->first()->file_name;
         $export = new ManageExport($data,true);
@@ -586,53 +638,23 @@ class ImportController extends Controller
         }
         return $msg;
     }
-    public function don()
+    public function downloadGoogleSheet(Request $request)
     {
-        # code...
-        //https://spreadsheets.google.com/feeds/download/spreadsheets/Export?key=1MXwg3VDJu_VBbUQAI0UA42cbIoHzM2Mh&exportFormat=xlsx
-        // Initialize a file URL to the variable 
-        $url = 'https://docs.google.com/spreadsheets/d/1lhgEd6MqVTo2xkKjZCFoaOC1VfEK_-3m/export?format=xlsx'; 
-        
-        // Use basename() function to return the base name of file  
         $dir = public_path('/uploads/excel/');
-        // Use file_get_contents() function to get the file 
-        // from url and use file_put_contents() function to 
-        // save the file by using base name 
-        $file_name = $dir.'try.xlsx';
+
+        //unique file name
+        $base_name = time();
+        $file_name = $dir.$base_name.'_google.xlsx';
+
+        // Initialize a file URL to the variable 
+        $url = 'https://docs.google.com/spreadsheets/d/1lhgEd6MqVTo2xkKjZCFoaOC1VfEK_-3m/export?format=xlsx';   
+      
         if(file_put_contents( $file_name,file_get_contents($url))) { 
-            echo "File downloaded successfully"; 
-            return;
+            $request->session()->put('excel',$name); 
+            return true;
         } 
         else { 
-            echo "File downloading failed."; 
-            return;
+            return false;
         } 
-        // $ch = curl_init($url); 
-  
-        // // Inintialize directory name where 
-        // // file will be save 
-        
-        // // Use basename() function to return 
-        // // the base name of file  
-        // // $file_name = basename($url); 
-        // // dd($file_name);
-        // // Save file into file location 
-        // $save_file_loc = $dir . 'file_name.xlsx'; 
-        // // dd($save_file_loc);
-        // // Open file  
-        // $fp = fopen($save_file_loc, 'wb'); 
-        
-        // // It set an option for a cURL transfer 
-        // curl_setopt($ch, CURLOPT_FILE, $fp); 
-        // curl_setopt($ch, CURLOPT_HEADER, 0); 
-        
-        // // Perform a cURL session 
-        // curl_exec($ch); 
-        
-        // // Closes a cURL session and frees all resources 
-        // curl_close($ch); 
-        
-        // // Close file 
-        // fclose($fp); 
     }
 }

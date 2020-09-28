@@ -103,6 +103,8 @@ class ColorSchemesImport implements ToModel, WithHeadingRow,WithValidation,Skips
         }
         elseif(ColorSchemes::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->count() != 0 && $this->flag =='update'){
             $c_data['imported_on'] = $this->imported_on;
+            $c_data['home_id'] = $home->id;
+            $c_data['priority']  = 1;
             ColorSchemes::where('title', 'like', $row[$this->mapChoice['title']])->where('home_id', $home->id)->update($c_data);
             return;
         }

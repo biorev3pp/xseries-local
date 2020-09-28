@@ -499,7 +499,7 @@ select.form-control:disabled{
                         </a>
                     </div>
 					<h6 class="my-2">OR</h6>
-                    <button class="btn-orange" type="button" style="float:unset;"> Import From Google </button>
+                    <button class="btn-orange" id="google_import" type="button" style="float:unset;"> Import From Google </button>
 					<a href="{{route('import-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto; font-weight:500;">View Recent Reports</h6></a>
 					<div class="mt-2 mx-auto border border-light py-1 px-2" style="max-width:450px;">
 						<label class="text-left d-block text-dark" style="font-weight:500 !important; margin-bottom: 5px;">Import Options</label>
@@ -1148,5 +1148,186 @@ const changeStep = (buttonClicked) => {
 			$("#importOptions").attr('disabled', true);
 		}
 	});
+	function googleSheetImport()
+	{
+		$.ajax({
+			type        : "post",
+			url         : "/api/map/sheet/columns",
+			headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			beforeSend  : function(){
+				$('.syncloader').fadeIn();
+			},
+			success     : function(response)
+			{
+				// let entityInFile = Object.keys(response.headings);
+				// $.each(entityInFile,(key,val)=>{})
+				//Community tab data formation
+				if(response.headings.hasOwnProperty('Communities'))
+				{
+					let communityOptions = `<option value=''>No Option Selected</option>`;
+					$.each(response.communities,(key,val)=>{
+						communityOptions+=`<option value='${key}'>${val}</option>`;
+					});
+					let communityData = ``;
+					$.each(response.headings.Communities[0],(key,val)=>{
+						communityData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
+								<label class="w-100 m-0 text-dark">${val}</label>
+								<select class="form-control" style="max-width: 300px;" id="community_dropdown_${key}" onchange="userMappedData('community',${key},'${val}')">
+								${communityOptions}
+								</select>
+							</div>`;
+					});	
+					$('#community-tab').html(communityData);
+				}
+				else
+				{
+					$('#community-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Commmunities.</div>`)
+				}
+				//Elevation tab data formation
+				if(response.headings.hasOwnProperty('Elevations'))
+				{
+					let elevationOptions = `<option value=''>No Option Selected</option>`;
+					$.each(response.elevations,(key,val)=>{
+						elevationOptions+=`<option value='${key}'>${val}</option>`;
+					});
+					var elevationData = ``;
+					$.each(response.headings.Elevations[0],(key,val)=>{
+						elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
+								<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
+								<select class="form-control" style="max-width: 300px;" id="elevation_dropdown_${key}" onchange="userMappedData('elevation',${key},'${val}')">
+								${elevationOptions}
+								</select>
+							</div>`;
+					});
+					$('#elevation-tab').html(elevationData)	
+				}	
+				else
+				{
+					$('#elevation-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Elevations.</div>`)
+				}
+				//Elevation type data adding here
+				if(response.headings.hasOwnProperty('Elevation Types'))
+				{
+					let elevationOptions = `<option value=''>No Option Selected</option>`;
+					$.each(response.elevation_types,(key,val)=>{
+						elevationOptions+=`<option value='${key}'>${val}</option>`;
+					});
+					var elevationData = ``;
+					$.each(response.headings['Elevation Types'][0],(key,val)=>{
+						elevationData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
+								<label data-index='${key}' class="w-100 m-0 text-dark">${val}</label>
+								<select class="form-control" style="max-width: 300px;" id="elevation_type_dropdown_${key}" onchange="userMappedData('elevation_type',${key},'${val}')">
+								${elevationOptions}
+								</select>
+							</div>`;
+					});
+					$('#elevation-type-tab').html(elevationData)
+				}
+				else
+				{
+					$('#elevation-type-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Elevation Types.</div>`)
+				}
+				//Color Scheme data here
+				if(response.headings.hasOwnProperty('Color Schemes'))
+				{
+					let colorOptions = `<option value=''>No Option Selected</option>`;
+					$.each(response.color_scheme,(key,val)=>{
+						colorOptions+=`<option value='${key}'>${val}</option>`;
+					});
+					let colorData = ``;
+					$.each(response.headings['Color Schemes'][0],(key,val)=>{
+						colorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
+								<label class="w-100 m-0 text-dark" data-index='${key}'>${val}</label>
+								<select class="form-control" style="max-width: 300px;" id="color_scheme_dropdown_${key}" onchange="userMappedData('color_scheme',${key},'${val}')">
+								${colorOptions}
+								</select>
+							</div>`;
+					});	
+					$('#color-scheme-tab').html(colorData);	
+				}
+
+				else
+				{
+					$('#color-scheme-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Color Schemes.</div>`)
+				}
+				if(response.headings.hasOwnProperty('Color Scheme Features'))
+				{
+						let colorFeatureOptions = `<option value=''>No Option Selected</option>`;
+						$.each(response.color_scheme_features,(key,val)=>{
+							colorFeatureOptions+=`<option value='${key}'>${val}</option>`;
+						});
+						let colorFeatureData = ``;
+						$.each(response.headings['Color Scheme Features'][0],(key,val)=>{
+							colorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
+									<label class="w-100 m-0 text-dark">${val}</label>
+									<select class="form-control" style="max-width: 300px;" id="color_scheme_feature_dropdown_${key}" onchange="userMappedData('color_scheme_feature',${key},'${val}')">
+									${colorFeatureOptions}
+									</select>
+								</div>`;
+						});	
+						$('#color-scheme-features-tab').html(colorFeatureData)	
+				}
+				else
+				{
+					$('#color-scheme-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Color Scheme Features.</div>`)
+				}
+				if(response.headings.hasOwnProperty('Floors'))
+				{
+						let floorOptions = `<option value=''>No Option Selected</option>`;
+						$.each(response.floor,(key,val)=>{
+							floorOptions+=`<option value='${key}'>${val}</option>`;
+						});
+						let floorData = ``;
+						$.each(response.headings['Floors'][0],(key,val)=>{
+							floorData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
+									<label class="w-100 m-0 text-dark">${val}</label>
+									<select class="form-control" style="max-width: 300px;" id="floor_dropdown_${key}" onchange="userMappedData('floor',${key},'${val}')">
+									${floorOptions}
+									</select>
+								</div>`;
+						});	
+						$('#floor-tab').html(floorData)	
+				}
+				else
+				{
+					$('#floor-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Floors.</div>`)
+				}
+				if(response.headings.hasOwnProperty('Floor Features'))
+				{
+						let floorFeatureOptions = `<option value=''>No Option Selected</option>`;
+						$.each(response.floor_feature,(key,val)=>{
+							floorFeatureOptions+=`<option value='${key}'>${val}</option>`;
+						});
+						let floorFeatureData = ``;
+						$.each(response.headings['Floor Features'][0],(key,val)=>{
+							floorFeatureData+=`<div class="d-flex justify-content-between align-items-center px-1 mt-1 mb-1 border-bottom">
+									<label class="w-100 m-0 text-dark">${val}</label>
+									<select class="form-control" style="max-width: 300px;" id="floor_feature_dropdown_${key}" onchange="userMappedData('floor_feature',${key},'${val}')">
+									${floorFeatureOptions}
+									</select>
+								</div>`;
+						});	
+						$('#floor-features-tab').html(floorFeatureData)	
+				}
+				else
+				{
+					$('#floor-features-tab').html(`<div class="alert alert-danger mt-1" role="alert">There is no corresponding record found in the sheet make sure sheet name is Floor Features.</div>`)
+				}
+				return false;
+				},
+			error       : function(error){
+				console.log(error);
+				toastr.error(error.responseJSON.message);
+				var errorMessages = '';
+				$.each(error.responseJSON.errors, function(){
+					errorMessages += `<small class="danger">${this}</small><br>`
+				});
+				$(".error-messages").html(errorMessages);
+			},
+			complete	: function(){
+				$('.syncloader').hide();
+			} 
+		});
+	}
 </script>
 @endpush

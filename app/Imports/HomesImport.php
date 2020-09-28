@@ -97,6 +97,7 @@ class HomesImport implements ToModel, WithHeadingRow,WithValidation,SkipsOnFailu
         }
         elseif(Homes::where('slug', $slug)->count() != 0 && $this->flag =='update'){
             $c_data['imported_on'] = $this->imported_on;
+            $c_data['parent_id'] = 0;
             Homes::where('slug',$slug)->update($c_data);
             return;
         }

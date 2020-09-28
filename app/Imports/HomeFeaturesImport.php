@@ -72,6 +72,17 @@ class HomeFeaturesImport implements ToModel, WithHeadingRow,WithValidation,Skips
         }
         $home_slug  = str_replace(' ', '-', strtolower($row[$this->mapChoice['home_id']]));
         $home       = Homes::where('slug', $home_slug)->get(['id', 'slug'])->first();
+        if(!$home) {
+            $data = serialize($c_data);
+            ErrorHistory::create([
+                'data'          => $data,
+                'type'          => 'color_scheme_feature',
+                'flag'          => 'skip',
+                'imported_on'   => $this->imported_on,
+                'msg'           => 'Elevation or Elevation type found in sheet do not exist'    
+            ]);
+            return;
+        }
         $color_scheme      = ColorSchemes::where('title', 'like', $row[$this->mapChoice['color_scheme_id']])->where('home_id', $home->id)->first();
         if(!$color_scheme) {
             $data = serialize($c_data);

@@ -670,7 +670,15 @@ const changeStep = (buttonClicked) => {
 			$('#backButton').fadeOut();
 			break;
 		case 2: 
-			let validationFailed = dataToShowInMapSection();
+			let validationFailed;
+			let googleSheetUrl = $('#googleSheetUrl').val();
+			if(googleSheetUrl=='')
+			{
+				validationFailed = dataToShowInMapSection();
+			}
+			else{
+				validationFailed = googleSheetImport();
+			}
 			if(validationFailed)
 			{
 				step = 1;
@@ -890,12 +898,7 @@ const changeStep = (buttonClicked) => {
 						return false;
                    	 },
                     error       : function(error){
-						console.log(error);
 						toastr.error(error.responseJSON.message);
-						var errorMessages = '';
-						$.each(error.responseJSON.errors, function(){
-							errorMessages += `<small class="danger">${this}</small><br>`
-						});
                     },
 					complete	: function(){
 						$('.syncloader').hide();
@@ -1150,12 +1153,13 @@ const changeStep = (buttonClicked) => {
 		$(this).next().fadeIn();
 	});
 
-	function googleSheetImport()
+	 googleSheetImport = ()=>
 	{
 		$.ajax({
 			type        : "post",
 			url         : "/api/map/sheet/columns",
 			headers     : {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+			data		: {'url':$('#googleSheetUrl').val()},
 			beforeSend  : function(){
 				$('.syncloader').fadeIn();
 			},
@@ -1318,12 +1322,7 @@ const changeStep = (buttonClicked) => {
 				return false;
 				},
 			error       : function(error){
-				console.log(error);
-				toastr.error(error.responseJSON.message);
-				var errorMessages = '';
-				$.each(error.responseJSON.errors, function(){
-					errorMessages += `<small class="danger">${this}</small><br>`
-				});
+				toastr.error('Make sure your google sheet link is public to proceed.');
 			},
 			complete	: function(){
 				$('.syncloader').hide();

@@ -15,6 +15,7 @@ use App\Models\Homes;
 use App\Models\Floor;
 use App\Models\Features;
 use App\Models\History;
+use Illuminate\Http\Client\RequestException;
 use App\Models\ErrorHistory;
 class ImportController extends Controller
 {
@@ -82,16 +83,16 @@ class ImportController extends Controller
         }
         else
         {
+            $dir = public_path('/uploads/excel/');
+
             if($request->session()->has('excel'))
             {
-                $dir = public_path('/uploads/excel/');
                 $path = $dir.$request->session()->get('excel');
                 unlink($path);
             }
             $googleSheetUploaded = $this->downloadGoogleSheet($request);
             if($googleSheetUploaded)
             {
-                $dir = public_path('/uploads/excel/');
                 $file_name = $dir.$request->session()->get('excel');
                 $array = (new ExcelHeadings)->toArray($file_name);
                 $data = [];
@@ -128,7 +129,7 @@ class ImportController extends Controller
             }
             else
             {
-                return ['something went wrong'];
+                return response()->failed();
             }
         }
     }
@@ -620,7 +621,6 @@ class ImportController extends Controller
     }
     public function returnHeading($err):array
     {
-        # code...
         $heading = [];
         foreach($err as $key => $value){
             array_push($heading,$key);
@@ -645,16 +645,35 @@ class ImportController extends Controller
         //unique file name
         $base_name = time();
         $file_name = $dir.$base_name.'_google.xlsx';
-
+        $sheetId = $this->returnId($request->url);
+        if($sheetId)
+        {
         // Initialize a file URL to the variable 
-        $url = 'https://docs.google.com/spreadsheets/d/1lhgEd6MqVTo2xkKjZCFoaOC1VfEK_-3m/export?format=xlsx';   
-      
-        if(file_put_contents( $file_name,file_get_contents($url))) { 
-            $request->session()->put('excel',$name); 
-            return true;
-        } 
-        else { 
+            $url = 'https://docs.google.com/spreadsheets/d/'.$sheetId.'/export?format=xlsx';   
+        
+            if(file_put_contents( $file_name,file_get_contents($url))) { 
+                $request->session()->put('excel',$base_name.'_google.xlsx'); 
+                return true;
+            } 
+            else { 
+                return false;
+            } 
+        }
+        else{
             return false;
-        } 
+        }
+    }
+    
+    public function returnId($url):string
+    {
+        $array = explode('/',$url);
+        $index = array_search('d',$array); 
+        if($index)
+        {
+            return $array[$index+1];
+        }
+        else{
+            return false;
+        }
     }
 }

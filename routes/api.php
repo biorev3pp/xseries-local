@@ -118,4 +118,3 @@ Route::get('/community/home/floor/{id}','Admin\BulkUploadController@getAllHomesF
 Route::get('/community/home/data/{id}','Admin\BulkUploadController@getAllHomeRelatedData');
 Route::get('/community/home/type/colorscheme/{id}','Admin\BulkUploadController@getAllHomeTypesColorSchemeForHomeType');
 Route::post('/community/images/','Admin\BulkUploadController@imagesExistInDatabaseForSelectedType');
-Route::get('/google/sheet','API\ImportController@downloadGoogleSheet');

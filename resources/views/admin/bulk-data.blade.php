@@ -500,6 +500,7 @@ select.form-control:disabled{
                     </div>
 					<h6 class="my-2">OR</h6>
                     <button class="btn-orange" id="google_import" type="button" style="float:unset;"> Import From Google </button>
+					<input type="text" class="form-control mx-auto mt-2" placeholder="Enter Google Sheet URL" id="googleSheetUrl" style="max-width:300px; display: none;">
 					<a href="{{route('import-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto; font-weight:500;">View Recent Reports</h6></a>
 					<div class="mt-2 mx-auto border border-light py-1 px-2" style="max-width:450px;">
 						<label class="text-left d-block text-dark" style="font-weight:500 !important; margin-bottom: 5px;">Import Options</label>
@@ -699,7 +700,7 @@ const changeStep = (buttonClicked) => {
     var file = null;
     var filename;
     $('#excelFile').on('change', function () {
-        $(".error-messages").html('');
+		$("#googleSheetUrl").val('').fadeOut();
         file = this.files[0];
         filename = $("#excelFile").val();
         if (/^\s*$/.test(filename)) {
@@ -712,14 +713,6 @@ const changeStep = (buttonClicked) => {
         }
     });
 
-    // Modal Event
-    $('#bulkUploadModal').on('hidden.bs.modal', function (e) {
-        $("#excelFile").val('');
-        $(".file-upload").removeClass('active');
-        $("#noFile").text("No file chosen..."); 
-        file = null;
-        $(".error-messages").html('');
-    })
 	//Bulk Upload 
 	dataToShowInMapSection = () => {
         var formData = new FormData();
@@ -903,7 +896,6 @@ const changeStep = (buttonClicked) => {
 						$.each(error.responseJSON.errors, function(){
 							errorMessages += `<small class="danger">${this}</small><br>`
 						});
-						$(".error-messages").html(errorMessages);
                     },
 					complete	: function(){
 						$('.syncloader').hide();
@@ -1148,6 +1140,16 @@ const changeStep = (buttonClicked) => {
 			$("#importOptions").attr('disabled', true);
 		}
 	});
+
+	$("#google_import").click(function(){
+		file = null;
+		filename = null;
+		$("#excelFile").val('');
+		$(".file-upload").removeClass('active');
+        $("#noFile").text("No file chosen..."); 
+		$(this).next().fadeIn();
+	});
+
 	function googleSheetImport()
 	{
 		$.ajax({
@@ -1322,7 +1324,6 @@ const changeStep = (buttonClicked) => {
 				$.each(error.responseJSON.errors, function(){
 					errorMessages += `<small class="danger">${this}</small><br>`
 				});
-				$(".error-messages").html(errorMessages);
 			},
 			complete	: function(){
 				$('.syncloader').hide();

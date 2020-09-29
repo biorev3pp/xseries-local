@@ -566,30 +566,23 @@ select.form-control:disabled{
 							<div class="d-flex flex-sm-row flex-column justify-content-between">
 								<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
 									<label class="d-block text-left mb-0 text-dark" for="">Select Type</label>
-									<select name="" id="" class="form-control">
-									<option value="">No option selected</option>
-									<option value="">Community</option>
-									<option value="">Elevation</option>
-									<option value="">Floor</option>
-									<option value="">Floor-Feature</option>
+									<select name="" id="" onchange="loadSubType(this.value)" class="form-control">
+										<option value="">No option selected</option>
+										<option value="community">Community</option>
+										<option value="elevation">Elevation</option>
+										<option value="floor">Floor</option>
+										<option value="floor-feature">Floor-Feature</option>
 									</select>
 								</div>
 								<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
 									<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
-									<select name="" id="" class="form-control ">
-									<option value="">No option selected</option>
-									<option value="">Enclave of Twin Run</option>
-									<option value="">Big Fork Landing</option>
+									<select name="" id="subType" class="form-control ">
 									</select>
 								</div>
 								<div class="w-100">
 									<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
-									<select name="" id="" class="form-control">
-									<option value="">No option selected</option>
-									<option value="">Logo</option>
-									<option value="">Banner</option>
-									<option value="">Map Marker</option>
-									<option value="">Gallery</option>
+									<select name="" id="section" class="form-control">
+										
 									</select>
 								</div>
 							</div>
@@ -956,9 +949,9 @@ select.form-control:disabled{
 	</div>
 </div>
 <script src="{{asset('Xseries-new-ui/dropzone/dropzone.js')}}"></script>
-<script src="//cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 @endsection
 @push('scripts')
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script>
 // buttonClicked = true for next and false for back
 let step = 1;
@@ -1005,6 +998,102 @@ const changeStep = (buttonClicked) => {
 	}
 }
 
+
+// Dropzone code
+Dropzone.options.uploadImages = {
+    maxFilesize: 5,
+    dictResponseError: 'Server not Configured',
+    acceptedFiles: ".png,.jpg,.jpeg",
+    uploadMultiple: true,
+    autoProcessQueue: false,
+    parallelUploads: 100,
+    init:function(){
+      var self = this;
+      // config
+      self.options.addRemoveLinks = true;
+      self.options.dictRemoveFile = "<i class='fas fa-trash'style='cursor:pointer;'></i>";
+      //New file added
+      self.on("addedfile", function (file) {
+      });
+      // Send file starts
+      self.on("sending", function (file) {
+        console.log('upload started', file);
+        $('.meter').show();
+      });
+      // multiple
+      self.on("processingmultiple",function(files){
+      })
+      // File upload Progress
+      self.on("totaluploadprogress", function (progress) {
+        $('.roller').width(progress + '%');
+      });
+      self.on("queuecomplete", function (progress) {
+        $('.meter').delay(999).slideUp(999);
+
+      });
+      
+      // On removing file
+      self.on("removedfile", function (file) {
+        
+      });
+      
+      self.on("success",function(file,error){
+        self.removeFile(file);
+      });
+    }
+  };
+
+  function loadSubType(type){	
+	  let options = `<option value="">No option selected</option>`;
+	  $.ajax({
+		type: 'get',
+		url: '/api/options/'+type,
+		success: function(response){
+			$.each(response,function(key,value){
+				options+=`<option value="${value.id}">${type=='community'?value.name:value.title}</option>`;
+			});  
+			$('#subType').html(options);
+		}		
+	  })
+	  loadSection(type)
+    }
+	function loadSection(type){
+		let options = `<option value="">No option selected</option>`;
+		switch(type){
+			case 'community':
+				options += `<option value="logo">Logo</option>
+				<option value="banner">Banner</option>
+				<option value="map">Map Marker</option>
+				<option value="gallery">Gallery</option>`;
+				$('#section').html(options);
+			break;
+
+			case 'elevation':
+				options += `<option value="feature-image">Feature Image</option>
+				<option value="gallery">Gallery</option>`;
+				$('#section').html(options);
+			break;
+
+			case 'floor':
+				options += `<option value="feature-image">Feature Image</option>`;
+				$('#section').html(options);
+			break;
+
+			case 'floor-feature':
+				options += `<option value="feature-image">Feature Image</option>`;
+				$('#section').html(options);
+			break;
+
+			default:
+			break;
+		}
+	}
+	storeImgTemp(){
+		$('#submit_image').click(function(){
+			$('#type').val(getUploadType);  
+			var dropZone = Dropzone.forElement(".dropzone");
+			dropZone.processQueue();
+	}
 // Mapped Section
 
 $("#pills-mapped .tab-pane.active .checkall").on('click', function(){

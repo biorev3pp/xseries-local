@@ -1322,7 +1322,7 @@ const changeStep = (buttonClicked) => {
 				return false;
 				},
 			error       : function(error){
-				toastr.error('Make sure your google sheet link is public to proceed.');
+				toastr.error('Either you have entered wrong url or Make sure your google sheet has public access.');
 			},
 			complete	: function(){
 				$('.syncloader').hide();

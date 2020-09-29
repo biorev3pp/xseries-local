@@ -42,11 +42,66 @@ class BulkUploadController extends Controller
        # code...
        return view('admin.bulk-media')->with($this->data);
    }
+   //APIS Logic
+
+   public function getDropDownOptions($type)
+   {
+       switch($type)
+       {
+           case 'community':
+            return $this->getAllCommunities();
+           break;
+           case 'elevation':
+            return $this->getAllHomes();
+           break;
+           case 'floor':
+            return $this->getAllFloors();
+           break;
+           case 'floor-feature':
+            return $this->getAllFloorsFeatures();
+           break;
+           default:
+           break;
+       }
+   }
     public function getAllCommunities()
     {
         # code...
         $communites = Communities::get(['id','name']);
         return $communites;
+    }
+    public function getAllHomes()
+    {
+        # code...
+        $homes = Homes::get(['id','title']);
+        return $homes;
+    }
+    public function getAllFloors()
+    {
+        # code...
+        $floors = Floor::get();
+        foreach($floors as $floor)
+        {
+            $home = Homes::where('id',$floor->home_id)->first();
+            $home_title = isset($home)?$home->title:'No home';
+            
+            $floor->title = $home_title.'-'.$floor->title;
+        }
+        return $floors;
+    }
+    public function getAllFloorsFeatures()
+    {
+        $features = Features::where('parent_id','!=',0)->get();
+        foreach($features as $feature)
+        {
+            $floor = Floor::where('id',$feature->floor_id)->first();
+            $floor_title = isset($floor)?$floor->title:'No floor';
+            if($floor)
+            $home = Homes::where('id',$floor->home_id)->first();
+            $home_title = isset($home)?$home->title:'No home';
+            $feature->title = $home_title.'-'.$floor_title.'-'.$feature->title; 
+        }
+        return $features;
     }
     public function getAllHomesForCommunity($id)
     {

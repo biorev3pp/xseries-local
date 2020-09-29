@@ -129,7 +129,7 @@ class ImportController extends Controller
             }
             else
             {
-                return response()->failed();
+                abort(400, 'Unauthorized action.');
             }
         }
     }

@@ -144,17 +144,6 @@
 @endsection
 @push('scripts')
 <script>
-  $('#submit_image').click(function(){
-    var getUploadType = $('#upload_type').val();
-    if(getUploadType!=''){
-      $('#type').val(getUploadType);  
-      var dropZone = Dropzone.forElement(".dropzone");
-      dropZone.processQueue();
-    }
-    else{
-      $('#modal-warning').modal('show');
-    }
-  });
   loadDropDownOptions('/api/community','','community-filter','community');
   function retriveImages(){
     if(arguments[0]!='')

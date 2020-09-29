@@ -490,6 +490,11 @@ select.form-control:disabled{
 	background-color: #eee;
 }
 
+.table-overflow{
+	height: calc(100vh - 424px);
+	overflow: auto;
+}
+
 @media(min-width: 992px){
 	.sync-process{
 		position: absolute;
@@ -988,6 +993,7 @@ const changeStep = (buttonClicked) => {
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
 			$('.fix-sync').addClass('fix-sync-overflow');
+			$('table').parent().parent().addClass('table-overflow');
 			$("#importButton span").text('Upload');
 			$(".containers").hide();
 			$('#backButton').fadeIn();

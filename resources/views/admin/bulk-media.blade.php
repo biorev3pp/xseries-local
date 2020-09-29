@@ -553,7 +553,7 @@ select.form-control:disabled{
 	<div id="syncresponse">
 		<div class="fix-sync">
 			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers d-none">
+				<div id="ss_step_div" class="text-center containers">
 					<div>
 						<form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
 							@csrf
@@ -611,7 +611,7 @@ select.form-control:disabled{
 					</div>
 					<a href="{{route('import-images-history')}}" style="display:block; width:fit-content; margin:0 auto;"><h6 class="mt-3" style="font-weight:500;">View Recent Reports</h6></a>
 				</div>
-				<div id="drm_step_div" class="containers d-block">
+				<div id="drm_step_div" class="containers">
 					<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter">6</span></a>
@@ -952,9 +952,9 @@ select.form-control:disabled{
 	</div>
 </div>
 <script src="{{asset('Xseries-new-ui/dropzone/dropzone.js')}}"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 @endsection
 @push('scripts')
-<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script>
 // buttonClicked = true for next and false for back
 let step = 1;
@@ -1094,11 +1094,10 @@ Dropzone.options.uploadImages = {
 			break;
 		}
 	}
-	storeImgTemp(){
-		$('#submit_image').click(function(){
-			$('#type').val(getUploadType);  
-			var dropZone = Dropzone.forElement(".dropzone");
-			dropZone.processQueue();
+	function storeImgTemp(){
+		$('#type').val(getUploadType);  
+		var dropZone = Dropzone.forElement(".dropzone");
+		dropZone.processQueue();
 	}
 // Mapped Section
 

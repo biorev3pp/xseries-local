@@ -139,6 +139,10 @@ a.add_button.active {
     justify-content: space-between;
 }
 
+.fix-sync-overflow{
+	overflow: hidden;
+}
+
 .fix-sync h3 {
 	text-align: center;
 	font-weight: 600;
@@ -549,7 +553,7 @@ select.form-control:disabled{
 	<div id="syncresponse">
 		<div class="fix-sync">
 			<div class="sync-container">
-				<div id="ss_step_div" class="text-center containers">
+				<div id="ss_step_div" class="text-center containers d-none">
 					<div>
 						<form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
 							@csrf
@@ -605,10 +609,9 @@ select.form-control:disabled{
 							</div>
 						</div>
 					</div>
-					<a href="{{route('import-images-history')}}"><h6 class="mt-3" style="cursor:pointer; width:fit-content; margin:0 auto; font-weight:500;">View Recent Reports</h6></a>
+					<a href="{{route('import-images-history')}}" style="display:block; width:fit-content; margin:0 auto;"><h6 class="mt-3" style="font-weight:500;">View Recent Reports</h6></a>
 				</div>
-				<div id="drm_step_div" class="containers">
-					<h3 class="text-center mb-1">Mapping</h3>
+				<div id="drm_step_div" class="containers d-block">
 					<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter">6</span></a>
@@ -976,6 +979,7 @@ const changeStep = (buttonClicked) => {
 			$('#ss_step').addClass('active').removeClass('incomplete');
 			$('#drm_step').addClass('incomplete').removeClass('active');
 			$("#importButton span").text('Next');
+			$('.fix-sync').removeClass('fix-sync-overflow');
 			$(".containers").hide();
 			$('#ss_step_div').fadeIn();
 			$('#backButton').fadeOut();
@@ -983,6 +987,7 @@ const changeStep = (buttonClicked) => {
 		case 2: 
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
+			$('.fix-sync').addClass('fix-sync-overflow');
 			$("#importButton span").text('Upload');
 			$(".containers").hide();
 			$('#backButton').fadeIn();
@@ -991,6 +996,7 @@ const changeStep = (buttonClicked) => {
 		case 3: 
 			$('#drm_step').addClass('complete').removeClass('active');
 			$('#sr_step').addClass('active').removeClass('incomplete');
+			$('.fix-sync').removeClass('fix-sync-overflow');
 			$('.footer-buttons').hide();
 			$(".containers").hide();
 			$('#sr_step_div').fadeIn();

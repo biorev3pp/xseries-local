@@ -391,7 +391,7 @@ tr.bg-sdanger input[type="checkbox"] {
 }
 
 .mapping-fields-wrapper{
-	height: calc(100vh - 383px);
+	height: calc(100vh - 345px);
 	overflow: auto;
 }
 
@@ -518,8 +518,7 @@ select.form-control:disabled{
 					</div>
 				</div>
 				<div id="drm_step_div" class="table-responsive containers">
-					<h3 class="text-center mb-1">Mapping</h3>
-					<ul class="nav nav-pills mb-0 justify-content-center" id="pills-tab" role="tablist">
+					<ul class="nav nav-pills mb-0 justify-content-center pt-1" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
 							<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communities</a>
 						</li>

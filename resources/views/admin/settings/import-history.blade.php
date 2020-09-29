@@ -39,7 +39,7 @@
                         <td>Finished On <span class="subbottom"> {{date('M',$h->imported_on)}} {{date('d',$h->imported_on)}}, {{date('Y',$h->imported_on)}} </span></td>
                         <td class="progress-row">
                             <span class="progresss-span-bg"> 
-                                <a href="{{route('export-success-history',['timestamp'=>$h->imported_on])}}" class="progresss-span" style="width:{{$h->percent}}%"> {{$h->percent}}% complete </a>
+                                <a href="{{route('export-success-history',['timestamp'=>$h->imported_on])}}" class="progresss-span" style="width:{{$h->percent}}%"> <span style="padding-left: 14px;">{{$h->percent}}% complete </span></a>
                                 <a href="{{route('export-error-history',['timestamp'=>$h->imported_on])}}" class="float-right progresss-side-span">  {{$h->fail}} of {{$h->success+$h->fail+$h->skip}} failed </a>
                             </span>
                         </td>
@@ -60,13 +60,13 @@
 
 <style>
     .imp-table tbody td{padding: 8px !important; font-size: 15px;}
-    .action{min-width: 180px;}
+    .action{min-width: 200px;}
     .poptable td, .poptable th{    padding: 8px !important;
     font-size: 11px !important;
     text-align: left !important;}
     .subbottom{display: block; color: #aaa; position: relative; top: -4px; font-size: 85%;}
     .progresss-span-bg{display: block; background: #dc3545; height: 26px; color: #fff; border-radius: 4px; line-height: 26px; position: relative; font-weight: 500;}
-    .progresss-span{background: #28a745; display: block; height: 26px; color: #fff; border-radius: 4px; line-height: 26px; padding: 0 10px; text-align:left;     position: absolute;left: 0;white-space: nowrap;}
+    .progresss-span{background: #28a745; display: block; height: 26px; color: #fff; border-radius: 4px; line-height: 26px; text-align:left; position: absolute;left: 0;white-space: nowrap;}
     .progresss-span:hover, .progresss-span:focus{color: #000;}
     .progresss-side-span{position: absolute; right: 14px; top: 0; font-weight: 500; color: #fff; text-decoration:none}
     .progresss-side-span:hover, .progresss-side-span:focus{color:#000}

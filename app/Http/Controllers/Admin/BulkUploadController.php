@@ -60,6 +60,12 @@ class BulkUploadController extends Controller
            case 'floor-feature':
             return $this->getAllFloorsFeatures();
            break;
+           case 'color-scheme':
+            return $this->getAllColorSchemes();
+           break;
+           case 'color-scheme-feature':
+            return $this->getAllColorSchemeFeatures();
+           break;
            default:
            break;
        }
@@ -100,6 +106,32 @@ class BulkUploadController extends Controller
             $home = Homes::where('id',$floor->home_id)->first();
             $home_title = isset($home)?$home->title:'No home';
             $feature->title = $home_title.'-'.$floor_title.'-'.$feature->title; 
+        }
+        return $features;
+    }
+    public function getAllColorSchemes()
+    {
+        $color_scheme = ColorSchemes::get();
+        foreach($color_scheme as $color)
+        {
+            $home = Homes::where('id',$color->home_id)->first();
+            $home_title = isset($home)?$home->title:'No home';
+            
+            $color->title = $home_title.'-'.$color->title;
+        }
+        return $color_scheme;
+    }
+    public function getAllColorSchemeFeatures()
+    {
+        $features = HomeFeatures::get();
+        foreach($features as $feature)
+        {
+            $color_scheme = ColorSchemes::where('id',$feature->color_scheme_id)->first();
+            $color_scheme_title = isset($flcolor_schemeoor)?$color_scheme->title:'No Color Scheme';
+            if($color_scheme)
+            $home = Homes::where('id',$color_scheme->home_id)->first();
+            $home_title = isset($home)?$home->title:'No home';
+            $feature->title = $home_title.'-'.$color_scheme_title.'-'.$feature->title; 
         }
         return $features;
     }
@@ -178,6 +210,42 @@ class BulkUploadController extends Controller
         break;
         }
     }
+    public function storeImgTemporary(Request $request)
+    {
+        $data = [];
+        $data['mapped']['community'] = [];
+        $data['mapped']['elevation'] = [];
+        $data['mapped']['floor'] = [];
+        $data['unmapped'] = [];
+        $filterOptions = json_decode($request->type);
+        // return $filterOptions->{'type'};
+        $sessionId = $request->session()->getId();
+        $destinationPath = public_path('uploads/temp/').$sessionId;
+        if($request->file)
+        {
+            $number_of_images = count($request->file);
+            for($i = 0;$i<$number_of_images;$i++)
+            {
+                $image = $request->file[$i];
+                $name  = $image->getClientOriginalName();
+                // $image->move($destinationPath, $name);
+                $result = $this->processAndMatch(strtolower(explode('.',$name)[0]));
+                if(count($result))
+                {
+                    $temp = [
+                        'section' => $result[1],
+                        'value' => $result[2]
+                    ];
+                    if($result[0] == 'community')
+                        array_push($data['mapped']['community'],$temp);
+                    if($result[0] == 'elevation')
+                        array_push($data['mapped']['elevation'],$temp);
+                 }
+            }
+        }
+        dd($data);
+    }
+
     public function uploadBulkImage(Request $request)
     {
         # code...
@@ -212,6 +280,71 @@ class BulkUploadController extends Controller
                 'msg' => 'All the images uploaded successfully'
             ]);
         }
+    }
+    private function processAndMatch($name):array
+    {
+        // name shoulde be without extension
+        $matchOrUnmatch = [];
+        $find = Communities::where('name','like','%'.$name)->first();
+        if($find)
+        {
+            $section = 'featured_image';
+            array_push($matchOrUnmatch,'community');
+
+            $gallery = '-g-';
+            $logo = '-logo';
+            $banner = '-banner';
+            $marker = '-map-marker';
+            if(strpos($name,$gallery)!== false){
+                $section = "gallery";
+                array_push($matchOrUnmatch,$section);
+                array_push($matchOrUnmatch,$find->name);
+                return $matchOrUnmatch;
+            }
+            if(strpos($name,$logo)!== false)
+            {
+                $section = "logo";
+                array_push($matchOrUnmatch,$section);
+                array_push($matchOrUnmatch,$find->name);
+                return $matchOrUnmatch;
+            }
+            if(strpos($name,$banner)!== false)
+            {
+                $section = "banner";
+                array_push($matchOrUnmatch,$section);
+                array_push($matchOrUnmatch,$find->name);
+                return $matchOrUnmatch;
+            }
+            if(strpos($name,$marker)!== false)
+            {
+                $section = "marker";
+                array_push($matchOrUnmatch,$section);
+                array_push($matchOrUnmatch,$find->name);
+                return $matchOrUnmatch;
+            }
+            array_push($matchOrUnmatch,$section);
+            array_push($matchOrUnmatch,$find->name);
+            return $matchOrUnmatch;
+        }
+        $find = Homes::where('title', 'LIKE', '%'.$name.'%')->first();
+        dd($find);
+        if($find)
+        {
+            $section = 'featured_image';
+            array_push($matchOrUnmatch,'elevation');
+            $gallery = '-g';
+            if(strpos($name,$gallery)!== false){
+                $section = "gallery";
+                array_push($matchOrUnmatch,$section);
+                array_push($matchOrUnmatch,$find->title);
+                return $matchOrUnmatch;
+            }
+            array_push($matchOrUnmatch,$section);
+            array_push($matchOrUnmatch,$find->title);
+            return $matchOrUnmatch;
+        }
+        return [];
+        // to return the type matched with, entity name, and subtype matched. 
     }
     public function getImagesForSelectedType(Request $request)
     {

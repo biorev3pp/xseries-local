@@ -579,18 +579,20 @@ select.form-control:disabled{
 										<option value="">No option selected</option>
 										<option value="community">Community</option>
 										<option value="elevation">Elevation</option>
+										<option value="color-scheme">Color Scheme</option>
+										<option value="color-scheme-feature">Color Scheme Feature</option>
 										<option value="floor">Floor</option>
-										<option value="floor-feature">Floor-Feature</option>
+										<option value="floor-feature">Floor Feature</option>
 									</select>
 								</div>
 								<div class="w-100 mr-sm-2 mb-sm-0 mb-1 mr-0">
 									<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
-									<select name="" id="subType" class="form-control ">
+									<select name="" onchange="setSubTypeValue(this.value)" id="subType" class="form-control ">
 									</select>
 								</div>
 								<div class="w-100">
 									<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
-									<select name="" id="section" class="form-control">
+									<select name="" id="section" onchange="setSectionValue(this.value)" class="form-control">
 										
 									</select>
 								</div>
@@ -990,6 +992,14 @@ const changeStep = (buttonClicked) => {
 			$('#backButton').fadeOut();
 			break;
 		case 2: 
+			if(count>0){
+				storeImgTemp();
+			}
+			else{
+				toastr.error("Please select images to upload.");
+				step--;
+				return;
+			}
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
 			$('.fix-sync').addClass('fix-sync-overflow');
@@ -1012,6 +1022,19 @@ const changeStep = (buttonClicked) => {
 
 
 // Dropzone code
+let filter = {
+	'type'		:'',
+	'sub_type'	:'',
+	'section'	: '' 
+};
+let count = 0;
+function setSubTypeValue(value)
+{
+		filter.sub_type = value;
+}
+function setSectionValue(value){
+	filter.section = value;
+}
 Dropzone.options.uploadImages = {
     maxFilesize: 5,
     dictResponseError: 'Server not Configured',
@@ -1026,10 +1049,10 @@ Dropzone.options.uploadImages = {
       self.options.dictRemoveFile = "<i class='fas fa-trash'style='cursor:pointer;'></i>";
       //New file added
       self.on("addedfile", function (file) {
+		  count++;
       });
       // Send file starts
-      self.on("sending", function (file) {
-        console.log('upload started', file);
+      self.on("sending", function (file,xhr, formData) {
         $('.meter').show();
       });
       // multiple
@@ -1046,27 +1069,36 @@ Dropzone.options.uploadImages = {
       
       // On removing file
       self.on("removedfile", function (file) {
-        
+        count--;
       });
       
       self.on("success",function(file,error){
-        self.removeFile(file);
+        // self.removeFile(file);
       });
     }
   };
 
-  function loadSubType(type){	
+  function loadSubType(type){ 	
+	  filter.type = type;
 	  let options = `<option value="">No option selected</option>`;
-	  $.ajax({
-		type: 'get',
-		url: '/api/options/'+type,
-		success: function(response){
-			$.each(response,function(key,value){
-				options+=`<option value="${value.id}">${type=='community'?value.name:value.title}</option>`;
-			});  
-			$('#subType').html(options);
-		}		
-	  })
+	  if(type!=''){
+		$.ajax({
+			type: 'get',
+			url: '/api/options/'+type,
+			success: function(response){
+				$.each(response,function(key,value){
+					options+=`<option value="${value.id}">${type=='community'?value.name:value.title}</option>`;
+				});  
+				$('#subType').html(options);
+			}		
+		})
+	  }
+	  else{
+		$('#subType').html(options);
+			filter.type 	='';
+			filter.sub_type ='';
+			filter.section  = '';
+	  }
 	  loadSection(type)
     }
 	function loadSection(type){
@@ -1077,31 +1109,36 @@ Dropzone.options.uploadImages = {
 				<option value="banner">Banner</option>
 				<option value="map">Map Marker</option>
 				<option value="gallery">Gallery</option>`;
-				$('#section').html(options);
 			break;
 
 			case 'elevation':
 				options += `<option value="feature-image">Feature Image</option>
 				<option value="gallery">Gallery</option>`;
-				$('#section').html(options);
 			break;
 
 			case 'floor':
 				options += `<option value="feature-image">Feature Image</option>`;
-				$('#section').html(options);
 			break;
 
 			case 'floor-feature':
 				options += `<option value="feature-image">Feature Image</option>`;
-				$('#section').html(options);
 			break;
 
+			case 'color-scheme':
+				options += `<option value="feature-image">Feature Image</option>`;
+			break;
+			case 'color-scheme-feature':
+				options += `<option value="feature-image">Feature Image</option>`;
+			break;	
+			case '':
+			break;
 			default:
 			break;
 		}
+		$('#section').html(options);
 	}
 	function storeImgTemp(){
-		$('#type').val(getUploadType);  
+		$('#type').val(JSON.stringify(filter));
 		var dropZone = Dropzone.forElement(".dropzone");
 		dropZone.processQueue();
 	}

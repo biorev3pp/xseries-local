@@ -640,6 +640,12 @@ select.form-control:disabled{
 								<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations <span class="counter" id="elevation-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
+								<a class="nav-link" id="pills-color-scheme-tab" data-toggle="pill" href="#pills-color-scheme" role="tab" aria-controls="pills-color-scheme" aria-selected="false">Color Scheme <span class="counter" id="elevation-count">0</span></a>
+								</li>
+								<li class="nav-item" role="presentation">
+								<a class="nav-link" id="pills-color-scheme-features-tab" data-toggle="pill" href="#pills-color-scheme-features" role="tab" aria-controls="pills-color-scheme-features" aria-selected="false">Color Scheme Features <span class="counter" id="elevation-count">0</span></a>
+								</li>
+								<li class="nav-item" role="presentation">
 								<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors <span class="counter" id="floor-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
@@ -692,6 +698,56 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="elevation-section">
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="pills-color-scheme" role="tabpanel" aria-labelledby="pills-color-scheme-tab">
+									<div class="table-responsive" id="custom_table">
+										<div class="w-100 border mapping-action-wrap">
+											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+											<button class="mr-1 add-button">Add</button>
+											<button class="mr-1 update-button">Update</button>
+											<button class="mr-1 delete-button">Delete</button>
+										</div>
+										<table class="table table-bordered table-hover" id="colorSchemesDataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width:40px"><input type="checkbox" class="checkall"></th>
+													<th>Image Name</th>
+													<th>Category or Mapped</th> 
+													<th>Uploaded By</th>
+													<th>Image</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody id="color-scheme-section">
+												
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="tab-pane fade" id="pills-color-scheme-features" role="tabpanel" aria-labelledby="pills-color-scheme-features-tab">
+									<div class="table-responsive" id="custom_table">
+										<div class="w-100 border mapping-action-wrap">
+											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+											<button class="mr-1 add-button">Add</button>
+											<button class="mr-1 update-button">Update</button>
+											<button class="mr-1 delete-button">Delete</button>
+										</div>
+										<table class="table table-bordered table-hover" id="colorSchemeFeaturesDataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width:40px"><input type="checkbox" class="checkall"></th>
+													<th>Image Name</th>
+													<th>Category or Mapped</th> 
+													<th>Uploaded By</th>
+													<th>Image</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody id="color-scheme-features-section">
 												
 											</tbody>
 										</table>
@@ -1401,6 +1457,8 @@ $("#pills-deleted .mapping-action-wrap button").click(function(){
 $(document).ready( function () {
 	// $('#elevationDataTable').DataTable();
 	$('#deleteTable').DataTable();
+	$('#colorSchemesDataTable').DataTable();
+	$('#colorSchemeFeaturesDataTable').DataTable();
 });
 
 $('#image').on('change', function () {

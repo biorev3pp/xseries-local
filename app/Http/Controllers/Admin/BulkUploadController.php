@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Homes;
 use App\Models\ColorSchemes;
@@ -10,9 +11,11 @@ use App\Models\ColorSchemeUpgrade;
 use App\Models\HomeFeatures;
 use App\Models\Communities;
 use App\Models\CommunitiesHomes;
+use Illuminate\Support\Facades\DB;
 use App\Models\Floor;
 use App\Models\Plots;
 use App\Models\Features;
+use App\Admins;
 class BulkUploadController extends Controller
 {
     //
@@ -212,15 +215,21 @@ class BulkUploadController extends Controller
     }
     public function storeImgTemporary(Request $request)
     {
+        $sessionId = $request->session()->getId();
+        $destinationPath = public_path('uploads/temp/').$sessionId;
+        if($request->session()->has('temp_image'))
+        {
+            $this->cleanTempImg($destinationPath,$request->session());
+        }
         $data = [];
         $data['mapped']['community'] = [];
         $data['mapped']['elevation'] = [];
         $data['mapped']['floor'] = [];
+        $data['mapped']['floor_feature'] = [];
         $data['unmapped'] = [];
+        $data['uploaded_by'] = Admins::whereId(Auth::user()->id)->first()->name;
         $filterOptions = json_decode($request->type);
         // return $filterOptions->{'type'};
-        $sessionId = $request->session()->getId();
-        $destinationPath = public_path('uploads/temp/').$sessionId;
         if($request->file)
         {
             $number_of_images = count($request->file);
@@ -228,22 +237,33 @@ class BulkUploadController extends Controller
             {
                 $image = $request->file[$i];
                 $name  = $image->getClientOriginalName();
-                // $image->move($destinationPath, $name);
+                $image->move($destinationPath, $name);
                 $result = $this->processAndMatch(strtolower(explode('.',$name)[0]));
                 if(count($result))
                 {
                     $temp = [
                         'section' => $result[1],
-                        'value' => $result[2]
+                        'name' => $name,
+                        'value' => $result[2],
+                        'path' => $sessionId.'/'.$name,
+                        'id' => $result[3] 
                     ];
                     if($result[0] == 'community')
                         array_push($data['mapped']['community'],$temp);
                     if($result[0] == 'elevation')
                         array_push($data['mapped']['elevation'],$temp);
                  }
+                 else{
+                    $temp = [
+                        'name' => $name,
+                        'path' => $sessionId.'/'.$name,
+                    ];
+                    array_push($data['unmapped'],$temp);
+                 }
             }
+            $request->session()->put('temp_image',true);
         }
-        dd($data);
+        return response()->json($data);
     }
 
     public function uploadBulkImage(Request $request)
@@ -284,8 +304,10 @@ class BulkUploadController extends Controller
     private function processAndMatch($name):array
     {
         // name shoulde be without extension
+        $nameArray = explode('-',$name);
+
         $matchOrUnmatch = [];
-        $find = Communities::where('name','like','%'.$name)->first();
+        $find = Communities::where('name','like','%'.$nameArray[0])->first();
         if($find)
         {
             $section = 'featured_image';
@@ -299,6 +321,7 @@ class BulkUploadController extends Controller
                 $section = "gallery";
                 array_push($matchOrUnmatch,$section);
                 array_push($matchOrUnmatch,$find->name);
+                array_push($matchOrUnmatch,$find->id);
                 return $matchOrUnmatch;
             }
             if(strpos($name,$logo)!== false)
@@ -306,6 +329,7 @@ class BulkUploadController extends Controller
                 $section = "logo";
                 array_push($matchOrUnmatch,$section);
                 array_push($matchOrUnmatch,$find->name);
+                array_push($matchOrUnmatch,$find->id);
                 return $matchOrUnmatch;
             }
             if(strpos($name,$banner)!== false)
@@ -313,6 +337,7 @@ class BulkUploadController extends Controller
                 $section = "banner";
                 array_push($matchOrUnmatch,$section);
                 array_push($matchOrUnmatch,$find->name);
+                array_push($matchOrUnmatch,$find->id);
                 return $matchOrUnmatch;
             }
             if(strpos($name,$marker)!== false)
@@ -320,16 +345,19 @@ class BulkUploadController extends Controller
                 $section = "marker";
                 array_push($matchOrUnmatch,$section);
                 array_push($matchOrUnmatch,$find->name);
+                array_push($matchOrUnmatch,$find->id);
                 return $matchOrUnmatch;
             }
             array_push($matchOrUnmatch,$section);
             array_push($matchOrUnmatch,$find->name);
+            array_push($matchOrUnmatch,$find->id);
             return $matchOrUnmatch;
         }
-        $find = Homes::where('title', 'LIKE', '%'.$name.'%')->first();
-        dd($find);
+        $find = Homes::where('title', 'LIKE', '%'.$nameArray[0])->first(); //If found may be home, type, floor, feature, color scheme, homefeature
+        // $searchType = count($nameArray)>1?Homes::where('title', 'LIKE', '%'.$nameArray[1])->first():'';
         if($find)
         {
+
             $section = 'featured_image';
             array_push($matchOrUnmatch,'elevation');
             $gallery = '-g';
@@ -337,14 +365,29 @@ class BulkUploadController extends Controller
                 $section = "gallery";
                 array_push($matchOrUnmatch,$section);
                 array_push($matchOrUnmatch,$find->title);
+                array_push($matchOrUnmatch,$find->id);
                 return $matchOrUnmatch;
             }
+            // pattern for floor or colorscheme as well as features
             array_push($matchOrUnmatch,$section);
             array_push($matchOrUnmatch,$find->title);
+            array_push($matchOrUnmatch,$find->id);
             return $matchOrUnmatch;
         }
         return [];
         // to return the type matched with, entity name, and subtype matched. 
+    }
+
+    //Clean the temp images
+    public function cleanTempImg($dir,$session)
+    {
+        $files = scandir($dir);
+        $files = array_diff($files,array('.','..'));
+        foreach ($files as &$value) {
+            unlink($dir.'\\'.$value);
+        }
+        rmdir($dir);
+        $session->forget('temp_image');
     }
     public function getImagesForSelectedType(Request $request)
     {

@@ -621,29 +621,29 @@ select.form-control:disabled{
 				<div id="drm_step_div" class="containers">
 					<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter">6</span></a>
+							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter" id="mapped-count">0</span></a>
 						</li>
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-unmapped-tab" data-toggle="pill" href="#pills-unmapped" role="tab" aria-controls="pills-unmapped" aria-selected="false">Unmapped <span class="counter">1</span></a>
+							<a class="nav-link" id="pills-unmapped-tab" data-toggle="pill" href="#pills-unmapped" role="tab" aria-controls="pills-unmapped" aria-selected="false">Unmapped <span class="counter"id="unmapped-count">1</span></a>
 						</li>
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-deleted-tab" data-toggle="pill" href="#pills-deleted" role="tab" aria-controls="pills-deleted" aria-selected="false">Deleted <span class="counter">1</span></a>
+							<a class="nav-link" id="pills-deleted-tab" data-toggle="pill" href="#pills-deleted" role="tab" aria-controls="pills-deleted" aria-selected="false">Deleted <span class="counter" id="delete-count">0</span></a>
 						</li>
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
 						<div class="tab-pane fade show active" id="pills-mapped" role="tabpanel" aria-labelledby="pills-mapped-tab">
 							<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 								<li class="nav-item" role="presentation">
-								<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communties <span class="counter">6</span></a>
+								<a class="nav-link active" id="pills-communities-tab" data-toggle="pill" href="#pills-communities" role="tab" aria-controls="pills-communities" aria-selected="true">Communties <span class="counter" id="community-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations <span class="counter">0</span></a>
+								<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations <span class="counter" id="elevation-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors <span class="counter">0</span></a>
+								<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors <span class="counter" id="floor-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features <span class="counter">0</span></a>
+								<a class="nav-link" id="pills-floor-features-tab" data-toggle="pill" href="#pills-floor-features" role="tab" aria-controls="pills-floor-features" aria-selected="false">Floor Features <span class="counter" id="floor-feature-count">0</span></a>
 								</li>
 							</ul>
 							<div class="tab-content">
@@ -655,7 +655,7 @@ select.form-control:disabled{
 											<button class="mr-1 update-button">Update</button>
 											<button class="mr-1 delete-button">Delete</button>
 										</div>
-										<table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+										<table class="table table-bordered table-hover" id="communityDataTable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
 													<th style="width:40px"><input type="checkbox" class="checkall"></th>
@@ -666,115 +666,86 @@ select.form-control:disabled{
 													<th>Action</th>
 												</tr>
 											</thead>
-											<tbody>
-												<tr>
-													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-1</td>
-													<td>Cottage Garden - Gallery</td>
-													<td>Admin</td>
-													<td width="100px" style="min-width:100px;">
-														<div style="position:relative;">
-															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
-															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="add-image-button btn-orange">Add</button>
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-													</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-2</td>
-													<td>Cottage Garden - Gallery</td>
-													<td>Admin</td>
-													<td width="100px" style="min-width:100px;">
-														<div style="position:relative;">
-															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
-															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="add-image-button btn-orange">Add</button>
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-													</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-3</td>
-													<td>Cottage Garden - Gallery</td>
-													<td>Admin</td>
-													<td width="100px" style="min-width:100px;">
-														<div style="position:relative;">
-															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
-															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="add-image-button btn-orange">Add</button>
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-													</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-4</td>
-													<td>Cottage Garden - Gallery</td>
-													<td>Admin</td>
-													<td width="100px" style="min-width:100px;">
-														<div style="position:relative;">
-															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
-															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="add-image-button btn-orange">Add</button>
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-													</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-5</td>
-													<td>Cottage Garden - Gallery</td>
-													<td>Admin</td>
-													<td width="100px" style="min-width:100px;">
-														<div style="position:relative;">
-															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
-															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="add-image-button btn-orange">Add</button>
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-													</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox"></td>
-													<td>cottage-garden-g-6</td>
-													<td>Cottage Garden - Gallery</td>
-													<td>Admin</td>
-													<td width="100px" style="min-width:100px;">
-														<div style="position:relative;">
-															<img class="w-100" src="{{asset('uploads/1591693227.jpg')}}">
-															<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-														</div>
-													</td>
-													<td>
-														<button type="button" class="add-image-button btn-orange">Add</button>
-														<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-													</td>
-												</tr>	
+											<tbody id="community-section">
+												
 											</tbody>
 										</table>
 									</div>
 								</div>
 								<div class="tab-pane fade" id="pills-elevations" role="tabpanel" aria-labelledby="pills-elevations-tab">
-									<div class="alert alert-danger mt-1" role="alert">No Images are Mapped in this section.</div>
+									<div class="table-responsive" id="custom_table">
+										<div class="w-100 border mapping-action-wrap">
+											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+											<button class="mr-1 add-button">Add</button>
+											<button class="mr-1 update-button">Update</button>
+											<button class="mr-1 delete-button">Delete</button>
+										</div>
+										<table class="table table-bordered table-hover" id="elevationDataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width:40px"><input type="checkbox" class="checkall"></th>
+													<th>Image Name</th>
+													<th>Category or Mapped</th> 
+													<th>Uploaded By</th>
+													<th>Image</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody id="elevation-section">
+												
+											</tbody>
+										</table>
+									</div>
 								</div>
 								<div class="tab-pane fade" id="pills-floors" role="tabpanel" aria-labelledby="pills-floors-tab">
-									<div class="alert alert-danger mt-1" role="alert">No Images are Mapped in this section.</div>
+									<div class="table-responsive">
+										<div class="w-100 border mapping-action-wrap">
+											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+											<button class="mr-1 add-button">Add</button>
+											<button class="mr-1 update-button">Update</button>
+											<button class="mr-1 delete-button">Delete</button>
+										</div>
+										<table class="table table-bordered table-hover" id="floorDataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width:40px"><input type="checkbox" class="checkall"></th>
+													<th>Image Name</th>
+													<th>Category or Mapped</th> 
+													<th>Uploaded By</th>
+													<th>Image</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody id="floor-section">
+												
+											</tbody>
+										</table>
+									</div>
 								</div>
 								<div class="tab-pane fade" id="pills-floor-features" role="tabpanel" aria-labelledby="pills-floor-features-tab">
-									<div class="alert alert-danger mt-1" role="alert">No Images are Mapped in this section.</div>
+									<div class="table-responsive" id="custom_table">
+										<div class="w-100 border mapping-action-wrap">
+											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
+											<button class="mr-1 add-button">Add</button>
+											<button class="mr-1 update-button">Update</button>
+											<button class="mr-1 delete-button">Delete</button>
+										</div>
+										<table class="table table-bordered table-hover" id="floorFeatureDataTable" width="100%" cellspacing="0">
+											<thead>
+												<tr>
+													<th style="width:40px"><input type="checkbox" class="checkall"></th>
+													<th>Image Name</th>
+													<th>Category or Mapped</th> 
+													<th>Uploaded By</th>
+													<th>Image</th>
+													<th>Action</th>
+												</tr>
+											</thead>
+											<tbody id="floor-feature-section">
+												
+											</tbody>
+										</table>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -797,23 +768,8 @@ select.form-control:disabled{
 											<th>Action</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>test_image</td>
-											<td>Undefined</td>
-											<td>Admin</td>
-											<td width="100px" style="min-width:100px;">
-												<div style="position:relative;">
-													<img class="w-100" src="{{asset('uploads/interior.png')}}">
-													<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-												</div>
-											</td>
-											<td>
-												<button type="button" class="add-image-button disabled-button btn-orange">Add</button>
-												<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-											</td>
-										</tr>
+									<tbody id="unmapped-section">
+									
 									</tbody>
 								</table>
 							</div>
@@ -897,30 +853,25 @@ select.form-control:disabled{
 			<div class="modal-body px-2 pt-2 pb-0">
 				<div class="w-100 mb-1 mr-0">
 					<label class="d-block text-left mb-0 text-dark" for="">Select Type</label>
-					<select name="" id="" class="form-control">
+					<select name="" class="form-control" onchange="loadSubType(this.value,'update')">
 					<option value="">No option selected</option>
-					<option value="">Community</option>
-					<option value="">Elevation</option>
-					<option value="">Floor</option>
-					<option value="">Floor-Feature</option>
+					<option value="community">Community</option>
+					<option value="elevation">Elevation</option>
+					<option value="color-scheme">Color Scheme</option>
+					<option value="color-scheme-feature">Color Scheme Feature</option>
+					<option value="floor">Floor</option>
+					<option value="floor-feature">Floor Feature</option>
 					</select>
 				</div>
 				<div class="w-100 mb-1 mr-0">
 					<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
-					<select name="" id="" class="form-control ">
-					<option value="">No option selected</option>
-					<option value="">Enclave of Twin Run</option>
-					<option value="">Big Fork Landing</option>
+					<select name="" id="subTypeUpdate" class="form-control ">
+					
 					</select>
 				</div>
 				<div class="w-100">
 					<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
-					<select name="" id="" class="form-control">
-					<option value="">No option selected</option>
-					<option value="">Logo</option>
-					<option value="">Banner</option>
-					<option value="">Map Marker</option>
-					<option value="">Gallery</option>
+					<select name="" id="updateSection" class="form-control">
 					</select>
 				</div>
 			</div>
@@ -1064,7 +1015,6 @@ Dropzone.options.uploadImages = {
       });
       self.on("queuecomplete", function (progress) {
         $('.meter').delay(999).slideUp(999);
-
       });
       
       // On removing file
@@ -1072,14 +1022,148 @@ Dropzone.options.uploadImages = {
         count--;
       });
       
-      self.on("success",function(file,error){
+      self.on("successmultiple",function(file,res){
         // self.removeFile(file);
+		let communityContent = '';
+		let elevationContent = '';
+		let floorContent = '';
+		let floorFeatureContent = '';
+		let unmappedContent = '';
+		let [communityCount,elevationCount,floorCount,floorFeatureCount, unmappedCount,mappedCount] = [0,0,0,0,0,0];
+
+		// Community section data
+		$.each(res.mapped.community,function(key,val){
+			communityContent+= `<tr>
+							<td><input type="checkbox"></td>
+							<td>${val.name}</td>
+							<td>${val.value} - ${val.section}</td>
+							<td>${res.uploaded_by}</td>
+							<td width="100px" style="min-width:100px;">
+								<div style="position:relative;">
+									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+								</div>
+							</td>
+							<td>
+								<button type="button" class="add-image-button btn-orange">Add</button>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+							</td>
+						</tr>`;
+						communityCount++;
+		});
+		$('#community-count').html(communityCount);
+		$('#community-section').html(communityContent);
+		$('#communityDataTable').DataTable();
+
+		// Elevation section data
+		$.each(res.mapped.elevation,function(key,val){
+			elevationContent+= `<tr>
+							<td><input type="checkbox"></td>
+							<td>${val.name}</td>
+							<td>${val.value} - ${val.section}</td>
+							<td>${res.uploaded_by}</td>
+							<td width="100px" style="min-width:100px;">
+								<div style="position:relative;">
+									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+								</div>
+							</td>
+							<td>
+								<button type="button" class="add-image-button btn-orange">Add</button>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+							</td>
+						</tr>`;
+						elevationCount++;
+		});
+		$('#elevation-count').html(elevationCount);
+		$('#elevation-section').html(elevationContent);
+		$('#elevationDataTable').DataTable();
+
+		// Floor data section
+		$.each(res.mapped.floor,function(key,val){
+			floorContent+= `<tr>
+							<td><input type="checkbox"></td>
+							<td>${val.name}</td>
+							<td>${val.value} - ${val.section}</td>
+							<td>${res.uploaded_by}</td>
+							<td width="100px" style="min-width:100px;">
+								<div style="position:relative;">
+									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+								</div>
+							</td>
+							<td>
+								<button type="button" class="add-image-button btn-orange">Add</button>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+							</td>
+						</tr>`;
+						floorCount++;
+		});
+		$('#floor-count').html(floorCount);
+		$('#floor-section').html(floorContent);
+		$('#floorDataTable').DataTable();
+
+		// Floor Feature section
+		$.each(res.mapped.floor_feature,function(key,val){
+			floorFeatureContent+= `<tr>
+							<td><input type="checkbox"></td>
+							<td>${val.name}</td>
+							<td>${val.value} - ${val.section}</td>
+							<td>${res.uploaded_by}</td>
+							<td width="100px" style="min-width:100px;">
+								<div style="position:relative;">
+									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+								</div>
+							</td>
+							<td>
+								<button type="button" class="add-image-button btn-orange">Add</button>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+							</td>
+						</tr>`;
+						floorFeatureCount++;
+		});
+		$('#floor-feature-count').html(floorFeatureCount);
+		$('#floor-section').html(floorFeatureContent);
+		$('#floorFeatureDataTable').DataTable();
+
+		// Unmapped data
+		$.each(res.unmapped,function(key,val){
+			unmappedContent+=`	<tr>
+									<td><input type="checkbox"></td>
+									<td>${val.name}</td>
+									<td>Undefined</td>
+									<td>${res.uploaded_by}</td>
+									<td width="100px" style="min-width:100px;">
+										<div style="position:relative;">
+											<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
+											<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+										</div>
+									</td>
+									<td>
+										<button type="button" class="add-image-button disabled-button btn-orange">Add</button>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+									</td>
+								</tr>`;
+								unmappedCount++;
+		});
+		$('#unmapped-count').html(unmappedCount);
+		mappedCount = communityCount+elevationCount+floorCount+floorFeatureCount;
+		$('#mapped-count').html(mappedCount);
+		$('#unmapped-section').html(unmappedContent);
+		$('#unmappedTable').DataTable();
+		
       });
     }
   };
 
-  function loadSubType(type){ 	
-	  filter.type = type;
+  function loadSubType(){
+	  let type = arguments[0]; 	
+	  let action = arguments[1];
+	  if(action!='update')
+	  {
+		filter.type = type;
+	  }
 	  let options = `<option value="">No option selected</option>`;
 	  if(type!=''){
 		$.ajax({
@@ -1088,20 +1172,29 @@ Dropzone.options.uploadImages = {
 			success: function(response){
 				$.each(response,function(key,value){
 					options+=`<option value="${value.id}">${type=='community'?value.name:value.title}</option>`;
-				});  
-				$('#subType').html(options);
+				});
+				if(action!='update')
+				{
+					$('#subType').html(options);
+				}
+				else{
+					$('#subTypeUpdate').html(options);
+				}  
 			}		
 		})
 	  }
 	  else{
-		$('#subType').html(options);
+		  if(arguments[1]!='update')
+		  {
+			$('#subType').html(options);
 			filter.type 	='';
 			filter.sub_type ='';
 			filter.section  = '';
+		  }
 	  }
-	  loadSection(type)
+	  loadSection(type,action);
     }
-	function loadSection(type){
+	function loadSection(type,action){
 		let options = `<option value="">No option selected</option>`;
 		switch(type){
 			case 'community':
@@ -1135,7 +1228,10 @@ Dropzone.options.uploadImages = {
 			default:
 			break;
 		}
+		if(action!='update')
 		$('#section').html(options);
+		else
+		$('#updateSection').html(options);
 	}
 	function storeImgTemp(){
 		$('#type').val(JSON.stringify(filter));
@@ -1303,7 +1399,7 @@ $("#pills-deleted .mapping-action-wrap button").click(function(){
 });
 
 $(document).ready( function () {
-	$('#unmappedTable').DataTable();
+	// $('#elevationDataTable').DataTable();
 	$('#deleteTable').DataTable();
 });
 

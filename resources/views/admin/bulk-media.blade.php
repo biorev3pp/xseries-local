@@ -495,6 +495,31 @@ select.form-control:disabled{
 	overflow: auto;
 }
 
+.table-overflow-unmapped{
+	height: calc(100vh - 380px);
+	overflow: auto;
+}
+
+.drop-wrapper{
+	max-height: 290px;
+	overflow: auto;
+}
+
+
+
+@media(max-width: 1200px){
+	.table-overflow, .table-overflow-unmapped{
+		height: auto;
+	}
+	.fix-sync-overflow{
+		overflow: auto;
+	}
+
+	.drop-wrapper{
+		max-height:unset;
+	}
+}
+
 @media(min-width: 992px){
 	.sync-process{
 		position: absolute;
@@ -559,7 +584,7 @@ select.form-control:disabled{
 		<div class="fix-sync">
 			<div class="sync-container">
 				<div id="ss_step_div" class="text-center containers">
-					<div>
+					<div class="drop-wrapper">
 						<form action="{{route('bulk-image-upload')}}" class="dropzone dz-clickable" id="uploadImages" method="post">
 							@csrf
 							<input type="hidden" name="type" id="type">
@@ -654,6 +679,7 @@ select.form-control:disabled{
 							</ul>
 							<div class="tab-content">
 								<div class="tab-pane fade show active" id="pills-communities" role="tabpanel" aria-labelledby="pills-communities-tab">
+									<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 									<div class="table-responsive" id="custom_table">
 										<div class="w-100 border mapping-action-wrap">
 											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
@@ -673,7 +699,6 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="community-section">
-												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -698,7 +723,6 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="elevation-section">
-												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -723,7 +747,6 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="color-scheme-section">
-												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -748,7 +771,6 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="color-scheme-feature-section">
-												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -773,7 +795,6 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="floor-section">
-												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -798,7 +819,6 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="floor-feature-section">
-												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -824,7 +844,6 @@ select.form-control:disabled{
 										</tr>
 									</thead>
 									<tbody id="unmapped-section">
-										<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 									</tbody>
 								</table>
 							</div>
@@ -847,7 +866,7 @@ select.form-control:disabled{
 										</tr>
 									</thead>
 									<tbody>
-										<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
+										
 									</tbody>
 								</table>
 							</div>
@@ -935,7 +954,7 @@ select.form-control:disabled{
 </div>
 <div class="modal fade" id="replaceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
-		<form method="post" enctype="multipart/form-data" id="replaceImageForm">
+		<form method="post" enctype="multipart/form-data" id="replaceImageForm" class="w-100">
 			@csrf
 			<div class="modal-content">
 				<div class="modal-header">
@@ -1035,7 +1054,6 @@ const changeStep = (buttonClicked) => {
 			$('#ss_step').addClass('complete').removeClass('active');
 			$('#drm_step').addClass('active').removeClass('incomplete');
 			$('.fix-sync').addClass('fix-sync-overflow');
-			$('table').parent().parent().addClass('table-overflow');
 			$("#importButton span").text('Upload');
 			$(".containers").hide();
 			$('#backButton').fadeIn();
@@ -1136,6 +1154,8 @@ Dropzone.options.uploadImages = {
 		$('#community-count').html(communityCount);
 		$('#community-section').html(communityContent);
 		$('#communityDataTable').DataTable();
+		$('#communityDataTable').parent().parent().addClass('table-overflow');
+
 
 		// Elevation section data
 		$.each(res.mapped.elevation,function(key,val){
@@ -1160,6 +1180,7 @@ Dropzone.options.uploadImages = {
 		$('#elevation-count').html(elevationCount);
 		$('#elevation-section').html(elevationContent);
 		$('#elevationDataTable').DataTable();
+		$('#elevationDataTable').parent().parent().addClass('table-overflow');
 
 		// Floor data section
 		$.each(res.mapped.floor,function(key,val){
@@ -1184,6 +1205,7 @@ Dropzone.options.uploadImages = {
 		$('#floor-count').html(floorCount);
 		$('#floor-section').html(floorContent);
 		$('#floorDataTable').DataTable();
+		$('#floorDataTable').parent().parent().addClass('table-overflow');
 
 		// Floor Feature section
 		$.each(res.mapped.floor_feature,function(key,val){
@@ -1208,6 +1230,7 @@ Dropzone.options.uploadImages = {
 		$('#floor-feature-count').html(floorFeatureCount);
 		$('#floor-feature-section').html(floorFeatureContent);
 		$('#floorFeatureDataTable').DataTable();
+		$('#floorFeatureDataTable').parent().parent().addClass('table-overflow');
 
 		//color scheme
 		$.each(res.mapped.color_scheme,function(key,val){
@@ -1232,6 +1255,7 @@ Dropzone.options.uploadImages = {
 		$('#color-scheme-count').html(colorSchemeCount);
 		$('#color-scheme-section').html(colorSchemeContent);
 		$('#colorSchemeDataTable').DataTable();
+		$('#colorSchemeDataTable').parent().parent().addClass('table-overflow');
 
 		// color scheme feature
 		$.each(res.mapped.color_scheme_feature,function(key,val){
@@ -1256,6 +1280,7 @@ Dropzone.options.uploadImages = {
 		$('#color-scheme-feature-count').html(colorSchemeFeatureCount);
 		$('#color-scheme-feature-section').html(colorSchemeFeatureContent);
 		$('#colorSchemeFeatureDataTable').DataTable();
+		$('#colorSchemeFeatureDataTable').parent().parent().addClass('table-overflow');
 
 		// Unmapped data
 		$.each(res.unmapped,function(key,val){
@@ -1282,11 +1307,13 @@ Dropzone.options.uploadImages = {
 		$('#mapped-count').html(mappedCount);
 		$('#unmapped-section').html(unmappedContent);
 		$('#unmappedDataTable').DataTable();
+		$('#unmappedDataTable').parent().parent().addClass('table-overflow-unmapped');
 		intializeTab();
 		singleCheck();
 		unmappedIntialization();
 		singleUnmapped();
 		$('.syncloader').hide();
+		$('.table-responsive').show();
       });
     }
   };
@@ -1370,6 +1397,7 @@ function readURL(input){
 		$('#updateSection').html(options);
 	}
 	function storeImgTemp(){
+		$('.table-responsive').hide();
 		$('.syncloader').fadeIn();
 		$('#type').val(JSON.stringify(filter));
 		var dropZone = Dropzone.forElement(".dropzone");
@@ -2058,6 +2086,7 @@ function singleDelete(){
 
 $(document).ready( function () {
 	$('#deleteDataTable').DataTable();
+	$('#deleteDataTable').parent().parent().addClass('table-overflow-unmapped');	
 });
 
 $('#image').on('change', function () {
@@ -2321,6 +2350,7 @@ function confirmAndUpload(){
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			},
 			beforeSend  : function(){
+				$('.table-responsive').hide();
 				$('.syncloader').fadeIn();
 			},
 			success: function(response){
@@ -2337,6 +2367,7 @@ function confirmAndUpload(){
 			},
 			complete	: function(){
 				$('.syncloader').hide();
+				$('.table-responsive').show();
 			} 
 		})
 		return true;

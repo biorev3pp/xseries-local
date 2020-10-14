@@ -181,6 +181,9 @@ Route::group(['prefix'=>'admin','middleware'=>'auth','admin_role_check'], functi
     Route::get('/export-leads','Admin\ExportController@leadsReport')->name('export-leads');
     Route::get('/export-estimates','Admin\ExportController@EstimatesReport')->name('export-estimates');
     Route::get('/single-estimates/{id}','Admin\ExportController@EstimatesSingleReport')->name('single-estimates');
+    // Export success, failure and skip image sheet
+    Route::get('/bulk-upload/success/{timestamp}','Admin\BulkUploadController@exportImageSuccess')->name('export-success-image-history');
+    Route::get('/bulk-upload/error/{timestamp}','Admin\BulkUploadController@exportImageError')->name('export-error-image-history');
     // Export Success And Skip Data
     Route::get('/mega-export/success/{timestamp}','API\ImportController@exportSuccess')->name('export-success-history');
     // Export Error Data

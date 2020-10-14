@@ -120,3 +120,5 @@ Route::get('/community/home/type/colorscheme/{id}','Admin\BulkUploadController@g
 Route::post('/community/images/','Admin\BulkUploadController@imagesExistInDatabaseForSelectedType');
 /** Bulk Image Uploads */
 Route::get('/options/{type}','Admin\BulkUploadController@getDropDownOptions');
+Route::post('/update/image','Admin\BulkUploadController@updateImage');
+Route::post('/bulk/upload','Admin\BulkUploadController@confirmedUploadNow');

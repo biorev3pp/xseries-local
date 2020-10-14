@@ -1053,7 +1053,6 @@ const changeStep = (buttonClicked) => {
 		if(Object.keys(mappedArray.elevation_type).length!=0)
 		{
 			let swappedObj = swap(mappedArray.elevation_type);
-			console.log(swappedObj);
 			if(!swappedObj.hasOwnProperty('title') || !swappedObj.hasOwnProperty('parent_id'))
 			{
 				toastr.error("Name and Base Elevation should be mapped in elevation type section.");

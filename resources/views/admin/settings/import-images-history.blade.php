@@ -30,23 +30,26 @@
                         </tr>
                     </thead>
                     <tbody>
+                    @foreach($history as $key => $h)
                         <tr>
-                            <td>1.</td>
-                            <td>image-upload-157227872.xlsx</td>
-                            <td>Admin</td>
-                            <td>Finished On <span class="subbottom"> Sep 18, 2020 </span></td>
+                            <td>{{$key+1}}</td>
+                            <td>{{$h->file_name}}</td>
+                            <td>{{$h->name}}</td>
+                            <td>Finished On <span class="subbottom"> {{date('M',$h->imported_on)}} {{date('d',$h->imported_on)}}, {{date('Y',$h->imported_on)}} </span></td>
                             <td class="progress-row">
                                 <span class="progresss-span-bg"> 
-                                    <a href="javascript:;" class="progresss-span" style="width:100%"> 100% complete </a>
-                                    <!-- <a href="javascript:;" class="float-right progresss-side-span"> 0 of 6 failed </a> -->
+                                    <a href="{{route('export-success-image-history',['timestamp'=>$h->imported_on])}}" class="progresss-span" style="width:{{$h->percent}}%"> <span style="padding-left: 14px;">{{$h->percent}}% complete </span></a>
+                                    <a href="{{route('export-error-image-history',['timestamp'=>$h->imported_on])}}" class="float-right progresss-side-span">  {{$h->fail}} of {{$h->success+$h->fail+$h->skip}} failed </a>
                                 </span>
                             </td>
                             <td class="action">
-                                <a href="#" class="d-inline-block"> 6 <span class="subbottom"> Total </span> </a>
-                                <a href="#" class="d-inline-block"> 6 <span class="subbottom"> Uploaded </span> </a>
-                                <a href="#" class="mr-0 d-inline-block"> 0 <span class="subbottom"> Failure </span> </a>
+                                <a href="#" class="d-inline-block">{{$h->success+$h->fail+$h->skip}} <span class="subbottom"> Total </span> </a>
+                                <a href="#" class="d-inline-block"> {{$h->success}} <span class="subbottom"> Imported </span> </a>
+                                <a href="#" class="mr-0 d-inline-block"> {{$h->fail}} <span class="subbottom"> Failure </span> </a>
+                                <a href="#" class="mr-0 d-inline-block"> {{$h->skip}} <span class="subbottom"> Skipped </span> </a>
                             </td>
                         </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

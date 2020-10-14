@@ -604,9 +604,9 @@ select.form-control:disabled{
 								<label class="text-left d-block text-dark mb-0" style="font-weight:500 !important">Select Option</label>
 								<div class="d-flex flex-sm-row flex-column justify-content-between align-items-center">
 									<select id="importOptions" class="form-control mr-0 mr-sm-1 mb-1 mb-sm-0" disabled>
-										<option value="">override</option>
-										<option value="">update</option>
-										<option value="" selected>skip</option>
+										<option value="override">override</option>
+										<option value="update">update</option>
+										<option value="skip" selected>skip</option>
 									</select>
 									<div class="w-100 d-flex align-items-center">
 										<input type="checkbox" id="importCheck" style="margin-right: 5px;">
@@ -621,13 +621,13 @@ select.form-control:disabled{
 				<div id="drm_step_div" class="containers">
 					<ul class="nav nav-pills mb-0 justify-content-start" id="pills-tab" role="tablist">
 						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter" id="mapped-count">0</span></a>
+							<a class="nav-link active main-tab-links" id="pills-mapped-tab" data-toggle="pill" href="#pills-mapped" role="tab" aria-controls="pills-mapped" aria-selected="true">Mapped <span class="counter" id="mapped-count">0</span></a>
 						</li>
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-unmapped-tab" data-toggle="pill" href="#pills-unmapped" role="tab" aria-controls="pills-unmapped" aria-selected="false">Unmapped <span class="counter"id="unmapped-count">1</span></a>
+							<a class="nav-link main-tab-links" id="pills-unmapped-tab" data-toggle="pill" href="#pills-unmapped" role="tab" aria-controls="pills-unmapped" aria-selected="false">Unmapped <span class="counter"id="unmapped-count">0</span></a>
 						</li>
 						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="pills-deleted-tab" data-toggle="pill" href="#pills-deleted" role="tab" aria-controls="pills-deleted" aria-selected="false">Deleted <span class="counter" id="delete-count">0</span></a>
+							<a class="nav-link main-tab-links" id="pills-deleted-tab" data-toggle="pill" href="#pills-deleted" role="tab" aria-controls="pills-deleted" aria-selected="false">Deleted <span class="counter" id="delete-count">0</span></a>
 						</li>
 					</ul>
 					<div class="tab-content" id="pills-tabContent">
@@ -640,10 +640,10 @@ select.form-control:disabled{
 								<a class="nav-link" id="pills-elevations-tab" data-toggle="pill" href="#pills-elevations" role="tab" aria-controls="pills-elevations" aria-selected="false">Elevations <span class="counter" id="elevation-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-color-scheme-tab" data-toggle="pill" href="#pills-color-scheme" role="tab" aria-controls="pills-color-scheme" aria-selected="false">Color Scheme <span class="counter" id="elevation-count">0</span></a>
+								<a class="nav-link" id="pills-color-scheme-tab" data-toggle="pill" href="#pills-color-scheme" role="tab" aria-controls="pills-color-scheme" aria-selected="false">Color Scheme <span class="counter" id="color-scheme-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
-								<a class="nav-link" id="pills-color-scheme-features-tab" data-toggle="pill" href="#pills-color-scheme-features" role="tab" aria-controls="pills-color-scheme-features" aria-selected="false">Color Scheme Features <span class="counter" id="elevation-count">0</span></a>
+								<a class="nav-link" id="pills-color-scheme-features-tab" data-toggle="pill" href="#pills-color-scheme-features" role="tab" aria-controls="pills-color-scheme-features" aria-selected="false">Color Scheme Features <span class="counter" id="color-scheme-feature-count">0</span></a>
 								</li>
 								<li class="nav-item" role="presentation">
 								<a class="nav-link" id="pills-floors-tab" data-toggle="pill" href="#pills-floors" role="tab" aria-controls="pills-floors" aria-selected="false">Floors <span class="counter" id="floor-count">0</span></a>
@@ -657,9 +657,9 @@ select.form-control:disabled{
 									<div class="table-responsive" id="custom_table">
 										<div class="w-100 border mapping-action-wrap">
 											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-											<button class="mr-1 add-button">Add</button>
-											<button class="mr-1 update-button">Update</button>
-											<button class="mr-1 delete-button">Delete</button>
+											<button class="mr-1 add-button" onclick="addMappedData('community',false)">Add</button>
+											<button class="mr-1 update-button" onclick="updateConnection('community')">Update</button>
+											<button class="mr-1 delete-button" onclick="moveToDeleteSection('community')">Delete</button>
 										</div>
 										<table class="table table-bordered table-hover" id="communityDataTable" width="100%" cellspacing="0">
 											<thead>
@@ -673,7 +673,7 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="community-section">
-												
+												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -682,9 +682,9 @@ select.form-control:disabled{
 									<div class="table-responsive" id="custom_table">
 										<div class="w-100 border mapping-action-wrap">
 											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-											<button class="mr-1 add-button">Add</button>
-											<button class="mr-1 update-button">Update</button>
-											<button class="mr-1 delete-button">Delete</button>
+											<button class="mr-1 add-button" onclick="addMappedData('elevation',false)">Add</button>
+											<button class="mr-1 update-button"onclick="updateConnection('elevation')">Update</button>
+											<button class="mr-1 delete-button" onclick="moveToDeleteSection('elevation')">Delete</button>
 										</div>
 										<table class="table table-bordered table-hover" id="elevationDataTable" width="100%" cellspacing="0">
 											<thead>
@@ -698,7 +698,7 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="elevation-section">
-												
+												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -707,11 +707,11 @@ select.form-control:disabled{
 									<div class="table-responsive" id="custom_table">
 										<div class="w-100 border mapping-action-wrap">
 											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-											<button class="mr-1 add-button">Add</button>
-											<button class="mr-1 update-button">Update</button>
-											<button class="mr-1 delete-button">Delete</button>
+											<button class="mr-1 add-button" onclick="addMappedData('color-scheme',false)">Add</button>
+											<button class="mr-1 update-button" onclick="updateConnection('color-scheme')">Update</button>
+											<button class="mr-1 delete-button" onclick="moveToDeleteSection('color-scheme')">Delete</button>
 										</div>
-										<table class="table table-bordered table-hover" id="colorSchemesDataTable" width="100%" cellspacing="0">
+										<table class="table table-bordered table-hover" id="colorSchemeDataTable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
 													<th style="width:40px"><input type="checkbox" class="checkall"></th>
@@ -723,7 +723,7 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="color-scheme-section">
-												
+												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -732,11 +732,11 @@ select.form-control:disabled{
 									<div class="table-responsive" id="custom_table">
 										<div class="w-100 border mapping-action-wrap">
 											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-											<button class="mr-1 add-button">Add</button>
-											<button class="mr-1 update-button">Update</button>
-											<button class="mr-1 delete-button">Delete</button>
+											<button class="mr-1 add-button" onclick="addMappedData('color-scheme-feature',false)">Add</button>
+											<button class="mr-1 update-button" onclick="updateConnection('color-scheme-feature')">Update</button>
+											<button class="mr-1 delete-button" onclick="moveToDeleteSection('color-scheme-feature')">Delete</button>
 										</div>
-										<table class="table table-bordered table-hover" id="colorSchemeFeaturesDataTable" width="100%" cellspacing="0">
+										<table class="table table-bordered table-hover" id="colorSchemeFeatureDataTable" width="100%" cellspacing="0">
 											<thead>
 												<tr>
 													<th style="width:40px"><input type="checkbox" class="checkall"></th>
@@ -747,8 +747,8 @@ select.form-control:disabled{
 													<th>Action</th>
 												</tr>
 											</thead>
-											<tbody id="color-scheme-features-section">
-												
+											<tbody id="color-scheme-feature-section">
+												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -757,9 +757,9 @@ select.form-control:disabled{
 									<div class="table-responsive">
 										<div class="w-100 border mapping-action-wrap">
 											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-											<button class="mr-1 add-button">Add</button>
-											<button class="mr-1 update-button">Update</button>
-											<button class="mr-1 delete-button">Delete</button>
+											<button class="mr-1 add-button" onclick="addMappedData('floor',false)">Add</button>
+											<button class="mr-1 update-button" onclick="updateConnection('floor')">Update</button>
+											<button class="mr-1 delete-button" onclick="moveToDeleteSection('floor')">Delete</button>
 										</div>
 										<table class="table table-bordered table-hover" id="floorDataTable" width="100%" cellspacing="0">
 											<thead>
@@ -773,7 +773,7 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="floor-section">
-												
+												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -782,9 +782,9 @@ select.form-control:disabled{
 									<div class="table-responsive" id="custom_table">
 										<div class="w-100 border mapping-action-wrap">
 											<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-											<button class="mr-1 add-button">Add</button>
-											<button class="mr-1 update-button">Update</button>
-											<button class="mr-1 delete-button">Delete</button>
+											<button class="mr-1 add-button" onclick="addMappedData('floor-feature',false)">Add</button>
+											<button class="mr-1 update-button" onclick="updateConnection('floor-feature')">Update</button>
+											<button class="mr-1 delete-button" onclick="moveToDeleteSection('floor-feature')">Delete</button>
 										</div>
 										<table class="table table-bordered table-hover" id="floorFeatureDataTable" width="100%" cellspacing="0">
 											<thead>
@@ -798,7 +798,7 @@ select.form-control:disabled{
 												</tr>
 											</thead>
 											<tbody id="floor-feature-section">
-												
+												<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 											</tbody>
 										</table>
 									</div>
@@ -809,11 +809,10 @@ select.form-control:disabled{
 							<div class="table-responsive" id="custom_table">
 								<div class="w-100 border mapping-action-wrap">
 									<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-									<button class="mr-1 add-button">Add</button>
-									<button class="mr-1 update-button">Update</button>
-									<button class="mr-1 delete-button">Delete</button>
+									<button class="mr-1 update-button" onclick="updateConnection('unmapped')">Update</button>
+									<button class="mr-1 delete-button" onclick="moveToDeleteSection('unmapped')">Delete</button>
 								</div>
-								<table class="table table-bordered table-hover" id="unmappedTable" width="100%" cellspacing="0">
+								<table class="table table-bordered table-hover" id="unmappedDataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
 											<th style="width:40px"><input type="checkbox" class="checkall"></th>
@@ -825,7 +824,7 @@ select.form-control:disabled{
 										</tr>
 									</thead>
 									<tbody id="unmapped-section">
-									
+										<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 									</tbody>
 								</table>
 							</div>
@@ -834,9 +833,9 @@ select.form-control:disabled{
 							<div class="table-responsive" id="custom_table">
 								<div class="w-100 border mapping-action-wrap">
 									<span class="mr-2 text-white"><b>0</b> row(s) selected</span>
-									<button class="mr-1 undo-button">Undo</button>
+									<button class="mr-1 undo-button" onclick="undo()">Undo</button>
 								</div>
-								<table class="table table-bordered table-hover" id="deleteTable" width="100%" cellspacing="0">
+								<table class="table table-bordered table-hover" id="deleteDataTable" width="100%" cellspacing="0">
 									<thead>
 										<tr>
 											<th style="width:40px"><input type="checkbox" class="checkall"></th>
@@ -848,16 +847,7 @@ select.form-control:disabled{
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td><input type="checkbox"></td>
-											<td>cottage-garden-g-7</td>
-											<td>Cottage Garden - Gallery</td>
-											<td>Admin</td>
-											<td width="100px" style="min-width:100px;"><img class="w-100" src="{{asset('uploads/Kingsmark-C2.jpg')}}"></td>
-											<td>
-												<button type="button" class="add-image-button btn-orange undo-button">Undo</button>
-											</td>
-										</tr>
+										<p class="syncloader text-center my-2" style="display:none;"><img src="{{asset('images/spinner.gif')}}"></p>
 									</tbody>
 								</table>
 							</div>
@@ -866,6 +856,7 @@ select.form-control:disabled{
 				</div>
 				<div id="sr_step_div" class="containers">
 					<h3 class="text-center">Report</h3>
+					<p class="uploadloader text-center my-2"><img src="{{asset('images/spinner.gif')}}"></p>
 					<div>
 						<div class="text-center sr-ans"> <i class="material-icons">done</i> <span>Images has been uploaded successfully.</span>
 							<ul class="same-btns">
@@ -881,9 +872,10 @@ select.form-control:disabled{
 						</div>
 						<div class="sr-synop">
 							<h6>Activity Log </h6>
-							<p> <span class="border-bottom"> <b class="badge badge-success">6</b> New images has been uploaded successfully.  </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-success">0</b> New images has been uploaded successfully.  </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-light">0</b> entries has been skipped.  </span> </p>
 							<p> <span class="border-bottom"> <b class="badge badge-danger">0</b> Images failed to upload. </span> </p>
-							<p> <span class="border-bottom"> <b class="badge badge-info">100%</b> Upload Completed. </span> </p>
+							<p> <span class="border-bottom"> <b class="badge badge-info">0%</b> Upload Completed. </span> </p>
 						</div>
 					</div>
 				</div>
@@ -921,21 +913,21 @@ select.form-control:disabled{
 				</div>
 				<div class="w-100 mb-1 mr-0">
 					<label class="d-block text-left mb-0 text-dark" for="">Select Sub Type</label>
-					<select name="" id="subTypeUpdate" class="form-control ">
+					<select name="" id="subTypeUpdate" onchange="setSubTypeValue(this.value)" class="form-control ">
 					
 					</select>
 				</div>
 				<div class="w-100">
 					<label class="d-block text-left mb-0 text-dark" for="">Select Section</label>
-					<select name="" id="updateSection" class="form-control">
+					<select name="" id="updateSection" onchange="setSectionValue(this.value)" class="form-control">
 					</select>
 				</div>
 			</div>
 			<div class="modal-footer d-flex justify-content-between align-items-center p-2" style="border:none;">
 				<button type="button" data-dismiss="modal" class="btn-orange t_b_s d_gr m-0">Cancel</button>
 				<div>
-					<button type="button" class="btn-orange" style="float:unset;">Apply</button>
-					<button type="button" class="btn-orange" style="float:unset;">Apply and Add</button>
+					<button type="button" class="btn-orange" style="float:unset;" onclick="applyUpdate()">Apply</button>
+					<!-- <button type="button" class="btn-orange" onclick="applyUpdate('add')" style="float:unset;">Apply and Add</button> -->
 				</div>
 			</div>
 		</div>
@@ -943,26 +935,30 @@ select.form-control:disabled{
 </div>
 <div class="modal fade" id="replaceModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLongTitle" style="font-weight:600; font-size: 17px;">Replace Image</h5>
+		<form method="post" enctype="multipart/form-data" id="replaceImageForm">
+			@csrf
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle" style="font-weight:600; font-size: 17px;">Replace Image</h5>
+				</div>
+				<div class="modal-body px-2 pt-2 pb-0">
+					<div class="w-100">
+						<div class="file-upload pr-md-1 pr-0">
+							<div class="file-select">
+								<div class="file-select-button" id="fileName">Choose Image</div>
+								<div class="file-select-name" id="noFile">No file chosen...</div>
+								<input type="file" name="new_file" id="image"onchange="readURL(this);" accept="image/*">
+								<input type="hidden" id="previous_file" name="previous_file"> 
+							</div>
+						</div> 
+					</div>	
+				</div>
+				<div class="modal-footer d-flex justify-content-start align-items-center p-2" style="border:none;">
+					<button type="button" data-dismiss="modal" class="btn-orange t_b_s d_gr m-0">Cancel</button>
+					<button type="submit" class="btn-orange" style="float:unset;">Update</button>
+				</div>
 			</div>
-			<div class="modal-body px-2 pt-2 pb-0">
-				<div class="w-100">
-					<div class="file-upload pr-md-1 pr-0">
-						<div class="file-select">
-							<div class="file-select-button" id="fileName">Choose Image</div>
-							<div class="file-select-name" id="noFile">No file chosen...</div>
-							<input type="file" name="excel_file" id="image"> 
-						</div>
-					</div> 
-				</div>	
-			</div>
-			<div class="modal-footer d-flex justify-content-start align-items-center p-2" style="border:none;">
-				<button type="button" data-dismiss="modal" class="btn-orange t_b_s d_gr m-0">Cancel</button>
-				<button type="button" class="btn-orange" style="float:unset;">Update</button>
-			</div>
-		</div>
+		</form>	
 	</div>
 </div>
 <script src="{{asset('Xseries-new-ui/dropzone/dropzone.js')}}"></script>
@@ -972,10 +968,28 @@ select.form-control:disabled{
 <script>
 // buttonClicked = true for next and false for back
 let step = 1;
-let rowsSelected = 0;
 let unmappedrowsSelected = 0;
+let currentTag,currentValue;
 let deletedrowsSelected = 0;
-
+let filter = {
+	'type'		:'',
+	'sub_type'	:'',
+	'section'	: '' 
+};
+let mapped = {};
+mapped['community'] = [];
+mapped['elevation'] = [];
+mapped['color_scheme'] = [];
+mapped['color_scheme_feature'] = [];
+mapped['floor'] = [];
+mapped['floor_feature'] = [];
+let singleUpdate;
+let replaceImageReference;
+let inputReference;
+let [communityCount,elevationCount,floorCount,floorFeatureCount,colorSchemeCount,colorSchemeFeatureCount, unmappedCount,mappedCount,deleteCount] = [0,0,0,0,0,0,0,0,0];
+// 0 ->community, 1->elevation, 2->color_scheme, 3->color_scheme_feature, 4->floor, 5->floor_feature
+let rows = [0,0,0,0,0,0];
+let count = 0;
 const changeStep = (buttonClicked) => {
 	if(buttonClicked == true)
 	{
@@ -1000,7 +1014,18 @@ const changeStep = (buttonClicked) => {
 			break;
 		case 2: 
 			if(count>0){
-				storeImgTemp();
+				if(filter.type!=''){
+					if(filter.sub_type!='' && filter.section!='')
+						storeImgTemp();
+					else {
+						toastr.error("Please apply filter properly. If you want to apply filter.");
+						step--;
+						return;
+					}	
+				}
+				else{
+					storeImgTemp();
+				}
 			}
 			else{
 				toastr.error("Please select images to upload.");
@@ -1017,6 +1042,11 @@ const changeStep = (buttonClicked) => {
 			$('#drm_step_div').fadeIn();
 			break;
 		case 3: 
+			let finalStep =  confirmAndUpload();
+			if(!finalStep){
+				step = 2;
+				return;
+			}
 			$('#drm_step').addClass('complete').removeClass('active');
 			$('#sr_step').addClass('active').removeClass('incomplete');
 			$('.fix-sync').removeClass('fix-sync-overflow');
@@ -1029,15 +1059,10 @@ const changeStep = (buttonClicked) => {
 
 
 // Dropzone code
-let filter = {
-	'type'		:'',
-	'sub_type'	:'',
-	'section'	: '' 
-};
-let count = 0;
 function setSubTypeValue(value)
 {
-		filter.sub_type = value;
+	filter.sub_type = value;
+	currentValue = $('#subTypeUpdate').children("option:selected").text();
 }
 function setSectionValue(value){
 	filter.section = value;
@@ -1085,23 +1110,24 @@ Dropzone.options.uploadImages = {
 		let floorContent = '';
 		let floorFeatureContent = '';
 		let unmappedContent = '';
-		let [communityCount,elevationCount,floorCount,floorFeatureCount, unmappedCount,mappedCount] = [0,0,0,0,0,0];
+		let colorSchemeContent = '';
+		let colorSchemeFeatureContent = '';
 
 		// Community section data
 		$.each(res.mapped.community,function(key,val){
-			communityContent+= `<tr>
+			communityContent+= `<tr data-id="${val.id}" data-ref="community" data-section="${val.section}" data-name="${val.name}">
 							<td><input type="checkbox"></td>
 							<td>${val.name}</td>
-							<td>${val.value} - ${val.section}</td>
+							<td class="section">${val.value} - ${val.section}</td>
 							<td>${res.uploaded_by}</td>
 							<td width="100px" style="min-width:100px;">
 								<div style="position:relative;">
 									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage('${val.name}',this)"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
 								</div>
 							</td>
 							<td>
-								<button type="button" class="add-image-button btn-orange">Add</button>
+								<button type="button" class="add-image-button btn-orange" onclick="addMappedData('community',this)">Add</button>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 							</td>
 						</tr>`;
@@ -1113,19 +1139,19 @@ Dropzone.options.uploadImages = {
 
 		// Elevation section data
 		$.each(res.mapped.elevation,function(key,val){
-			elevationContent+= `<tr>
+			elevationContent+= `<tr data-id="${val.id}" data-ref="elevation" data-section="${val.section}" data-name="${val.name}">
 							<td><input type="checkbox"></td>
 							<td>${val.name}</td>
-							<td>${val.value} - ${val.section}</td>
+							<td class="section">${val.value} - ${val.section}</td>
 							<td>${res.uploaded_by}</td>
 							<td width="100px" style="min-width:100px;">
 								<div style="position:relative;">
 									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage('${val.name}',this)"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
 								</div>
 							</td>
 							<td>
-								<button type="button" class="add-image-button btn-orange">Add</button>
+								<button type="button" onclick="addMappedData('elevation',this)" class="add-image-button btn-orange">Add</button>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 							</td>
 						</tr>`;
@@ -1137,19 +1163,19 @@ Dropzone.options.uploadImages = {
 
 		// Floor data section
 		$.each(res.mapped.floor,function(key,val){
-			floorContent+= `<tr>
+			floorContent+= `<tr data-id="${val.id}" data-ref="floor" data-section="${val.section}" data-name="${val.name}">
 							<td><input type="checkbox"></td>
 							<td>${val.name}</td>
-							<td>${val.value} - ${val.section}</td>
+							<td class="section">${val.value} - ${val.section}</td>
 							<td>${res.uploaded_by}</td>
 							<td width="100px" style="min-width:100px;">
 								<div style="position:relative;">
 									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage('${val.name}',this)"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
 								</div>
 							</td>
 							<td>
-								<button type="button" class="add-image-button btn-orange">Add</button>
+								<button type="button" class="add-image-button btn-orange" onclick="addMappedData('floor',this)">Add</button>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 							</td>
 						</tr>`;
@@ -1161,92 +1187,146 @@ Dropzone.options.uploadImages = {
 
 		// Floor Feature section
 		$.each(res.mapped.floor_feature,function(key,val){
-			floorFeatureContent+= `<tr>
+			floorFeatureContent+= `<tr data-id="${val.id}" data-ref="floor-feature" data-section="${val.section}" data-name="${val.name}">
 							<td><input type="checkbox"></td>
 							<td>${val.name}</td>
-							<td>${val.value} - ${val.section}</td>
+							<td class="section">${val.value} - ${val.section}</td>
 							<td>${res.uploaded_by}</td>
 							<td width="100px" style="min-width:100px;">
 								<div style="position:relative;">
 									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
-									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage('${val.name}',this)"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
 								</div>
 							</td>
 							<td>
-								<button type="button" class="add-image-button btn-orange">Add</button>
+								<button type="button" class="add-image-button btn-orange" onclick="addMappedData('floor-feature',this)">Add</button>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 							</td>
 						</tr>`;
 						floorFeatureCount++;
 		});
 		$('#floor-feature-count').html(floorFeatureCount);
-		$('#floor-section').html(floorFeatureContent);
+		$('#floor-feature-section').html(floorFeatureContent);
 		$('#floorFeatureDataTable').DataTable();
+
+		//color scheme
+		$.each(res.mapped.color_scheme,function(key,val){
+			colorSchemeContent+= `<tr data-id="${val.id}" data-ref="color-scheme" data-section="${val.section}" data-name="${val.name}">
+							<td><input type="checkbox"></td>
+							<td>${val.name}</td>
+							<td class="section">${val.value} - ${val.section}</td>
+							<td>${res.uploaded_by}</td>
+							<td width="100px" style="min-width:100px;">
+								<div style="position:relative;">
+									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage('${val.name}',this)"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+								</div>
+							</td>
+							<td>
+								<button type="button" class="add-image-button btn-orange" onclick="addMappedData('color-scheme',this)">Add</button>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+							</td>
+						</tr>`;
+						colorSchemeCount++;
+		});
+		$('#color-scheme-count').html(colorSchemeCount);
+		$('#color-scheme-section').html(colorSchemeContent);
+		$('#colorSchemeDataTable').DataTable();
+
+		// color scheme feature
+		$.each(res.mapped.color_scheme_feature,function(key,val){
+			colorSchemeFeatureContent+= `<tr data-id="${val.id}" data-ref="color-scheme-feature" data-section="${val.section}" data-name="${val.name}">
+							<td><input type="checkbox"></td>
+							<td>${val.name}</td>
+							<td class="section">${val.value} - ${val.section}</td>
+							<td>${res.uploaded_by}</td>
+							<td width="100px" style="min-width:100px;">
+								<div style="position:relative;">
+									<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage('${val.name}',this)"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+								</div>
+							</td>
+							<td>
+								<button type="button" class="add-image-button btn-orange" onclick="addMappedData('color-scheme-feature',this)">Add</button>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+							</td>
+						</tr>`;
+						colorSchemeFeatureCount++;
+		});
+		$('#color-scheme-feature-count').html(colorSchemeFeatureCount);
+		$('#color-scheme-feature-section').html(colorSchemeFeatureContent);
+		$('#colorSchemeFeatureDataTable').DataTable();
 
 		// Unmapped data
 		$.each(res.unmapped,function(key,val){
-			unmappedContent+=`	<tr>
+			unmappedContent+=`	<tr data-name="${val.name}" data-ref="unmapped">
 									<td><input type="checkbox"></td>
 									<td>${val.name}</td>
-									<td>Undefined</td>
+									<td class="section">Undefined</td>
 									<td>${res.uploaded_by}</td>
 									<td width="100px" style="min-width:100px;">
 										<div style="position:relative;">
 											<img class="w-100" src="{{asset('uploads/temp/${val.path}')}}">
-											<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage()"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+											<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit image-edit-button" onclick="replaceImage('${val.name}',this)"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
 										</div>
 									</td>
 									<td>
-										<button type="button" class="add-image-button disabled-button btn-orange">Add</button>
+										<button type="button" class="add-image-button btn-orange" onclick="updateConnection('unmapped',this)" >Update</button>
 										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8BC34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
 									</td>
 								</tr>`;
 								unmappedCount++;
 		});
 		$('#unmapped-count').html(unmappedCount);
-		mappedCount = communityCount+elevationCount+floorCount+floorFeatureCount;
+		mappedCount = communityCount+elevationCount+floorCount+floorFeatureCount+colorSchemeFeatureCount+colorSchemeCount;
 		$('#mapped-count').html(mappedCount);
 		$('#unmapped-section').html(unmappedContent);
-		$('#unmappedTable').DataTable();
-		
+		$('#unmappedDataTable').DataTable();
+		intializeTab();
+		singleCheck();
+		unmappedIntialization();
+		singleUnmapped();
+		$('.syncloader').hide();
       });
     }
   };
-
+function readURL(input){
+  inputReference = input;
+}
   function loadSubType(){
 	  let type = arguments[0]; 	
 	  let action = arguments[1];
-	  if(action!='update')
-	  {
 		filter.type = type;
-	  }
 	  let options = `<option value="">No option selected</option>`;
 	  if(type!=''){
-		$.ajax({
-			type: 'get',
-			url: '/api/options/'+type,
-			success: function(response){
-				$.each(response,function(key,value){
-					options+=`<option value="${value.id}">${type=='community'?value.name:value.title}</option>`;
-				});
-				if(action!='update')
-				{
-					$('#subType').html(options);
-				}
-				else{
-					$('#subTypeUpdate').html(options);
-				}  
-			}		
-		})
-	  }
+			$.ajax({
+				type: 'get',
+				url: '/api/options/'+type,
+				success: function(response){
+					$.each(response,function(key,value){
+						options+=`<option value="${value.id}">${type=='community'?value.name:value.title}</option>`;
+					});
+					if(action!='update')
+					{
+						$('#subType').html(options);
+					}
+					else{
+						$('#subTypeUpdate').html(options);
+					}  
+				}		
+			})
+	  	}
 	  else{
 		  if(arguments[1]!='update')
 		  {
 			$('#subType').html(options);
-			filter.type 	='';
-			filter.sub_type ='';
-			filter.section  = '';
 		  }
+		  else{
+			$('#subTypeUpdate').html(options);
+		  }
+		filter.type 	='';
+		filter.sub_type ='';
+		filter.section  = '';
 	  }
 	  loadSection(type,action);
     }
@@ -1290,64 +1370,311 @@ Dropzone.options.uploadImages = {
 		$('#updateSection').html(options);
 	}
 	function storeImgTemp(){
+		$('.syncloader').fadeIn();
 		$('#type').val(JSON.stringify(filter));
 		var dropZone = Dropzone.forElement(".dropzone");
 		dropZone.processQueue();
 	}
 // Mapped Section
-
-$("#pills-mapped .tab-pane.active .checkall").on('click', function(){
-	$("#pills-mapped .tab-pane.active tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
-	rowsSelected = $("#pills-mapped .tab-pane.active tbody input[type=checkbox]:checked").length;
-	$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rowsSelected);
-	if(rowsSelected > 0)
-	{
-		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
-	}
-	else
-	{
-		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
-	}
-});
-$("#pills-mapped .tab-pane.active tbody input[type=checkbox]").on('click', function()
+$('#pills-mapped ul li a').on('shown.bs.tab', function (e) {
+	intializeTab(); 
+	singleCheck();
+})
+$('#pills-tab li a.main-tab-links').on('shown.bs.tab', function (e) {
+	intializeTab(); 
+	singleCheck();
+	deleteInitialization();
+	singleDelete();
+	unmappedIntialization();
+	singleUnmapped();
+})
+function intializeTab() 
 {
-	if(this.checked)
-	{
-		rowsSelected++;
-	}
-	else{
-		rowsSelected--;
-	}
-	$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rowsSelected);
-	if(rowsSelected > 0)
-	{
-		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
-	}
-	else
-	{
-		$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
-	}
-});	
-$("#pills-mapped .tab-pane.active .mapping-action-wrap button").click(function(){
-	if(rowsSelected < 1){
-		toastr.error('Please select atleast one row');
-		return;
-	}
-	switch($(this).attr('class').split(' ').pop())
-	{
-		case "add-button":
-			$("#pills-mapped .tab-pane.active tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').fadeOut(function(){
-				$("#pills-mapped .tab-pane.active tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').next().fadeIn();
-			});
-			break;			
-		case "update-button" : 
-			$("#updateModal").modal('show');
-			break;			
-		case "delete-button": 
-			break;			
-	}
-});
+	$("#pills-mapped .tab-pane.active .checkall").unbind().click(function(){
+		let current_tab = $(this).parents('table').attr('id');
+		$("#pills-mapped .tab-pane.active tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
+		let rowsSelected = $("#pills-mapped .tab-pane.active tbody input[type=checkbox]:checked").length;
+		switch(current_tab){
+			case 'communityDataTable':
+				rows[0] = rowsSelected;
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[0]);
 
+			break;
+
+			case 'elevationDataTable':
+				rows[1] = rowsSelected;
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[1]);
+			break;
+
+			case 'colorSchemeDataTable':
+				rows[2] = rowsSelected;
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[2]);
+			break;
+
+			case 'colorSchemeFeatureDataTable':
+				rows[3] = rowsSelected;
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[3]);
+			break;
+
+			case 'floorDataTable':
+				rows[4] = rowsSelected;
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[4]);
+			break;
+
+			case 'floorFeatureDataTable':
+				rows[5] = rowsSelected;
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[5]);
+			break;
+
+			default:
+			break
+		}
+		if(rowsSelected > 0)
+		{
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+		}
+		else
+		{
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+		}
+	});	
+}
+function singleCheck()
+{
+	$("#pills-mapped .tab-pane.active tbody input[type=checkbox]").unbind().click(function()
+	{
+		let current_tab = $(this).parents('table').attr('id');
+		switch(current_tab){
+			case 'communityDataTable':
+				if(this.checked)
+				{
+					rows[0]++;	
+				}
+				else{
+					rows[0]--;
+				}
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[0]);
+				if(rows[0] > 0)
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+				}
+				else
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				}
+			break;
+
+			case 'elevationDataTable':
+				if(this.checked)
+				{
+					rows[1]++;	
+				}
+				else{
+					rows[1]--;
+				}
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[1]);
+				if(rows[1] > 0)
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+				}
+				else
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				}
+			break;
+
+			case 'colorSchemeDataTable':
+				if(this.checked)
+				{
+					rows[2]++;	
+				}
+				else{
+					rows[2]--;
+				}
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[2]);
+				if(rows[2] > 0)
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+				}
+				else
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				}
+			break;
+
+			case 'colorSchemeFeatureDataTable':
+				if(this.checked)
+				{
+					rows[3]++;	
+				}
+				else{
+					rows[3]--;
+				}
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[3]);
+				if(rows[3] > 0)
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+				}
+				else
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				}
+			break;
+
+			case 'floorDataTable':
+				if(this.checked)
+				{
+					rows[4]++;	
+				}
+				else{
+					rows[4]--;
+				}
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[4]);
+				if(rows[4] > 0)
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+				}
+				else
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				}
+			break;
+
+			case 'floorFeatureDataTable':
+				if(this.checked)
+				{
+					rows[5]++;	
+				}
+				else{
+					rows[5]--;
+				}
+				$("#pills-mapped .tab-pane.active .mapping-action-wrap span b").html(rows[5]);
+				if(rows[5] > 0)
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeIn();
+				}
+				else
+				{
+					$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				}
+			break;
+
+			default:
+			break;
+		}
+	});	
+}
+
+function addMappedData(currentTab,single){
+
+	let arrTr;
+	switch(currentTab){
+		case 'community':
+			if(single)
+			{
+				allTr = $(single).parents('tr');
+				$(single).parents('tr').find('.add-image-button').fadeOut(function(){
+					$(single).parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			else{
+				allTr = $("#communityDataTable tbody input[type=checkbox]:checked").parents('tr');
+				$("#communityDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').fadeOut(function(){
+				$("#communityDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').next().fadeIn();
+			});
+			}
+			pushInMapArray(allTr,'community');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+		break;
+
+		case 'elevation':
+			if(single){
+				allTr = $(single).parents('tr');
+				$(single).parents('tr').find('.add-image-button').fadeOut(function(){
+					$(single).parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			else{
+				allTr = $("#elevationDataTable tbody input[type=checkbox]:checked").parents('tr');
+				$("#elevationDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').fadeOut(function(){
+					$("#elevationDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			pushInMapArray(allTr,'elevation');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+		break;
+
+		case 'color-scheme':
+			if(single){
+				allTr = $(single).parents('tr');
+				$(single).parents('tr').find('.add-image-button').fadeOut(function(){
+					$(single).parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			else{
+				allTr = $("#colorSchemeDataTable tbody input[type=checkbox]:checked").parents('tr');
+				$("#colorSchemeDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').fadeOut(function(){
+					$("#colorSchemeDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			pushInMapArray(allTr,'color_scheme');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+		break;
+		case 'color-scheme-feature':
+			if(single){
+				allTr = $(single).parents('tr');
+				$(single).parents('tr').find('.add-image-button').fadeOut(function(){
+					$(single).parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			else{
+				allTr = $("#colorSchemeFeatureDataTable tbody input[type=checkbox]:checked").parents('tr');
+				$("#colorSchemeFeatureDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').fadeOut(function(){
+					$("#colorSchemeFeatureDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			pushInMapArray(allTr,'color_scheme_feature');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+		break;
+
+		case 'floor':
+			if(single){
+				allTr = $(single).parents('tr');
+				$(single).parents('tr').find('.add-image-button').fadeOut(function(){
+					$(single).parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			else{
+				allTr = $("#floorDataTable tbody input[type=checkbox]:checked").parents('tr');
+				$("#floorDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').fadeOut(function(){
+					$("#floorDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			pushInMapArray(allTr,'floor');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+		break;
+
+		case 'floor-feature':
+			if(single){
+				allTr = $(single).parents('tr');
+				$(single).parents('tr').find('.add-image-button').fadeOut(function(){
+					$(single).parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			else{
+				allTr = $("#floorFeatureDataTable tbody input[type=checkbox]:checked").parents('tr');
+				$("#floorFeatureDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').fadeOut(function(){
+					$("#floorFeatureDataTable tbody input[type=checkbox]:checked").parents('tr').find('.add-image-button').next().fadeIn();
+				});
+			}
+			pushInMapArray(allTr,'floor_feature');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+		break;
+
+		default:
+		break; 
+	}
+}
 $('#pills-mapped .tab-pane.active .add-image-button').on('click', function(){
 	const button = $(this);
 	button.fadeOut(function(){
@@ -1355,13 +1682,303 @@ $('#pills-mapped .tab-pane.active .add-image-button').on('click', function(){
 	})
 });
 
-function replaceImage(){
-	$("#replaceModal").modal("show");
+function updateConnection(){
+	$("#updateModal").modal('show');
+		currentTab = arguments[0];
+	if(arguments[1] != 'undefined'){
+		singleUpdate = arguments[1];
+	}
+}
+function applyUpdate(){
+	let allTr;
+	switch(currentTab){
+		case 'community':
+			allTr = $("#communityDataTable tbody input[type=checkbox]:checked").parents('tr');
+
+			if((filter.section =='logo' || filter.section =='map' || filter.section =='banner' || filter.section =='feature-image') && allTr.length !=1){
+				toastr.error('You have selected multiple rows please apply filter accordingly.');
+			}
+			else{
+				$("#updateModal").modal('hide');
+				switchData(allTr,'communityDataTable');
+				$("#communityDataTable thead input[type=checkbox]").prop('checked',false);
+				$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				rows[0] = 0;
+			}
+		break;
+
+		case 'elevation':
+			allTr = $("#elevationDataTable tbody input[type=checkbox]:checked").parents('tr');
+
+			if(( filter.section =='feature-image') && allTr.length !=1){
+				toastr.error('You have selected multiple rows please apply filter accordingly.');
+			}
+			else{
+				$("#updateModal").modal('hide');
+				switchData(allTr,'elevationDataTable');
+				$("#communityDataTable thead input[type=checkbox]").prop('checked',false);
+				$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				rows[1] = 0;
+			}
+		break;
+
+		case 'color-scheme':
+			allTr = $("#colorSchemeDataTable tbody input[type=checkbox]:checked").parents('tr');
+
+			if(( filter.section =='feature-image') && allTr.length !=1){
+				toastr.error('You have selected multiple rows please apply filter accordingly.');
+			}
+			else{
+				$("#updateModal").modal('hide');
+				switchData(allTr,'colorSchemeDataTable');
+				$("#colorSchemeDataTable thead input[type=checkbox]").prop('checked',false);
+				$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				rows[2] = 0;
+			}
+		break;
+
+		case 'color-scheme-feature':
+			allTr = $("#colorSchemeFeatureDataTable tbody input[type=checkbox]:checked").parents('tr');
+
+			if(( filter.section =='feature-image') && allTr.length !=1){
+				toastr.error('You have selected multiple rows please apply filter accordingly.');
+			}
+			else{
+				$("#updateModal").modal('hide');
+				switchData(allTr,'colorSchemeFeatureDataTable');
+				$("#colorSchemeFeatureDataTable thead input[type=checkbox]").prop('checked',false);
+				$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				rows[3] = 0;
+			}
+		break;
+
+		case 'floor': 
+			allTr = $("#floorDataTable tbody input[type=checkbox]:checked").parents('tr');
+
+			if(( filter.section =='feature-image') && allTr.length !=1){
+				toastr.error('You have selected multiple rows please apply filter accordingly.');
+			}
+			else{
+				$("#updateModal").modal('hide');
+				switchData(allTr,'floorDataTable');
+				$("#floorDataTable thead input[type=checkbox]").prop('checked',false);
+				$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				rows[4] = 0;
+			}
+		break;
+
+		case 'floor-feature':
+			allTr = $("#floorDataTable tbody input[type=checkbox]:checked").parents('tr');
+
+			if(( filter.section =='feature-image') && allTr.length !=1){
+				toastr.error('You have selected multiple rows please apply filter accordingly.');
+			}
+			else{
+				$("#updateModal").modal('hide');
+				switchData(allTr,'floorFeatureDataTable');
+				$("#floorFeatureDataTable thead input[type=checkbox]").prop('checked',false);
+				$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+				rows[5] = 0;
+			}
+		break;
+
+		case 'unmapped':
+			if(singleUpdate){
+				allTr = $(singleUpdate).parents('tr');
+			}
+			else{
+				console.log(singleUpdate);
+				allTr = $("#unmappedDataTable tbody input[type=checkbox]:checked").parents('tr');
+			}
+
+			if(( filter.section =='feature-image') && allTr.length !=1){
+				toastr.error('You have selected multiple rows please apply filter accordingly.');
+			}
+			else{
+				$("#updateModal").modal('hide');
+				switchData(allTr,'unmappedDataTable');
+				$("#unmappedDataTable thead input[type=checkbox]").prop('checked',false);
+				$("#pills-unmapped .table-responsive .mapping-action-wrap").fadeOut();
+				unmappedrowsSelected = 0;
+			}
+		break; 
+		default:
+		break;
+	}
 }
 
-// Unmapped Section
+//Switch data in betweem tabs. filter option will tell where to put data
+function switchData(allTr,dataTable){
+	if(filter.type == currentTab)
+	{
+		$("#"+dataTable+" tbody input[type=checkbox]:checked").parents('tr').find('.section').text(currentValue+'-'+filter.section);
+		$("#"+dataTable+" tbody input[type=checkbox]:checked").parents('tr').attr('data-id',filter.sub_type);
+		$("#"+dataTable+" tbody input[type=checkbox]:checked").parents('tr').attr('data-section',filter.section);
+		$("#"+dataTable+" tbody input[type=checkbox]:checked").prop('checked',false)
+		$('#'+dataTable).DataTable();
+		return;
+	}
+	else{
+		let currentTable,targetTable;
+		currentTable = $('#'+dataTable).DataTable();
+		let rows = currentTable.rows($("#"+dataTable+" tbody input[type=checkbox]:checked").parents('tr'));
+		rows.remove().draw();
 
-$("#pills-unmapped .checkall").on('click', function(){
+		if(dataTable=='communityDataTable'){
+			communityCount = communityCount-allTr.length;
+			$('#community-count').html(communityCount);
+		}
+		if(dataTable =='elevationDataTable'){
+			elevationCount = elevationCount-allTr.length;
+			$('#elevation-count').html(elevationCount);
+		}
+		if(dataTable=='colorSchemeDataTable'){
+			colorSchemeCount = colorSchemeCount-allTr.length;
+			$('#color-scheme-count').html(colorSchemeCount);
+		}
+		if(dataTable=='colorSchemeFeatureDataTable'){
+			colorSchemeFeatureCount = colorSchemeFeatureCount-allTr.length;
+			$('#color-scheme-feature-count').html(colorSchemeFeatureCount);
+		}
+		if(dataTable=='floorDataTable'){
+			floorCount = floorCount-allTr.length;
+			$('#floor-count').html(floorCount);
+		}
+		if(dataTable=='floorFeatureDataTable'){
+			floorFeatureCount = floorFeatureCount-allTr.length;
+			$('#floor-feature-count').html(floorFeatureCount);
+		}
+		if(dataTable == 'unmappedDataTable'){
+			unmappedCount = unmappedCount-allTr.length;
+			$('#unmapped-count').html(unmappedCount);
+			mappedCount = mappedCount+allTr.length;
+			$('#mapped-count').html(mappedCount);
+		}
+		let targetDataTable;
+		if(filter.type=='community'){
+			targetDataTable = 'communityDataTable';
+			communityCount = communityCount+allTr.length;
+			$('#community-count').html(communityCount);
+		} 
+		if(filter.type=='elevation'){
+			targetDataTable = 'elevationDataTable';
+			elevationCount = elevationCount+allTr.length;
+			$('#elevation-count').html(elevationCount);
+		}
+		if(filter.type=='color-scheme') {
+			targetDataTable = 'colorSchemeDataTable';
+			colorSchemeCount = colorSchemeCount+allTr.length;
+			$('#color-scheme-count').html(colorSchemeCount);
+		}
+
+		if(filter.type=='color-scheme-feature'){
+			targetDataTable = 'colorSchemeFeatureDataTable';
+			colorSchemeFeatureCount = colorSchemeFeatureCount+allTr.length;
+			$('#color-scheme-feature-count').html(colorSchemeFeatureCount);
+		} 
+
+		if(filter.type=='floor'){
+			targetDataTable = 'floorDataTable';
+			floorCount = floorCount+allTr.length;
+			$('#floor-count').html(floorCount);
+		}
+		if(filter.type=='floor-feature'){	
+			targetDataTable = 'floorFeatureDataTable';
+			floorFeatureCount = floorFeatureCount+allTr.length;
+			$('#floor-feature-count').html(floorFeatureCount);
+		} 
+		targetTable = $('#'+targetDataTable).DataTable();
+
+		for(let i =0; i<allTr.length; i++)
+		{
+			if(currentTab == 'unmapped'){
+				$(allTr[i]).find('td button').removeClass('disabled-button');
+				$(allTr[i]).find('td button').html('Add');
+			}
+			($(allTr[i]).find('.section')).text(currentValue+'-'+filter.section);
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+			$(allTr[i]).find('td button').attr('onClick','addMappedData(\''+filter.type+'\',this)');
+			allTr[i].dataset.id  = filter.sub_type;
+			allTr[i].dataset.ref = filter.type;
+			allTr[i].dataset.section = filter.section;
+			targetTable.row.add(allTr[i]).draw();
+		}
+		$('#'+targetDataTable).DataTable();
+		$('#'+dataTable).DataTable();
+		 return;
+	}
+}
+
+//Push in map array
+function pushInMapArray(allTr,key){
+	for(let i=0;i<allTr.length;i++){
+		let tempObj = {
+					'section': allTr[i].dataset.section,
+					'image_name': allTr[i].dataset.name,
+					'id': allTr[i].dataset.id
+				};
+		if(!checkIfobjExist(mapped[key],tempObj))
+			mapped[key].push(tempObj);	
+			}
+}
+//Check if objects already added
+function checkIfobjExist(array,obj){
+	for(let i=0;i<array.length;i++){
+		if( obj.section ==array[i].section && obj.image_name == array[i].name  && obj.id ==array[i].id)
+		return true;
+	}
+	return false;
+}
+function replaceImage(name,ref){
+	$("#replaceModal").modal("show");
+	$('#previous_file').val(name);
+	updateImageReference = ref;
+}
+$("#replaceImageForm").on("submit",function(e){
+	e.preventDefault();
+	let frm = $('#replaceImageForm');
+    let formData = new FormData(frm[0]);
+    formData.append('file', $('#replaceImageForm input[type=file]')[0].files[0]);
+	let filename = inputReference.files[0].name;
+	var extFile = (filename.split('.').pop()).toLowerCase();
+      if (extFile!="jpg" && extFile!="jpeg" && extFile!="png"){
+		toastr.error("Please choose a valid file.");
+		inputReference = '';
+		return;
+      }
+	if (inputReference.files && inputReference.files[0]){
+
+		$(updateImageReference).parents('tr').find('td:eq(1)').html(filename)
+		$(updateImageReference).parents('tr').attr('data-name',filename);
+		var reader = new FileReader();
+		reader.onload = function (e) {
+		$(updateImageReference).parents('tr').find('td img')
+			.attr('src', e.target.result)
+		};
+		reader.readAsDataURL(inputReference.files[0]);
+  }
+	$.ajax({
+		type:'post',
+		url: '/api/update/image',
+		enctype: 'multipart/form-data',
+		headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    },
+		data:formData,
+		cache: false,
+        contentType: false,
+		processData: false,
+		
+		success: function(){
+			
+		}
+	})
+	$("#replaceModal").modal("hide");
+})
+
+// Unmapped Section
+function unmappedIntialization(){
+	$("#pills-unmapped .checkall").unbind().click(function(){
 	$("#pills-unmapped tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
 	unmappedrowsSelected = $("#pills-unmapped tbody input[type=checkbox]:checked").length;
 	$("#pills-unmapped .mapping-action-wrap span b").html(unmappedrowsSelected);
@@ -1374,48 +1991,34 @@ $("#pills-unmapped .checkall").on('click', function(){
 		$("#pills-unmapped  .table-responsive .mapping-action-wrap").fadeOut();
 	}
 });
-$("#pills-unmapped tbody input[type=checkbox]").on('click', function()
-{
-	if(this.checked)
+}
+function singleUnmapped(){
+	$("#pills-unmapped tbody input[type=checkbox]").unbind().click(function()
 	{
-		unmappedrowsSelected++;
-	}
-	else{
-		unmappedrowsSelected--;
-	}
-	$("#pills-unmapped .mapping-action-wrap span b").html(unmappedrowsSelected);
-	if(unmappedrowsSelected > 0)
-	{
-		$("#pills-unmapped .table-responsive .mapping-action-wrap").fadeIn();
-	}
-	else
-	{
-		$("#pills-unmapped  .table-responsive .mapping-action-wrap").fadeOut();
-	}
-});	
-$("#pills-unmapped .mapping-action-wrap button").click(function(){
-	if(unmappedrowsSelected < 1){
-		toastr.error('Please select atleast one row');
-		return;
-	}
-	switch($(this).attr('class').split(' ').pop())
-	{
-		case "add-button":
-			// $("#pills-unmapped tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').fadeOut(function(){
-			// 	$("#pills-unmapped tbody input[type=checkbox]:checked").parents('tbody').find('.add-image-button').next().fadeIn();
-			// });
-			break;			
-		case "update-button" : 
-			$("#updateModal").modal('show');
-			break;			
-		case "delete-button": 
-			break;			
-	}
-});
+		if(this.checked)
+		{
+			unmappedrowsSelected++;
+		}
+		else{
+			unmappedrowsSelected--;
+		}
+		$("#pills-unmapped .mapping-action-wrap span b").html(unmappedrowsSelected);
+		if(unmappedrowsSelected > 0)
+		{
+			$("#pills-unmapped .table-responsive .mapping-action-wrap").fadeIn();
+		}
+		else
+		{
+			$("#pills-unmapped  .table-responsive .mapping-action-wrap").fadeOut();
+		}
+	});	
+}
 
 // Deleted Section
-
-$("#pills-deleted .checkall").on('click', function(){
+deleteInitialization();
+singleDelete();
+function deleteInitialization(){
+	$("#pills-deleted .checkall").unbind().click(function(){
 	$("#pills-deleted tbody input[type=checkbox]").prop('checked', $(this).prop('checked'));
 	deletedrowsSelected = $("#pills-deleted tbody input[type=checkbox]:checked").length;
 	$("#pills-deleted .mapping-action-wrap span b").html(deletedrowsSelected);
@@ -1428,37 +2031,33 @@ $("#pills-deleted .checkall").on('click', function(){
 		$("#pills-deleted  .table-responsive .mapping-action-wrap").fadeOut();
 	}
 });
-$("#pills-deleted tbody input[type=checkbox]").on('click', function()
-{
-	if(this.checked)
+}
+function singleDelete(){
+
+	$("#pills-deleted tbody input[type=checkbox]").unbind().click(function()
 	{
-		deletedrowsSelected++;
-	}
-	else{
-		deletedrowsSelected--;
-	}
-	$("#pills-deleted .mapping-action-wrap span b").html(deletedrowsSelected);
-	if(deletedrowsSelected > 0)
-	{
-		$("#pills-deleted .table-responsive .mapping-action-wrap").fadeIn();
-	}
-	else
-	{
-		$("#pills-deleted  .table-responsive .mapping-action-wrap").fadeOut();
-	}
-});	
-$("#pills-deleted .mapping-action-wrap button").click(function(){
-	if(deletedrowsSelected < 1){
-		toastr.error('Please select atleast one row');
-		return;
-	}
-});
+		if(this.checked)
+		{
+			deletedrowsSelected++;
+		}
+		else{
+			deletedrowsSelected--;
+		}
+		$("#pills-deleted .mapping-action-wrap span b").html(deletedrowsSelected);
+		if(deletedrowsSelected > 0)
+		{
+			$("#pills-deleted .table-responsive .mapping-action-wrap").fadeIn();
+		}
+		else
+		{
+			$("#pills-deleted  .table-responsive .mapping-action-wrap").fadeOut();
+		}
+	});	
+}
+
 
 $(document).ready( function () {
-	// $('#elevationDataTable').DataTable();
-	$('#deleteTable').DataTable();
-	$('#colorSchemesDataTable').DataTable();
-	$('#colorSchemeFeaturesDataTable').DataTable();
+	$('#deleteDataTable').DataTable();
 });
 
 $('#image').on('change', function () {
@@ -1491,5 +2090,261 @@ $("#importCheck").click(function(){
 	}
 });
 
+//Delete section script
+function moveToDeleteSection(current_tab){
+	switch(current_tab){
+
+		case 'community':
+			allTr = $("#communityDataTable tbody input[type=checkbox]:checked").parents('tr');
+			shiftingToDeleteSection(allTr,'communityDataTable');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+			$("#communityDataTable thead input[type=checkbox]").prop('checked',false);
+			rows[0] = 0;
+		break;
+
+		case 'elevation':
+			allTr = $("#elevationDataTable tbody input[type=checkbox]:checked").parents('tr');
+			shiftingToDeleteSection(allTr,'elevationDataTable');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+			$("#elevationDataTable thead input[type=checkbox]").prop('checked',false);
+			rows[1] = 0;
+		break;
+
+		case 'color-scheme':
+			allTr = $("#colorSchemeDataTable tbody input[type=checkbox]:checked").parents('tr');
+			shiftingToDeleteSection(allTr,'colorSchemeDataTable');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+			$("#colorSchemeDataTable thead input[type=checkbox]").prop('checked',false);
+			rows[2] = 0;
+		break;
+
+		case 'color-scheme-feature':
+			allTr = $("#colorSchemeFeatureDataTable tbody input[type=checkbox]:checked").parents('tr');
+			shiftingToDeleteSection(allTr,'colorSchemeFeatureDataTable');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+			$("#colorSchemeFeatureDataTable thead input[type=checkbox]").prop('checked',false);
+			rows[3] = 0;
+		break;
+
+		case 'floor':
+			allTr = $("#floorDataTable tbody input[type=checkbox]:checked").parents('tr');
+			shiftingToDeleteSection(allTr,'floorDataTable');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+			$("#floorDataTable thead input[type=checkbox]").prop('checked',false);
+			rows[4] = 0;
+		break;
+
+		case 'floor-feature':
+			allTr = $("#floorFeatureDataTable tbody input[type=checkbox]:checked").parents('tr');
+			shiftingToDeleteSection(allTr,'floorFeatureDataTable');
+			$("#pills-mapped .tab-pane.active .table-responsive .mapping-action-wrap").fadeOut();
+			$("#floorFeatureDataTable thead input[type=checkbox]").prop('checked',false);
+			rows[5] = 0;
+		break;
+
+		case 'unmapped':
+			allTr = $("#unmappedDataTable tbody input[type=checkbox]:checked").parents('tr');
+			shiftingToDeleteSection(allTr,'unmappedDataTable');
+			$("#pills-unmapped  .table-responsive .mapping-action-wrap").fadeOut();
+			$("#unmappedDataTable thead input[type=checkbox]").prop('checked',false);
+			unmappedrowsSelected = 0;
+		break;
+
+		default:
+		break;
+
+	}
+}
+function shiftingToDeleteSection(allTr,dataTable){
+	let currentTable,targetTable;
+		currentTable = $('#'+dataTable).DataTable();
+		let rows = currentTable.rows($("#"+dataTable+" tbody input[type=checkbox]:checked").parents('tr'));
+		// let rowNode = rows.node();
+		rows.remove().draw();
+
+		if(dataTable=='communityDataTable'){
+			communityCount = communityCount-allTr.length;
+			$('#community-count').html(communityCount);
+			mappedCount = mappedCount-allTr.length;
+			$('#mapped-count').html(mappedCount);
+		}
+		if(dataTable =='elevationDataTable'){
+			elevationCount = elevationCount-allTr.length;
+			$('#elevation-count').html(elevationCount);
+			mappedCount = mappedCount-allTr.length;
+			$('#mapped-count').html(mappedCount);
+		}
+		if(dataTable=='colorSchemeDataTable'){
+			colorSchemeCount = colorSchemeCount-allTr.length;
+			$('#color-scheme-count').html(colorSchemeCount);
+			mappedCount = mappedCount-allTr.length;
+			$('#mapped-count').html(mappedCount);
+		}
+		if(dataTable=='colorSchemeFeatureDataTable'){
+			colorSchemeFeatureCount = colorSchemeFeatureCount-allTr.length;
+			$('#color-scheme-feature-count').html(colorSchemeFeatureCount);
+			mappedCount = mappedCount-allTr.length;
+			$('#mapped-count').html(mappedCount);
+		}
+		if(dataTable=='floorDataTable'){
+			floorCount = floorCount-allTr.length;
+			$('#floor-count').html(floorCount);
+			mappedCount = mappedCount-allTr.length;
+			$('#mapped-count').html(mappedCount);
+		}
+		if(dataTable=='floorFeatureDataTable'){
+			floorFeatureCount = floorFeatureCount-allTr.length;
+			$('#floor-feature-count').html(floorFeatureCount);
+			mappedCount = mappedCount-allTr.length;
+			$('#mapped-count').html(mappedCount);
+		}
+		if(dataTable == 'unmappedDataTable'){
+			unmappedCount = unmappedCount-allTr.length;
+			$('#unmapped-count').html(unmappedCount);
+			unmappedrowsSelected = unmappedrowsSelected - allTr.length;
+		}
+		targetTable = $('#deleteDataTable').DataTable();
+		deleteCount = deleteCount+allTr.length;
+		$('#delete-count').html(deleteCount);
+		for(let i =0; i<allTr.length; i++)
+		{
+			if(dataTable == 'unmappedDataTable'){
+				$(allTr[i]).find('td button').removeClass('disabled-button');
+			}
+			$(allTr[i]).find('td button').html('Undo');
+			$(allTr[i]).find('td button').attr('onClick','undo(this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+			targetTable.row.add(allTr[i]).draw();
+		}
+		$('#deleteDataTable').DataTable();
+		return;
+}
+function undo(){
+	let singleUndo = arguments[0];
+	let allTr; let targetTable;
+	if(singleUndo){
+		allTr = $(singleUndo).parents('tr');
+	}
+	else{
+		allTr = $("#deleteDataTable tbody input[type=checkbox]:checked").parents("tr");
+	}
+	let currentDataTable = $('#deleteDataTable').DataTable();
+	deleteCount = deleteCount-allTr.length;
+	deletedrowsSelected = deletedrowsSelected-allTr.length;
+	$('#delete-count').html(deleteCount);
+	let rows = currentDataTable.rows(allTr);
+	 rows.remove().draw();
+	for(let i=0; i<allTr.length; i++){
+		let belongsTo = allTr[i].dataset.ref;
+		if(belongsTo == 'community'){
+			targetTable = $('#communityDataTable').DataTable();
+			communityCount = communityCount+1;
+			$('#community-count').html(communityCount);
+			mappedCount = mappedCount+1;
+			$('#mapped-count').html(mappedCount);
+			$(allTr[i]).find('td button').html('Add');
+			$(allTr[i]).find('td button').attr('onClick','addMappedData("community",this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+		}
+		if(belongsTo == 'elevation'){
+			targetTable = $('#elevationDataTable').DataTable();
+			elevationCount = elevationCount+1;
+			$('#elevation-count').html(elevationCount);
+			mappedCount = mappedCount+1;
+			$('#mapped-count').html(mappedCount);
+			$(allTr[i]).find('td button').html('Add');
+			$(allTr[i]).find('td button').attr('onClick','addMappedData("elevation",this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+		}
+		if(belongsTo == 'color-scheme'){
+			targetTable = $('#colorSchemeDataTable').DataTable();
+			colorSchemeCount = colorSchemeCount+1;
+			$('#color-scheme-count').html(colorSchemeCount);
+			mappedCount = mappedCount+1;
+			$('#mapped-count').html(mappedCount);
+			$(allTr[i]).find('td button').html('Add');
+			$(allTr[i]).find('td button').attr('onClick','addMappedData("color-scheme",this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+		}
+		if(belongsTo == 'color-scheme-feature'){
+			targetTable = $('#colorSchemeFeatureDataTable').DataTable();
+			colorSchemeFeatureCount = colorSchemeFeatureCount+1;
+			$('#color-scheme-feature-count').html(colorSchemeFeatureCount);
+			mappedCount = mappedCount+1;
+			$('#mapped-count').html(mappedCount);
+			$(allTr[i]).find('td button').html('Add');
+			$(allTr[i]).find('td button').attr('onClick','addMappedData("color-scheme-feature",this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+		}
+		if(belongsTo == 'floor'){
+			targetTable = $('#floorDataTable').DataTable();
+			floorCount = floorCount+1;
+			$('#floor-count').html(floorCount);
+			mappedCount = mappedCount+1;
+			$('#mapped-count').html(mappedCount);
+			$(allTr[i]).find('td button').html('Add');
+			$(allTr[i]).find('td button').attr('onClick','addMappedData("floor",this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+		}
+		if(belongsTo == 'floor-feature'){
+			targetTable = $('#floorFeatureDataTable').DataTable();
+			floorFeatureCount = floorFeatureCount+1;
+			$('#floor-count').html(floorFeatureCount);
+			mappedCount = mappedCount+1;
+			$('#mapped-count').html(mappedCount);
+			$(allTr[i]).find('td button').html('Add');
+			$(allTr[i]).find('td button').attr('onClick','addMappedData("floor-feature",this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+		}
+		if(belongsTo == 'unmapped'){
+			targetTable = $('#unmappedDataTable').DataTable();
+			unmappedCount = unmappedCount+1;
+			$('#unmapped-count').html(unmappedCount);
+			$(allTr[i]).find('td button').html('Update');
+			$(allTr[i]).find('td button').attr('onClick','updateConnection("unmapped",this)');
+			$(allTr[i]).find('input[type=checkbox]').prop('checked',false);
+		}
+		targetTable.row.add(allTr[i]).draw();
+		$("#pills-deleted  .table-responsive .mapping-action-wrap").fadeOut();
+		$("#deleteDataTable thead input[type=checkbox]").prop('checked',false);
+	}
+}
+
+function confirmAndUpload(){
+	if(mapped.community.length!=0 || mapped.elevation.length!=0 || mapped.color_scheme.length!=0 || mapped.color_scheme_feature.length!=0 || mapped.floor.length!=0 || mapped.floor_feature.length!=0){
+		let data = JSON.stringify(mapped);
+		$.ajax({
+			type: 'post',
+			url: '/api/bulk/upload',
+			data: {'mapped':data,'import_as':$('#importOptions').val()},
+			headers :{
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			},
+			beforeSend  : function(){
+				$('.syncloader').fadeIn();
+			},
+			success: function(response){
+				$('.badge-success').html(response.success);
+				$('.badge-light').html(response.skip);
+				$('.badge-danger').html(response.fail);
+				$('.badge-info').html(`${response.percentage}%`);
+				$(".uploadloader").hide();
+				$('.report-wrap').fadeIn();
+			},
+			error: function(error){
+				$(".uploadloader").hide();
+				toastr.error('Something went wrong, please try again.');
+			},
+			complete	: function(){
+				$('.syncloader').hide();
+			} 
+		})
+		return true;
+	}
+	else{
+		toastr.error('please confirm atleast one image to proceed.');
+		return false;
+	}
+}
 </script>
 @endpush

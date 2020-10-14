@@ -73,7 +73,7 @@ class SettingsController extends Controller
     }
 
     public function importHistory(){
-        $this->data['history'] = History::orderBy('id', 'desc')->take(15)->get();
+        $this->data['history'] = History::where('type','image')->orderBy('id', 'desc')->take(15)->get();
         foreach($this->data['history'] as $history)
         {
             $uploaded_by = Admins::whereId($history->imported_by)->get(['name'])->first();
@@ -84,6 +84,13 @@ class SettingsController extends Controller
         return view('admin.settings.import-history')->with($this->data);
     }
     public function importImagesHistory(){
+        $this->data['history'] = History::where('type','image')->orderBy('id', 'desc')->take(15)->get();
+        foreach($this->data['history'] as $history)
+        {
+            $uploaded_by = Admins::whereId($history->imported_by)->get(['name'])->first();
+            $uploaded_by = $uploaded_by->name;
+            $history['name'] = $uploaded_by; 
+        }
         return view('admin.settings.import-images-history')->with($this->data);
     }
 }

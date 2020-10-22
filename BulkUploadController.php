@@ -995,7 +995,7 @@ class BulkUploadController extends Controller
         $files = scandir($dir);
         $files = array_diff($files,array('.','..'));
         foreach ($files as &$value) {
-            unlink($dir.'\\'.$value);
+            unlink($dir.'/'.$value);
         }
         rmdir($dir);
         $session->forget('temp_image');

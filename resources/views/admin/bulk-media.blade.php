@@ -1056,7 +1056,7 @@ const changeStep = (buttonClicked) => {
 			$('.fix-sync').addClass('fix-sync-overflow');
 			$("#importButton span").text('Upload');
 			$(".containers").hide();
-			$('#backButton').fadeIn();
+			$('#backButton').fadeOut();
 			$('#drm_step_div').fadeIn();
 			break;
 		case 3: 
@@ -1815,7 +1815,6 @@ function applyUpdate(){
 				allTr = $(singleUpdate).parents('tr');
 			}
 			else{
-				console.log(singleUpdate);
 				allTr = $("#unmappedDataTable tbody input[type=checkbox]:checked").parents('tr');
 			}
 
@@ -1849,7 +1848,7 @@ function switchData(allTr,dataTable){
 	else{
 		let currentTable,targetTable;
 		currentTable = $('#'+dataTable).DataTable();
-		let rows = currentTable.rows($("#"+dataTable+" tbody input[type=checkbox]:checked").parents('tr'));
+		let rows = currentTable.rows(allTr);
 		rows.remove().draw();
 
 		if(dataTable=='communityDataTable'){
@@ -2187,7 +2186,7 @@ function moveToDeleteSection(current_tab){
 function shiftingToDeleteSection(allTr,dataTable){
 	let currentTable,targetTable;
 		currentTable = $('#'+dataTable).DataTable();
-		let rows = currentTable.rows($("#"+dataTable+" tbody input[type=checkbox]:checked").parents('tr'));
+		let rows = currentTable.rows(allTr);
 		// let rowNode = rows.node();
 		rows.remove().draw();
 
